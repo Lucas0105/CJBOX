@@ -26,7 +26,8 @@
 |6|fixture 생성하기|정원재|2022-11-16|2022-11-17|X|
 |7|로고 만들기|최유경|2022-11-16|2022-11-16|O|
 |8|API 구현|정원재|2022-11-16|2022-11-17|X|
-|9|ROUTER 구현|최유경|2022-11-16|2022-11-17|X|
+|9|컴포넌트 빈 파일 구현|최유경|2022-11-16|2022-11-16|X|
+|10|ROUTER 구현|최유경|2022-11-16|2022-11-17|X|
 
 </div>
 
@@ -190,6 +191,13 @@
 |reviews|영화 리뷰 댓글 읽기|get|reviews/:review_id/comment/:page/||||
 |||||response|content|String|
 ||||||created_at|String|
+
+</div>
+
+## 컴포넌트 설계도
+<div align="center">
+
+![component_tree](./%EC%82%B0%EC%B6%9C%EB%AC%BC/component_tree.png)
 
 </div>
 
