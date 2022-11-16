@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     # third party
     'rest_framework',
+    'imagekit',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -126,6 +127,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 파일 경로
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# 미디어 파일을 처리하는 URL
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
