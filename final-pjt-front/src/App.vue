@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg bg-light">
+
+    <nav class="navbar navbar-expand-lg" >
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <router-link class="navbar-brand" to='/movies'><img src="@/assets/CJBOX_logo2-2.gif" width="60px" alt=""></router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -31,10 +32,25 @@
       </div>
     </nav>
     <router-view></router-view>
-  </div>
+    </div>
   
 </template>
 
 <style>
+.navbar{
+  background-color: rgba(57, 66, 86, 0.5);
+  padding: 0 !important;
+  height: 80px;
+}
+.nav-link{
+  color:#EEEEEE !important
+}
+.navbar-brand{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important
+}
+p{
+  color:#EEEEEE 
+}
 
 </style>
