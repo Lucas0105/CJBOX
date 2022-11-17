@@ -2,6 +2,7 @@ from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from django.db import transaction
 from django.core.files.storage import default_storage
+from django.contrib.auth import get_user_model
 
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField()
@@ -18,3 +19,10 @@ class CustomRegisterSerializer(RegisterSerializer):
         user.my_image = path
         user.save()
         return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('nickname', 'email', 'intro', 'my_image')

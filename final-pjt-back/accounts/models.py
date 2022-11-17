@@ -8,7 +8,7 @@ def user_image_path(instance, filename):
 
 # Create your models here.
 class User(AbstractUser):
-    friends = models.ManyToManyField('self', symmetrical=False)
+    friends = models.ManyToManyField('self', symmetrical=False, related_name='followed')
     nickname = models.CharField(max_length=50, unique=True)
     intro = models.TextField()
     my_image = models.ImageField(blank=True, upload_to=user_image_path)
