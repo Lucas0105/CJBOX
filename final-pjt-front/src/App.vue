@@ -9,11 +9,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
-            <b-nav-item-dropdown text="장르" right>
-              <b-dropdown-item href="#">EN</b-dropdown-item>
-              <b-dropdown-item href="#">ES</b-dropdown-item>
-              <b-dropdown-item href="#">RU</b-dropdown-item>
-              <b-dropdown-item href="#">FA</b-dropdown-item>
+            <b-nav-item-dropdown text="장르" right  >
+              <b-dropdown-item v-for="(genre, index) in genres" :key="index"><router-link :to="{ name: 'genre', params: {category: genre} }" >{{ genre }}</router-link></b-dropdown-item>
+
             </b-nav-item-dropdown>
             <!-- <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -36,6 +34,15 @@
   
 </template>
 
+<script>
+export default {
+  computed:{
+    genres(){
+      return this.$store.state.movie.genre_list
+    }
+  }
+}
+</script>
 <style>
 .navbar{
   background-color: rgba(57, 66, 86, 0.5);
