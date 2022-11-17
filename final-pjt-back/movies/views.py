@@ -2,8 +2,8 @@ from .serializers import MovieListSerializer, MovieSearchSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from drf_spectacular.utils import extend_schema
-from django.shortcuts import get_object_or_404
-from .models import Movie
+from django.shortcuts import get_object_or_404, get_list_or_404
+from .models import Movie, Genre
 
 
 @extend_schema(responses=MovieListSerializer)
@@ -30,10 +30,18 @@ def search(request, title):
     return Response(serializer.data)
 
 
-@extend_schema(responses=MovieSearchSerializer)
+@extend_schema(responses=MovieListSerializer)
 @api_view(['GET'])
 def detail(request, id):
     movie = get_object_or_404(Movie, id=id)
     serializer = MovieListSerializer(movie)
     return Response(serializer.data)
 
+
+@extend_schema(responses=MovieListSerializer)
+@api_view(['GET'])
+def genre(request, genre, page):
+    genre = get_object_or_404(Genre, name=genre)
+    movies = get_list_or_404(Movie, genres=genre)[(page-1) * 9:9*page]
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
