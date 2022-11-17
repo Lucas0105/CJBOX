@@ -23,15 +23,19 @@
 |3|API 설계|정원재|2022-11-16|2022-11-16|O|
 |4|컴포넌트 설계|최유경|2022-11-16|2022-11-16|O|
 |5|모델 만들기|정원재|2022-11-16|2022-11-16|O|
-|6|fixture 생성하기|정원재|2022-11-17|2022-11-17|X|
+|6|fixture 생성하기|정원재|2022-11-17|2022-11-17|O|
 |7|로고 만들기|최유경|2022-11-16|2022-11-16|O|
 |8|컴포넌트 빈 파일 구현|최유경|2022-11-16|2022-11-16|O|
 |9|ROUTER 구현|최유경|2022-11-17|2022-11-17|O|
 |10|컴포넌트 배치|최유경|2022-11-17|2022-11-17|X|
-|11|인기영화 api|정원재|2022-11-17|2022-11-17|X|
-|12|최신영화 api|정원재|2022-11-17|2022-11-17|X|
+|11|인기영화 api|정원재|2022-11-17|2022-11-17|O|
+|12|최신영화 api|정원재|2022-11-17|2022-11-17|O|
 |13|네비 바|최유경|2022-11-17|2022-11-17|X|
 |14|메인페이지|최유경|2022-11-17|2022-11-17|X|
+|15|Swagger 적용|정원재|2022-11-17|2022-11-17|O|
+|16|영화 검색 api|정원재|2022-11-17|2022-11-17|O|
+|17|영화 상세페이지 api|정원재|2022-11-17|2022-11-17|O|
+|18|영화 장르 페이지 api|정원재|2022-11-17|2022-11-17|X|
 
 </div>
 
@@ -130,12 +134,14 @@
 ||||||title|String|
 ||||||overview|String|
 ||||||vote_average|int|
+||||||popularity|int|
 |movies|인기 영화|get|movies/popular/||||
 |||||response  <br/> 15개 list|movie_id|int|
 ||||||poster_path|String|
 ||||||title|String|
 ||||||overview|String|
 ||||||vote_average|int|
+||||||popularity|int|
 |movies|최신 영화|get|movies/newMovie/:page/||||
 |||||response  <br/> 9개 list|movie_id|int|
 ||||||poster_path|String|
@@ -143,6 +149,7 @@
 ||||||overview|String|
 ||||||vote_average|int|
 ||||||release_date|String|
+||||||popularity|int|
 |movies|검색 아래 드롭다운|get|movies/search/:title/||||
 |||||request|title|String|
 |||||response  <br/> 10개 list|movie_id|int|
@@ -156,6 +163,7 @@
 ||||||release_date|String|
 ||||||vote_average|int|
 ||||||backdrop_path|String|
+||||||popularity|int|
 |movies|영화 장르 페이지|get|movies/:genre/:page/||||
 |||||response <br/> 9개 list|movie_id|int|
 ||||||poster_path|String|

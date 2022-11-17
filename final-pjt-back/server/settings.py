@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # third party
     'rest_framework',
     'imagekit',
+    'drf_spectacular',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,6 +48,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+REST_FRAMEWORK = {
+    # spectacular
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'CJBOX',
+    'DESCRIPTION': '영화 추천 알고리즘 기반 커뮤니티 서비스',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
