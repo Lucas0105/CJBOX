@@ -7,5 +7,12 @@ from .models import Movie
 def popular(request):
     movies = Movie.objects.all().order_by('-popularity')[:15]
     serializer = MovieListSerializer(movies, many=True)
-    print(movies)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def newMovie(request, page):
+    movies = Movie.objects.all().order_by('-release_date')[(page-1) * 9:9*page]
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+
