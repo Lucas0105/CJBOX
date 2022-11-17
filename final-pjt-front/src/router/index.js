@@ -1,35 +1,52 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import MovieView from '@/views/movies/MovieView'
+import DetailView from '@/views/movies/DetailView'
+import SearchView from '@/views/movies/SearchView'
+import GenreView from '@/views/genres/GenreView'
+import LoginView from '@/views/accounts/LoginView'
+import SignupView from '@/views/accounts/SginupView'
+import MyPageView from '@/views/accounts/MyPageView'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/movies',
+    name: 'MovieView',
+    component: MovieView
   },
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/movies/:id',
+    name: 'DetailView',
+    component: DetailView
   },
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/movies/search',
+    name: 'SearchView',
+    component: SearchView
   },
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/genres',
+    name: 'GenreView',
+    component: GenreView
   },
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/accounts/login',
+    name: 'LoginView',
+    component: LoginView
   },
+  {
+    path: '/accounts/SignupView',
+    name: 'SignupView',
+    component: SignupView
+  },
+  {
+    path: '/accounts/MyPageView',
+    name: 'MyPageView',
+    component: MyPageView
+  },
+
 
 ]
 
