@@ -27,7 +27,7 @@ const routes = [
     component: SearchView
   },
   {
-    path: '/genres',
+    path: '/genres/:category',
     name: 'genre',
     component: GenreView
   },
