@@ -41,6 +41,7 @@
   background-color: rgba(57, 66, 86, 0.5);
   padding: 0 !important;
   height: 80px;
+  z-index: 1;
 }
 .nav-link{
   color:#EEEEEE !important

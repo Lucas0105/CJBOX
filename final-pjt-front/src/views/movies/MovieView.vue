@@ -29,12 +29,11 @@ export default {
   background-color: #17223b;
   position: relative;
   top: -80px;
-  z-index: -1;
-}
-.movie-banner{
   background-image:  url("@/assets/comdey1.gif");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 100vh;}
+.movie-banner{
+  padding-top:100px
 }
 </style>
