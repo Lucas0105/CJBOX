@@ -1,7 +1,8 @@
-from .serializers import MovieListSerializer
+from .serializers import MovieListSerializer, MovieSearchSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from drf_spectacular.utils import extend_schema
+from django.db.models import Q
 from .models import Movie
 
 
@@ -20,3 +21,10 @@ def newMovie(request, page):
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
+
+@extend_schema(responses=MovieSearchSerializer)
+@api_view(['GET'])
+def search(request, title):
+    movies = Movie.objects.filter(title__contains=title)[:10]
+    serializer = MovieSearchSerializer(movies, many=True)
+    return Response(serializer.data)
