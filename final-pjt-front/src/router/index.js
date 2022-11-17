@@ -5,7 +5,7 @@ import DetailView from '@/views/movies/DetailView'
 import SearchView from '@/views/movies/SearchView'
 import GenreView from '@/views/genres/GenreView'
 import LoginView from '@/views/accounts/LoginView'
-import SignupView from '@/views/accounts/SginupView'
+import SignupView from '@/views/accounts/SignupView'
 import MyPageView from '@/views/accounts/MyPageView'
 
 Vue.use(VueRouter)
@@ -13,37 +13,37 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/movies',
-    name: 'MovieView',
+    name: 'movies',
     component: MovieView
   },
   {
     path: '/movies/:id',
-    name: 'DetailView',
+    name: 'detail',
     component: DetailView
   },
   {
     path: '/movies/search',
-    name: 'SearchView',
+    name: 'search',
     component: SearchView
   },
   {
     path: '/genres',
-    name: 'GenreView',
+    name: 'genre',
     component: GenreView
   },
   {
     path: '/accounts/login',
-    name: 'LoginView',
+    name: 'login',
     component: LoginView
   },
   {
-    path: '/accounts/SignupView',
-    name: 'SignupView',
+    path: '/accounts/signup',
+    name: 'signup',
     component: SignupView
   },
   {
-    path: '/accounts/MyPageView',
-    name: 'MyPageView',
+    path: '/accounts/mypage',
+    name: 'mypage',
     component: MyPageView
   },
 
