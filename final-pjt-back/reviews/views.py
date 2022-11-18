@@ -10,7 +10,7 @@ import math
 
 
 # Create your views here.
-@api_view(['POST', 'PUT'])
+@api_view(['POST', 'PUT', 'DELETE'])
 def review(request):
     if request.method == 'POST':
         movie = get_object_or_404(Movie, id=request.data.get('movie_id'))
@@ -26,6 +26,15 @@ def review(request):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    elif request.method == 'DELETE':
+        review = get_object_or_404(Review, id=request.data.get('review_id'))
+
+        if review.user == request.user:
+            review.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 @extend_schema(responses=ReviewListSerializer)
