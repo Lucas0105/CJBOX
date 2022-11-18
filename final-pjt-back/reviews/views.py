@@ -1,3 +1,37 @@
-from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from movies.models import Movie
+from django.shortcuts import get_object_or_404
+from .serializers import ReviewListSerializer
+import math
+
 
 # Create your views here.
+@api_view(['POST'])
+def review(request):
+    if request.method == 'POST':
+        movie = get_object_or_404(Movie, id=request.data.get('movie_id'))
+        user = request.user
+        serializer = ReviewListSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(movie=movie, user=user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+def reviewRead(request, movie_id, page):
+    movie = get_object_or_404(Movie, id=movie_id)
+    reviews = movie.review_set.all()
+    page_cnt = math.ceil(len(reviews) / 5)
+    reviews = reviews[(page-1)*5:page*5]
+
+    serializer = ReviewListSerializer(reviews, many=True)
+
+    data = {
+        'reviews': serializer.data,
+        'page_cnt': page_cnt
+    }
+    return Response(data)
+
+

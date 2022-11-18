@@ -50,7 +50,9 @@ class FacebookLogin(SocialLoginView):
 urlpatterns = [
     path('', include('dj_rest_auth.urls')),
     path('signup/', include('dj_rest_auth.registration.urls')),
-    path('<str:nickname>/', views.my_profile),
+    path('follow/', views.follow),
+    path('myList/', views.myList),
+    path('myList/<str:nickname>/<int:page>/', views.myListShow),
 
     # social login
     path('github/', GitHubLogin.as_view(), name='github_login'),
@@ -61,4 +63,5 @@ urlpatterns = [
     path('github/connect/', GithubConnect.as_view(), name='github_connect'),
 
 
+    path('<str:nickname>/', views.my_profile),
 ]
