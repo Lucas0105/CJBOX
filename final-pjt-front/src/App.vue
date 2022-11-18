@@ -3,30 +3,23 @@
 
     <nav class="navbar navbar-expand-lg" >
       <div class="container-fluid">
-        <router-link class="navbar-brand" to='/movies'><img src="@/assets/CJBOX_logo2-2.gif" width="60px" alt=""></router-link>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <router-link class="navbar-brand" :to="{name:'movies'}"><img src="@/assets/CJBOX_logo2-2.gif" width="60px" alt=""></router-link>
           <ul class="navbar-nav">
-            <b-nav-item-dropdown text="장르" right  >
+            <b-nav-item-dropdown class="mx-2" text="장르">
               <b-dropdown-item v-for="(genre, index) in genres" :key="index"><router-link :to="{ name: 'genre', params: {category: genre} }" >{{ genre }}</router-link></b-dropdown-item>
-
             </b-nav-item-dropdown>
-            <!-- <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li> -->
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'search'}">검색</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to='/accounts/login'>로그인</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to='/accounts/signup'>회원가입</router-link>
-            </li>
+            <div class="d-flex">
+              <li class="nav-item mx-1">
+                <router-link class="nav-link" :to="{ name: 'search'}"><b-icon icon="search" title="검색"></b-icon></router-link>
+              </li>
+              <li class="nav-item mx-1">
+                <router-link class="nav-link" :to="{name:'login'}"><b-icon icon="box-arrow-in-right" title="로그인"></b-icon></router-link>
+              </li>
+              <li class="nav-item mx-1">
+                <router-link class="nav-link" :to="{name:'signup'}"><b-icon icon="person-plus" title="회원가입"></b-icon></router-link>
+              </li>
+            </div>
           </ul>
-        </div>
       </div>
     </nav>
     <router-view></router-view>
@@ -56,9 +49,6 @@ export default {
 .navbar-brand{
   padding-top: 0 !important;
   padding-bottom: 0 !important
-}
-p{
-  color:#EEEEEE 
 }
 
 </style>
