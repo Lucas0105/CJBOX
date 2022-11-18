@@ -52,6 +52,7 @@ urlpatterns = [
     path('signup/', include('dj_rest_auth.registration.urls')),
     path('follow/', views.follow),
     path('myList/', views.myList),
+    path('myList/<str:nickname>/<int:page>/', views.myListShow),
 
     # social login
     path('github/', GitHubLogin.as_view(), name='github_login'),

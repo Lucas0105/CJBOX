@@ -6,6 +6,7 @@ from drf_spectacular.utils import extend_schema
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from movies.models import Movie
+from movies.serializers import MovieListSerializer
 
 
 @extend_schema(responses=UserSerializer)
@@ -53,3 +54,17 @@ def myList(request):
         user.my_lists.add(movie)
 
     return Response(status=status.HTTP_201_CREATED)
+
+
+@extend_schema(responses=MovieListSerializer)
+@api_view(['GET'])
+def myListShow(request, nickname, page):
+    User = get_user_model()
+
+    user = get_object_or_404(User, nickname=nickname)
+
+    myList = user.my_lists.all()
+
+    serializer = MovieListSerializer(myList, many=True)
+
+    return Response(serializer.data)
