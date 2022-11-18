@@ -2,13 +2,14 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from movies.models import Movie
+from .models import Review
 from django.shortcuts import get_object_or_404
 from .serializers import ReviewListSerializer
 import math
 
 
 # Create your views here.
-@api_view(['POST'])
+@api_view(['POST', 'PUT'])
 def review(request):
     if request.method == 'POST':
         movie = get_object_or_404(Movie, id=request.data.get('movie_id'))
@@ -17,6 +18,14 @@ def review(request):
         if serializer.is_valid(raise_exception=True):
             serializer.save(movie=movie, user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    elif request.method == 'PUT':
+        review = get_object_or_404(Review, id=request.data.get('review_id'))
+        serializer = ReviewListSerializer(review, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 
 @api_view(['GET'])
