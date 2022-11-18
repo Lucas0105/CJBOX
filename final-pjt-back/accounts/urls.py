@@ -50,6 +50,7 @@ class FacebookLogin(SocialLoginView):
 urlpatterns = [
     path('', include('dj_rest_auth.urls')),
     path('signup/', include('dj_rest_auth.registration.urls')),
+    path('follow/', views.follow),
     path('<str:nickname>/', views.my_profile),
 
     # social login
