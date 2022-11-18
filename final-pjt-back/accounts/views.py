@@ -5,6 +5,7 @@ from rest_framework import status
 from drf_spectacular.utils import extend_schema
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from movies.models import Movie
 
 
 @extend_schema(responses=UserSerializer)
@@ -36,5 +37,19 @@ def follow(request):
             me.friends.remove(you)
         else :
             me.friends.add(you)
+    
+    return Response(status=status.HTTP_201_CREATED)
+
+
+@api_view(['POST'])
+def myList(request):
+    user = request.user
+
+    movie = get_object_or_404(Movie, id=request.data.get('movie_id'))
+
+    if user.my_lists.filter(id=movie.id).exists():
+        user.my_lists.remove(movie)
+    else:
+        user.my_lists.add(movie)
 
     return Response(status=status.HTTP_201_CREATED)
