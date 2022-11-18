@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from drf_spectacular.utils import extend_schema
 from movies.models import Movie
 from .models import Review
 from django.shortcuts import get_object_or_404
@@ -27,7 +28,7 @@ def review(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-
+@extend_schema(responses=ReviewListSerializer)
 @api_view(['GET'])
 def reviewRead(request, movie_id, page):
     movie = get_object_or_404(Movie, id=movie_id)
@@ -44,3 +45,9 @@ def reviewRead(request, movie_id, page):
     return Response(data)
 
 
+@extend_schema(responses=ReviewListSerializer)
+@api_view(['GET'])
+def detail(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    serializer = ReviewListSerializer(review)
+    return Response(serializer.data)
