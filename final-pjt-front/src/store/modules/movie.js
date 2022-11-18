@@ -5,27 +5,28 @@ const state = () => {
     return {
       recentMovieData :null,
       popularMovieData :null,
+      genreMovieData:null,
       genre_list: [
-      '액션',
-      '모험',
-      '애니메이션',
-      '코미디',
-      '범죄',
-      '다큐멘터리',
-      '드라마',
-      '가족',
-      '판타지',
-      '역사',
-      '공포',
-      '음악',
-      '미스터리',
-      '로맨스',
-      'SF',
-      'TV영화',
-      '스릴러',
-      '전쟁',
-      '서부',
-      ],
+              '액션',
+              '모험',
+              '애니메이션',
+              '코미디',
+              '범죄',
+              '다큐멘터리',
+              '드라마',
+              '가족',
+              '판타지',
+              '역사',
+              '공포',
+              '음악',
+              '미스터리',
+              '로맨스',
+              'SF',
+              'TV영화',
+              '스릴러',
+              '전쟁',
+              '서부',
+              ],
     }
   }
   
@@ -39,13 +40,21 @@ const state = () => {
     GET_POPULAR_MOVIE(state,data){
       console.log(data)
       state.popularMovieData = data
+    },
+    GET_GENRE_MOVIE(state, data){
+      console.log(data) 
+      state.genreMovieData = data
     }
   }
   const actions = {
-    getRecentMovie(context) {
+    getRecentMovie(context, page) {
+      if (!page){
+        page = 1
+      }
+      // console.log(page)
       axios({
         method:'get',
-        url:`${URL}/movies/newMovie/1/`
+        url:`${URL}/movies/newMovie/${page}/`
       })
       .then((res)=>{
         context.commit('GET_RECENT_MOVIE', res.data)
@@ -61,6 +70,23 @@ const state = () => {
       })
       .then((res)=>{
         context.commit('GET_POPULAR_MOVIE', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    getGenreMovie(context, payload){
+      let page = payload.page
+      let genre_name = payload.genre_name 
+      if (!payload.page){
+        page = 1
+      }
+      axios({
+        method:'get',
+        url:`${URL}/movies/${genre_name}/${page}/`
+      })
+      .then((res)=>{
+        context.commit('GET_GENRE_MOVIE', res.data)
       })
       .catch((err)=>{
         console.log(err)

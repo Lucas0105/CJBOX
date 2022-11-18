@@ -12,6 +12,7 @@
       <p>최신영화</p>
       <BodyList
         :movies="recentMovie"
+        @current-page="getRecentMovie"
     />
     </div>
 
@@ -44,8 +45,8 @@ export default {
       }
     },
     methods:{
-      getRecentMovie(){
-        return this.$store.dispatch('movie/getRecentMovie')
+      getRecentMovie(page){
+        return this.$store.dispatch('movie/getRecentMovie', page)
       },
       getPopularMovie(){
         return this.$store.dispatch('movie/getPopularMovie')
@@ -53,8 +54,7 @@ export default {
     },
     created(){
       this.getRecentMovie()
-      this.getPopularMovie()
-                      
+      this.getPopularMovie()            
     }
     
 

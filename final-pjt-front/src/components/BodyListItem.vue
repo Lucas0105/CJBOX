@@ -29,6 +29,12 @@ export default {
 .card{
   margin:auto !important;
 }
+.card-body{
+  background-color: #17223b !important;
+}
+.card-text{
+  color:aliceblue  !important;
+}
 .card-img-top{
   height:300px !important;
 }

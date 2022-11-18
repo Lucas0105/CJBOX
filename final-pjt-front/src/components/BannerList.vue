@@ -198,6 +198,7 @@ export default {
 .swiper-container {
   height: 450px;
   width: 100%;
+  z-index: 0;
 }
 
 .swiper-button-next {
