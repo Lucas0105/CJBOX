@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/movies',
+    path: '/',
     name: 'movies',
     component: MovieView
   },
