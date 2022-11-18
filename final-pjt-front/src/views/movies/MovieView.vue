@@ -8,19 +8,46 @@
     </div>
 
     <p>최신영화</p>
-    <BodyList/>
+    <BodyList
+    :movie="recentMovie"
+    />
+ 
   </div>
 </template>
 
 <script>
 import BannerList from '@/components/BannerList'
 import BodyList from '@/components/BodyList'
+
+
 export default {
     name:'MovieView',
     components:{
       BannerList,
       BodyList
+    },
+    data(){
+      return{
+         
+      }
+    },
+    computed:{
+      recentMovie(){
+        return this.$store.state.movie.recentMovieData
+      }
+    },
+    methods:{
+      getRecentMovie(){
+        return this.$store.dispatch('movie/getRecentMovie')
+      },
+    },
+    created(){
+      this.getRecentMovie()
+                      
     }
+    
+
+
 }
 </script>
 
