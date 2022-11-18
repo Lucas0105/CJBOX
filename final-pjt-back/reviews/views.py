@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
 from movies.models import Movie
-from .models import Review
+from .models import Review, Comment
 from django.shortcuts import get_object_or_404
-from .serializers import ReviewListSerializer
+from .serializers import ReviewListSerializer, CommentSerializer
 import math
 
 
@@ -60,3 +60,16 @@ def detail(request, review_id):
     review = get_object_or_404(Review, id=review_id)
     serializer = ReviewListSerializer(review)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def commentCreate(request):
+    review = get_object_or_404(Review, id=request.data.get('review_id'))
+    user = request.user
+
+    serializer = CommentSerializer(data=request.data)
+
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(review=review, user=user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
