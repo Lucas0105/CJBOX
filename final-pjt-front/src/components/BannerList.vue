@@ -1,7 +1,6 @@
 <template>
   <swiper
     slidesPerView="auto"
-    :scrollbar="{ draggable: true }"
     mousewheel
     freeMode
     navigation
@@ -150,7 +149,6 @@
         duration="2hrs15mins"
       />
     </swiper-slide>
-    <div class="swiper-scrollbar" slot="scrollbar"></div>
     <div class="swiper-button-prev" slot="button-prev"></div>
     <div class="swiper-button-next" slot="button-next"></div>
   </swiper>
@@ -158,12 +156,12 @@
 
 <script>
 import BannerListItem from "./BannerListItem";
-import { Scrollbar, Mousewheel, Navigation } from "swiper";
+import {  Mousewheel, Navigation } from "swiper";
 import { SwiperCore, Swiper, SwiperSlide } from "swiper-vue2";
 
 import "swiper/swiper-bundle.css";
 
-SwiperCore.use([Scrollbar, Mousewheel, Navigation]);
+SwiperCore.use([ Mousewheel, Navigation]);
 
 
 export default {
@@ -179,7 +177,6 @@ export default {
         slidesPerView: "auto",
         spaceBetween: 0,
         freeMode: true,
-        scrollbar: true,
         mousewheel: true,
         navigation: {
           nextEl: ".swiper-button-next",
@@ -202,4 +199,22 @@ export default {
   height: 450px;
   width: 100%;
 }
+
+.swiper-button-next {
+  background: url("@/assets/next-icon.png") no-repeat;
+  background-size: 50% auto;
+  background-position: center;
+}
+
+.swiper-button-prev {
+  background: url("@/assets/previous-icon.png") no-repeat;
+  background-size: 50% auto;
+  background-position: center;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
+
 </style>

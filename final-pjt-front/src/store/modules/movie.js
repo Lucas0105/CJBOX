@@ -1,5 +1,8 @@
+import axios from 'axios'
+
 const state = () => {
     return {
+      recentMovieData :null,
       genre_list: [
       '액션',
       '모험',
@@ -27,9 +30,25 @@ const state = () => {
   const getters = {
   }
   const mutations = {
-    
+    GET_RECENT_MOVIE(state, data){
+      console.log(data)
+      state.recentMovieData = data
+    }
   }
   const actions = {
+    getRecentMovie(context) {
+      axios({
+        method:'get',
+        url:`http://127.0.0.1:8000/movies/newMovie/2/`
+      })
+      .then((res)=>{
+        console.log(res.data)
+        context.commit('GET_RECENT_MOVIE', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    }
   }
   
   export default {
