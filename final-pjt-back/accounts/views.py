@@ -7,6 +7,8 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from movies.models import Movie
 from movies.serializers import MovieListSerializer
+from reviews.serializers import ReviewListSerializer
+import math
 
 
 @extend_schema(responses=UserSerializer)
@@ -68,3 +70,22 @@ def myListShow(request, nickname, page):
     serializer = MovieListSerializer(myList, many=True)
 
     return Response(serializer.data)
+
+
+@extend_schema(responses=ReviewListSerializer)
+@api_view(['GET'])
+def review(request, page):
+    user = request.user
+
+    reviews = user.review_set.all()
+    page_cnt = math.ceil(len(reviews) / 5)
+    reviews = user.review_set.all()[(page-1)*5:page*5]
+
+    serializer = ReviewListSerializer(reviews, many=True)
+
+    data = {
+        'reviews': serializer.data,
+        'page_cnt': page_cnt,
+    }
+
+    return Response(data)

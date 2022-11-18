@@ -53,6 +53,7 @@ urlpatterns = [
     path('follow/', views.follow),
     path('myList/', views.myList),
     path('myList/<str:nickname>/<int:page>/', views.myListShow),
+    path('reviews/<int:page>/', views.review),
 
     # social login
     path('github/', GitHubLogin.as_view(), name='github_login'),
