@@ -21,11 +21,12 @@ export default {
 
 <style scoped>
 .login-page{
-  /* background-color: #17223b;  */
   position: relative;
   top: -80px;
   background-image : url('@/assets/login-bg.jpg');
   background-repeat: no-repeat;
+  background-size: contain;
+  background-size: cover ;
   height:100vh;
   text-align: center;
   display: flex;
@@ -49,16 +50,20 @@ p{
 }
 input::placeholder{
   color:#17223b;
-  opacity: .8;
+  /* opacity: .8; */
+  font-weight: bold;
+
 }
 input{
   padding-left:10px;
   height:45px;
   border:0;
   border-radius: 4px;
-
+  opacity: 0.4;
 }
-
+.login-box>p{
+  font-size:20px
+}
 .login-btn{
   background-color: #ff6768 !important;
   width: 70%;

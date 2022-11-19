@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 #movie-banner-box{
   background-color: #17223b;
   position: relative;
@@ -85,7 +85,6 @@ export default {
 }
 .movie-banner{
   padding-top:50px;
-
 }
 .main-view{
   height: 100%;

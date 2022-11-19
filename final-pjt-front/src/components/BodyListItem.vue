@@ -8,13 +8,22 @@
         style="max-width: 15rem;"
         class="mb-2 border-0"
       >
-        <b-card-text :title="movie.title">
-          {{ movie.title | resize }}<br>
-          <b-icon icon="star-fill" class="star"></b-icon>
-          {{ movie.vote_average}} ({{ movie.vote_count }})
+        <b-card-text >
+          <span :title="movie.title">{{ movie.title | resize }}</span><br>
+          <div class="bottom-icon d-flex justify-content-between">
+            <div>
+                <small><b-icon icon="heart"  class="loved"></b-icon></small>
+            </div>
+            <div>
+              <small> 
+                <b-icon icon="star-fill" class="star"></b-icon>
+                <span class="star-text"> {{ movie.vote_average}}</span> ({{ movie.vote_count }})
+              </small>
+              
+            </div>
+          </div>
         </b-card-text>
 
-        <b-icon variant="warning" icon="star" class="loved" scale="1.5" ></b-icon>
       </b-card>
 
   </div>
@@ -40,9 +49,8 @@ export default {
 </script>
 
 <style>
-.movie-card{
-  position: relative;
-}
+/* .movie-card{
+} */
 .card{
   margin:auto !important;
 }
@@ -55,15 +63,12 @@ export default {
 .card-img-top{
   height:300px !important;
 }
+
 .loved{
-  /* color:yellow; */
-  position:absolute;
-  top:15px;
-  left:15px;
-
+  color:gray
+}
+.star, .star-text{
+  color:#FFD400
 }
 
-.star{
-  color:rgba(236, 0, 0, 0.603);  
-}
 </style>
