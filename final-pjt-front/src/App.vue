@@ -37,6 +37,9 @@ export default {
 }
 </script>
 <style>
+#app{
+  height:100vh
+}
 .navbar{
   background-color: rgba(57, 66, 86, 0.5);
   padding: 0 !important;
@@ -51,4 +54,20 @@ export default {
   padding-bottom: 0 !important
 }
 
+a:hover{
+  text-decoration: none; 
+}
+a{
+  text-decoration: none !important;
+  color:aliceblue !important;
+  }
+
+.dropdown-menu{
+  background-color: #263859 !important;
+
+}
+
+.dropdown-item:hover{
+  background-color: #6b778d !important;
+}
 </style>

@@ -8,11 +8,15 @@
         style="max-width: 15rem;"
         class="mb-2 border-0"
       >
-      <b-card-text >
-        {{ movie.title}}
-      </b-card-text>
+        <b-card-text :title="movie.title">
+          {{ movie.title | resize }}<br>
+          <b-icon icon="star-fill" class="star"></b-icon>
+          {{ movie.vote_average}} ({{ movie.vote_count }})
+        </b-card-text>
 
-  </b-card>
+        <b-icon variant="warning" icon="star" class="loved" scale="1.5" ></b-icon>
+      </b-card>
+
   </div>
 </template>
 
@@ -21,11 +25,24 @@ export default {
     name:'BodyListItem',
     props:{
       movie : Object
+    },
+    filters:{
+      resize(value){
+        if(value.length > 15){
+          value = value.slice(0,13) + '...'
+          return value
+        }else{
+          return value
+        }
+      }
     }
 }
 </script>
 
 <style>
+.movie-card{
+  position: relative;
+}
 .card{
   margin:auto !important;
 }
@@ -37,5 +54,16 @@ export default {
 }
 .card-img-top{
   height:300px !important;
+}
+.loved{
+  /* color:yellow; */
+  position:absolute;
+  top:15px;
+  left:15px;
+
+}
+
+.star{
+  color:rgba(236, 0, 0, 0.603);  
 }
 </style>

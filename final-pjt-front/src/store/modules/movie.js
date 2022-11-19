@@ -76,9 +76,9 @@ const state = () => {
       })
     },
     getGenreMovie(context, payload){
-      let page = payload.page
+      let page = payload.genre_page
       let genre_name = payload.genre_name 
-      if (!payload.page){
+      if (!page){
         page = 1
       }
       axios({

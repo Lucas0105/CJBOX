@@ -8,7 +8,8 @@
       <div class="overflow-auto">
         <div class="mt-3">
           <b-pagination
-            v-model="currentPage"
+            :value="page"
+            @input="changePage"
             pills
             :total-rows="rows"
             :per-page="perPage"
@@ -28,25 +29,25 @@ export default {
       BodyListItem
     },
     props:{
-      movies:Array
+      movies:Array,
+      rows:Number,
+      currentPage:Number
     },
     data() {
       return {
-        rows: 10,
         perPage: 1,
-        currentPage: 1
-      }
-    },
-    watch:{
-      currentPage:{
-        handler:'changePage'
       }
     },
     methods:{
-      changePage(){
-        this.$emit('current-page', this.currentPage)
-      }
+      changePage(page){
+        this.$emit('current-page', page)
+      },
     },
+    computed: {
+      page(){
+        return this.currentPage ? this.currentPage:1
+      }
+    }
 
     
 }
