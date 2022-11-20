@@ -46,11 +46,12 @@ def reviewRead(request, movie_id, page):
     reviews = reviews[(page-1)*5:page*5]
 
     serializer = ReviewListSerializer(reviews, many=True)
-
+    
     data = {
         'reviews': serializer.data,
         'page_cnt': page_cnt
     }
+    
     return Response(data)
 
 
@@ -66,7 +67,6 @@ def detail(request, review_id):
 def commentCreate(request):
     review = get_object_or_404(Review, id=request.data.get('review_id'))
     user = request.user
-
     serializer = CommentSerializer(data=request.data)
 
     if serializer.is_valid(raise_exception=True):
