@@ -81,6 +81,15 @@
 
 </div>
 
+# 이슈
+<div align="center">
+
+|날짜|내용|해결방법|해결여부|
+|:---:|:---:|:---:|:---:|
+|2022-11-18|swiper와 vue의 버전이 맞지 않는 문제|swiper-vue2 패키지를 사용하여 해결|O|
+|2022-11-18|TokenAuthentication 기본 폼을 사용할 때 파일이 업로드 되지 않는 문제|CustomSerializer를 정의하여 데이터 저장|O|
+|2022-11-19|다큐멘터리, tv 영화 클릭 시 404 에러 발생|데이터가 없을 때 404 오류 발생 get_list_or_404 부분을 movie.objects.all() 명령어로 변경|X|
+
 # 목표 
 
 
