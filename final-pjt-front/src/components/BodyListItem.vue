@@ -7,25 +7,29 @@
         tag="article"
         style="max-width: 15rem;"
         class="mb-2 border-0"
+        @click="toDetail"
       >
         <b-card-text >
-          <span :title="movie.title">{{ movie.title | resize }}</span><br>
-          <div class="bottom-icon d-flex justify-content-between">
-            <div>
-                <small><b-icon icon="heart"  class="loved"></b-icon></small>
-            </div>
-            <div>
-              <small> 
-                <b-icon icon="star-fill" class="star"></b-icon>
-                <span class="star-text"> {{ movie.vote_average}}</span> ({{ movie.vote_count }})
-              </small>
-              
-            </div>
-          </div>
+          <span :title="movie.title">
+            {{ movie.title | resize }}
+          </span><br>
+          
         </b-card-text>
 
       </b-card>
-
+      <div class="bottom-icon d-flex justify-content-between mx-auto mb-2" >
+        <div>
+            <small><b-icon icon="heart"  class="loved"></b-icon></small>
+        </div>
+        <div>
+          <small> 
+            <b-icon icon="star-fill" class="star"></b-icon>
+            <span class="star-text"> {{ movie.vote_average}}</span> 
+            <span> ({{ movie.vote_count }})</span>
+          </small>
+          
+        </div>
+      </div>
   </div>
 </template>
 
@@ -44,11 +48,16 @@ export default {
           return value
         }
       }
+    },
+    methods:{
+      toDetail() {
+        this.$router.push({name:'detail', params:{id: this.movie.id}})
+      }
     }
 }
 </script>
 
-<style>
+<style scoped>
 /* .movie-card{
 } */
 .card{
@@ -70,5 +79,16 @@ export default {
 .star, .star-text{
   color:#FFD400
 }
-
+.bottom-icon{
+  max-width: 15rem;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+}
+span{
+  color:aliceblue
+}
+.card-body{
+  padding-bottom: 0 !important;
+}
 </style>

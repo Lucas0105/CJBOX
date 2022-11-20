@@ -1,21 +1,39 @@
 <template>
   <div class="login-page">
-    <div class="login-box d-flex flex-column mx-auto ">
+    <form @submit.prevent="logIn" class="login-box d-flex flex-column mx-auto ">
       <p>로그인</p>
-      <input type="text" placeholder="아이디" id="user-id" class="mx-auto mb-3">
-      <input type="text" placeholder="비밀번호" id="user-pwd" class="mx-auto mb-3">
-      <b-button class="login-btn mx-auto mb-4">로그인</b-button>
+      <input type="text" placeholder="아이디" id="user-id" class="mx-auto mb-3" v-model="username">
+      <input type="text" placeholder="비밀번호" id="user-pwd" class="mx-auto mb-3" v-model="password">
+      <b-button type="submit" class="login-btn mx-auto mb-4">로그인</b-button>
       <div class="bottom-box d-flex justify-content-between mx-auto">
         <p>아이디 · 비밀번호 찾기</p>
         <p>회원가입</p>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
 export default {
-    name:'LoginView'
+    name:'LoginView',
+    data() {
+      return{
+        username : null,
+        password : null,
+      }
+    },
+    methods:{
+      logIn(){
+        // console.log(this.username, this.password)
+        const username = this.username
+        const password = this.password
+        const payload = {
+          username, 
+          password
+        }
+        this.$store.dispatch('user/logIn', payload)
+      }
+    }
 }
 </script>
 
@@ -60,6 +78,7 @@ input{
   border:0;
   border-radius: 4px;
   opacity: 0.4;
+  font-weight: bold;
 }
 .login-box>p{
   font-size:20px

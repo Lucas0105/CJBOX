@@ -6,6 +6,7 @@ const state = () => {
       recentMovieData :null,
       popularMovieData :null,
       genreMovieData:null,
+      movieDetail:null,
       genre_list: [
               '액션',
               '모험',
@@ -44,6 +45,9 @@ const state = () => {
     GET_GENRE_MOVIE(state, data){
       console.log(data) 
       state.genreMovieData = data
+    },
+    GET_MOVIE_DETAIL(state, data){
+      state.movieDetail = data
     }
   }
   const actions = {
@@ -91,7 +95,19 @@ const state = () => {
       .catch((err)=>{
         console.log(err)
       })
-    }
+    },
+    getMovieDetail(context, movie_id){
+      axios({
+        method:'get',
+        url:`${URL}/movies/detail/${movie_id}/`
+      })
+      .then((res)=>{
+        context.commit('GET_MOVIE_DETAIL', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    } 
   }
   
   export default {

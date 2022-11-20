@@ -1,28 +1,66 @@
 <template>
   <div class="signp-page ">
-      <div class="d-flex flex-column signup-box mx-auto" >
+      <form @submit.prevent="signUp" class="d-flex flex-column signup-box mx-auto" >
         <p >회원가입</p>
-        <input type="text" placeholder="아이디" class="mb-2 mx-auto">
-        <input type="text" placeholder="닉네임" class="mb-2 mx-auto">
-        <input type="text" placeholder="이메일" class="mb-2 mx-auto">
-        <input type="text" placeholder="비밀번호" class="mb-2 mx-auto">
-        <input type="text" placeholder="비밀번호 확인" class="mb-2 mx-auto">
-        <input type="text" placeholder=" 프로필소개" class="mb-2 mx-auto">
+        <input type="text" placeholder="아이디" class="mb-2 mx-auto input-style" v-model="username">
+        <input type="text" placeholder="닉네임" class="mb-2 mx-auto input-style" v-model="nickName">
+        <input type="text" placeholder="이메일" class="mb-2 mx-auto input-style" v-model="email">
+        <input type="text" placeholder="비밀번호" class="mb-2 mx-auto input-style" v-model="password1">
+        <input type="text" placeholder="비밀번호 확인" class="mb-2 mx-auto input-style" v-model="password2">
+        <input type="text" placeholder=" 프로필소개" class="mb-2 mx-auto input-style" v-model="intro">
         <div class="d-flex img-box">
           <div class="box" style="border:solid 2px black; background-color:white; opacity:0.5">
             <!-- <img class="profile" src=""> -->
           </div>
-          <b-button class="img-btn" variant="dark" size="sm">이미지 선택</b-button>
+          <input id="file-input" type="file" @change="getImg" ref="IMG">
         </div>
 
-        <b-button class="signup-btn mx-auto">회원가입</b-button>
-      </div>
+        <b-button class="signup-btn mx-auto" type="submit">회원가입</b-button>
+      </form>
   </div>
 </template>
 
 <script>
 export default {
-    name:'SignupView'
+    name:'SignupView',
+    data(){
+      return{
+        username : null,
+        nickName : null,
+        email : null,
+        password1 : null,
+        password2 : null,
+        intro : null,
+        image : null,
+      }
+    },
+    methods:{
+      signUp() {
+        const username= this.username
+        const nickName= this.nickName
+        const email= this.email
+        const password1= this.password1
+        const password2= this.password2
+        const intro= this.intro
+        const image= this.image
+
+        const payload = {
+          username,
+          nickName,
+          email,
+          password1,
+          password2,
+          intro,
+          image
+        }
+       
+       this.$store.dispatch('user/signUp', payload)
+      },
+      getImg() {
+        this.image = this.$refs.IMG.files[0]
+        // console.log(this.image)
+      }
+    }
 }
 </script>
 
@@ -68,15 +106,21 @@ p{
   height:10%
 }
 
-input{
+.input-style{
   width:70%;
   height: 45px;
   border-radius: 4px;
   border:0;
   padding-left:10px;
   opacity: 0.4;
+  font-weight: bold;
 }
 
+#file-input{
+  margin-top:10%;
+  margin-left:5%;
+  height:10%
+}
 input::placeholder{
   color: black;
   font-weight: bold;
