@@ -72,4 +72,25 @@ def commentCreate(request):
     if serializer.is_valid(raise_exception=True):
         serializer.save(review=review, user=user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+
+
+@extend_schema(responses=CommentSerializer)
+@api_view(['GET'])
+def commentRead(request, review_id, page):
+    review = get_object_or_404(Review, id=review_id)
+    comments = review.comment.all()
+    page_cnt = math.ceil(len(comments) / 5)
+    comments = comments[(page-1)*5 : page*5]
+
+    serializer = CommentSerializer(comments, many=True)
+
+    data = {
+        'comments': serializer.data,
+        'page_cnt': page_cnt,
+    }
+
+    return Response(data)
+
+
+
+

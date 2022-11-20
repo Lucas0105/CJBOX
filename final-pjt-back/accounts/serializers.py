@@ -4,6 +4,13 @@ from django.db import transaction
 from django.core.files.storage import default_storage
 from django.contrib.auth import get_user_model
 
+class UserNameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('nickname',)
+
+
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField()
     intro = serializers.CharField()
@@ -26,3 +33,4 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('nickname', 'email', 'intro', 'my_image')
+
