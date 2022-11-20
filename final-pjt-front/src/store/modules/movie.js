@@ -6,6 +6,7 @@ const state = () => {
       recentMovieData :null,
       popularMovieData :null,
       genreMovieData:null,
+      movieDetail:null,
       genre_list: [
               '액션',
               '모험',
@@ -44,6 +45,9 @@ const state = () => {
     GET_GENRE_MOVIE(state, data){
       console.log(data) 
       state.genreMovieData = data
+    },
+    GET_MOVIE_DETAIL(state, data){
+      state.movieDetail = data
     }
   }
   const actions = {
@@ -76,9 +80,9 @@ const state = () => {
       })
     },
     getGenreMovie(context, payload){
-      let page = payload.page
+      let page = payload.genre_page
       let genre_name = payload.genre_name 
-      if (!payload.page){
+      if (!page){
         page = 1
       }
       axios({
@@ -91,7 +95,19 @@ const state = () => {
       .catch((err)=>{
         console.log(err)
       })
-    }
+    },
+    getMovieDetail(context, movie_id){
+      axios({
+        method:'get',
+        url:`${URL}/movies/detail/${movie_id}/`
+      })
+      .then((res)=>{
+        context.commit('GET_MOVIE_DETAIL', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    } 
   }
   
   export default {
