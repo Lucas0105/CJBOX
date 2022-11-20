@@ -5,7 +5,7 @@ from rest_framework import status
 from drf_spectacular.utils import extend_schema
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from movies.models import Movie
+from movies.models import Movie, UserLikeGenres
 from movies.serializers import MovieListSerializer
 from reviews.serializers import ReviewListSerializer, ReviewCommentSerializer
 import math
@@ -49,11 +49,21 @@ def myList(request):
     user = request.user
 
     movie = get_object_or_404(Movie, id=request.data.get('movie_id'))
+    genres = movie.genres.all()
 
     if user.my_lists.filter(id=movie.id).exists():
         user.my_lists.remove(movie)
+        for genre in genres:
+            likeGenres = UserLikeGenres.objects.get(user=user, genre=genre)
+            likeGenres.count -= 1
+            likeGenres.save()
     else:
         user.my_lists.add(movie)
+        for genre in genres:
+            likeGenres, _ = UserLikeGenres.objects.get_or_create(user=user, genre=genre)
+            likeGenres.count += 1
+            likeGenres.save()
+
 
     return Response(status=status.HTTP_201_CREATED)
 
