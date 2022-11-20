@@ -60,8 +60,7 @@ def recommendAnonymous():
     return MovieListSerializer(movie_data, many=True)
 
 
-
-
+@extend_schema(responses=MovieListSerializer)
 @api_view(['GET'])
 def recommend(request):
 
@@ -88,4 +87,13 @@ def recommend(request):
         return Response(serializer.data)
 
 
-        
+@extend_schema(responses=MovieListSerializer)
+@api_view(['GET'])
+def recommendGenre(request, genre):
+    rand_filter = ['-popularity', '-release_date', '-vote_average']
+    genre = get_object_or_404(Genre, name=genre)
+    movies = Movie.objects.filter(genres=genre).order_by(random.sample(rand_filter, 1)[0])[:15]
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+
+

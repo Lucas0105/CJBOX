@@ -76,7 +76,7 @@
 |35|영화 리뷰 댓글 작성|정원재|2022-11-18|2022-11-18|O|
 |36|영화 리뷰 댓글 읽기|정원재|2022-11-18|2022-11-18|O|
 |37|로그인뷰 구현|최유경|2022-11-19|2022-11-19|O|
-|38|영화 장르 추천|정원재|2022-11-19|2022-11-20|X|
+|38|영화 장르 추천|정원재|2022-11-19|2022-11-20|O|
 |39|영화 추천|정원재|2022-11-19|2022-11-20|O|
 
 </div>
@@ -89,6 +89,8 @@
 |2022-11-18|swiper와 vue의 버전이 맞지 않는 문제|swiper-vue2 패키지를 사용하여 해결|O|
 |2022-11-18|TokenAuthentication 기본 폼을 사용할 때 파일이 업로드 되지 않는 문제|CustomSerializer를 정의하여 데이터 저장|O|
 |2022-11-19|다큐멘터리, tv 영화 클릭 시 404 에러 발생|데이터가 없을 때 404 오류 발생 get_list_or_404 부분을 movie.objects.all() 명령어로 변경|O|
+|2022-11-19|네비바의 사용자 부분의 정보를 알 수 있는 api가 없음|userStatus api 구현|X|
+
 
 # 목표 
 
@@ -144,6 +146,9 @@
 |accounts|로그인|post|accounts/login/||||
 |||||request|username|String|
 ||||||password|String|
+|accounts|사용자 정보|get|accounts/userStatus/||||
+|||||response|nickName|String|
+||||||image|Image|
 |accounts|회원가입|post|accounts/signup/||||
 |||||request|username|String|
 ||||||password1|String|
@@ -224,7 +229,7 @@
 ||||||release_date|String|
 ||||||vote_average|int|
 ||||||backdrop_path|String|
-|movies|영화 장르 추천|get|movies/:genre/recommend/||||
+|movies|영화 장르 추천|get|movies/recommend/:genre/||||
 |||||response  <br/> 15개 list|movie_id|int|
 ||||||poster_path|String|
 ||||||title|String|
@@ -277,6 +282,10 @@
 - - 이때 랜덤의 기준이 인기도가 높은 순, 개봉일이 빠른 순, 평점이 높은 순, 무작위 랜덤이 될 수 있습니다. 
 
 - 사용자에대한 정보가 없을 시 평점, 인기도, 개봉일 기준으로 내림차순하여 15개의 영화를 랜덤으로 추천해줍니다.
+
+# 영화 장르 추천 알고리즘
+- 해당하는 장르 중 랜덤으로 영화 15개를 보여줍니다.
+- - 이때 랜덤의 기준이 인기도가 높은 순, 개봉일이 빠른 순, 평점이 높은 순이 될 수 있습니다. 
 
 # 서비스의 대표 기능
 
