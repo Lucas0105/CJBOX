@@ -1,4 +1,4 @@
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserStatusSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from movies.models import Movie, UserLikeGenres
 from movies.serializers import MovieListSerializer
-from reviews.serializers import ReviewListSerializer, ReviewCommentSerializer
+from reviews.serializers import ReviewCommentSerializer
 import math
 
 
@@ -26,6 +26,15 @@ def my_profile(request, nickname):
     }
 
     return Response(data)
+
+
+@extend_schema(responses=UserSerializer)
+@api_view(['GET'])
+def userStatus(request):
+    user = request.user
+    serializer = UserStatusSerializer(user)
+
+    return Response(serializer.data)
 
 
 @api_view(['POST'])

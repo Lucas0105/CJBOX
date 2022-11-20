@@ -34,3 +34,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ('nickname', 'email', 'intro', 'my_image')
 
+
+class UserStatusSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('nickname', 'my_image')

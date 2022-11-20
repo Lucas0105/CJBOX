@@ -78,6 +78,7 @@
 |37|로그인뷰 구현|최유경|2022-11-19|2022-11-19|O|
 |38|영화 장르 추천|정원재|2022-11-19|2022-11-20|O|
 |39|영화 추천|정원재|2022-11-19|2022-11-20|O|
+|40|사용자 정보 api|정원재|2022-11-20|2022-11-21|O|
 
 </div>
 
@@ -89,7 +90,7 @@
 |2022-11-18|swiper와 vue의 버전이 맞지 않는 문제|swiper-vue2 패키지를 사용하여 해결|O|
 |2022-11-18|TokenAuthentication 기본 폼을 사용할 때 파일이 업로드 되지 않는 문제|CustomSerializer를 정의하여 데이터 저장|O|
 |2022-11-19|다큐멘터리, tv 영화 클릭 시 404 에러 발생|데이터가 없을 때 404 오류 발생 get_list_or_404 부분을 movie.objects.all() 명령어로 변경|O|
-|2022-11-19|네비바의 사용자 부분의 정보를 알 수 있는 api가 없음|userStatus api 구현|X|
+|2022-11-19|네비바의 사용자 부분의 정보를 알 수 있는 api가 없음|userStatus api 구현|O|
 
 
 # 목표 
@@ -148,7 +149,7 @@
 ||||||password|String|
 |accounts|사용자 정보|get|accounts/userStatus/||||
 |||||response|nickName|String|
-||||||image|Image|
+||||||my_image|Image|
 |accounts|회원가입|post|accounts/signup/||||
 |||||request|username|String|
 ||||||password1|String|
@@ -156,7 +157,7 @@
 ||||||intro|String|
 ||||||email|String|
 ||||||nickName|String|
-||||||image|Image|
+||||||my_image|Image|
 |accounts|로그아웃|post|accounts/logout/||||
 |accounts|비밀번호 변경|post|accounts/password/change/||||
 |||||request|new_password1|String|
@@ -165,7 +166,7 @@
 |||||response|nickName|String|
 ||||||intro|String|
 ||||||genres|Array(String)|
-||||||image|Image|
+||||||my_image|Image|
 ||||||followed_cnt|int|
 ||||||following_cnt|int|
 |accounts|팔로우, 팔로잉|post|accounts/follow/||||
