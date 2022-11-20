@@ -14,7 +14,7 @@ class UserNameSerializer(serializers.ModelSerializer):
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField()
     intro = serializers.CharField()
-    my_image = serializers.ImageField()
+    my_image = serializers.ImageField(required=False)
 
     # Define transaction.atomic to rollback the save operation in case of error
     @transaction.atomic
@@ -22,8 +22,11 @@ class CustomRegisterSerializer(RegisterSerializer):
         user = super().save(request)
         user.nickname = self.data.get('nickname')
         user.intro = self.data.get('intro')
-        path = default_storage.save(f"images/{user}/{request.FILES.get('my_image')}", request.FILES.get('my_image'))
-        user.my_image = path
+
+        if request.FILES:
+            path = default_storage.save(f"images/{user}/{request.FILES.get('my_image')}", request.FILES.get('my_image'))
+            user.my_image = path
+
         user.save()
         return user
 
