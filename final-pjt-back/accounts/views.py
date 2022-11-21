@@ -49,13 +49,19 @@ def userStatus(request):
         serializer = UserStatusSerializer(user)
         likeGenres = UserLikeGenres.objects.filter(user=user).all().order_by('-count')[:3]
 
-        index = random.sample([0, 1, 2], 1)
+        index_tmp = [i for i in range(0, len(likeGenres))]
 
-        likeGenre = likeGenres[index[0]]
+        if index_tmp:
+            index = random.sample(index_tmp, 1)
 
-        movies =  Movie.objects.filter(genres=likeGenre.genre).order_by('-release_date', '-popularity', '-vote_average')[:3]
+            likeGenre = likeGenres[index[0]]
 
-        index = random.sample([0, 1, 2], 1)
+            movies =  Movie.objects.filter(genres=likeGenre.genre).order_by('-release_date', '-popularity', '-vote_average')[:3]
+
+            index = random.sample([0, 1, 2], 1)
+        else:
+            movies = Movie.objects.order_by('-release_date', '-popularity', '-vote_average').all()[:10]
+            index = random.sample([0, 1, 2], 1)
 
         data = {
             'user': serializer.data,
