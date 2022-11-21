@@ -3,6 +3,9 @@ from dj_rest_auth.registration.serializers import RegisterSerializer
 from django.db import transaction
 from django.core.files.storage import default_storage
 from django.contrib.auth import get_user_model
+from movies.serializers import GenreSerializer
+from movies.models import UserLikeGenres
+
 
 class UserNameSerializer(serializers.ModelSerializer):
 
@@ -44,3 +47,11 @@ class UserStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('nickname', 'my_image')
+
+
+class UserLikeGenresSerializer(serializers.ModelSerializer):
+    genre = GenreSerializer(read_only = True)
+
+    class Meta:
+        model = UserLikeGenres
+        fields = ('count', 'genre')

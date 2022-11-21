@@ -8,19 +8,23 @@ from django.shortcuts import get_object_or_404
 from movies.models import Movie, UserLikeGenres
 from movies.serializers import MovieListSerializer
 from reviews.serializers import ReviewCommentSerializer
+from .serializers import UserLikeGenresSerializer
 import math
 
 
 @extend_schema(responses=UserSerializer)
 @api_view(['GET'])
 def my_profile(request, nickname):
-    user = request.user
+    User = get_user_model()
+    user = get_object_or_404(User, nickname=nickname)
     serializer = UserSerializer(user)
-    genres = user.likeGenres.all()
+    genres = UserLikeGenres.objects.filter(user=user).all().order_by('-count')[:5]
+    
+    genre_serializer = UserLikeGenresSerializer(genres, many=True)
 
     data = {
         'user' : serializer.data,
-        'genres' : genres,
+        'genres': genre_serializer.data,
         'followed_cnt' : user.followed.count(),
         'following_cnt' : user.friends.count(),
     }
