@@ -28,7 +28,7 @@ def my_profile(request, nickname):
     return Response(data)
 
 
-@extend_schema(responses=UserSerializer)
+@extend_schema(responses=UserStatusSerializer)
 @api_view(['GET'])
 def userStatus(request):
     user = request.user
