@@ -9,6 +9,9 @@
         />
       </div>
       <div class="review-list mx-auto">
+          <div v-if="reviews.length===0">
+              <p>감상평이 없습니다.</p>
+          </div>
           <ReviewListItem
           v-for="review in reviews"
           :key="review.id"
