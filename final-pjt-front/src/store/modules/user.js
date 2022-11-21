@@ -13,11 +13,15 @@ const state = () => {
       },
       background : null,
       recommend: null,
+      user_review: null
     }
   }
   const getters = {
     isLogin(state){
       return state.token ? true : false
+    },
+    isCreate(state){
+      return state.user_review
     }
   }
   const mutations = {
@@ -40,6 +44,9 @@ const state = () => {
     },
     INIT_BACKGROUND(state, payload){
       state.background = payload
+    },
+    CHANGE_REVIEW(state, data){
+      state.user_review = data
     }
   }
   const actions = {
@@ -143,10 +150,12 @@ const state = () => {
       })
       .then((res)=>{
         console.log(res)
+        context.commit('CHANGE_REVIEW', res.data)
       })
       .catch((err)=>{
         console.log(err)
       })
+     
     },
     logOut(context){
       axios({
@@ -184,7 +193,45 @@ const state = () => {
       .catch((err) => {
         console.log(err)
       })
-    }
+    },
+    deleteReview(context, id){
+      axios({
+        method:'delete', 
+        url:`${URL}/reviews/`,
+        data:{
+          review_id: id
+        },
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res)=>{
+        console.log(res)
+        context.commit('CHANGE_REVIEW', [])
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    // updateReview(context, payload){
+    //   axios({
+    //     method:'put', 
+    //     url:`${URL}/reviews/`,
+    //     data:{
+    //       review_id: id
+    //     },
+    //     headers:{
+    //       Authorization : `Token ${context.state.token}`
+    //     }
+    //   })
+    //   .then((res)=>{
+    //     console.log(res)
+    //     context.commit('CHANGE_REVIEW', [])
+    //   })
+    //   .catch((err)=>{
+    //     console.log(err)
+    //   })
+    // }
   }
   
   export default {

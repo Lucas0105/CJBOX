@@ -38,6 +38,9 @@ export default {
       },
       reviews(){
         return this.$store.getters['movie/getReview']
+      }, 
+      isCreate(){
+        return this.$store.getters['user/isCreate']
       }
     },
     methods:{ 
@@ -57,7 +60,11 @@ export default {
       this.getMovieDetail()
       this.getReviews()
     },
-
+    watch:{
+      isCreate: {
+        handler: 'getReviews'
+      }
+    }
 }
 </script>
 
