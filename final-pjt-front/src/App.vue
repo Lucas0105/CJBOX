@@ -66,7 +66,7 @@ export default {
   },
   methods:{
     logOut() {
-      this.$store.commit('user/LOG_OUT')
+      this.$store.dispatch('user/logOut')
     }
   }
 }

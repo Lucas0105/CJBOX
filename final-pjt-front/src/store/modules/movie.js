@@ -155,7 +155,7 @@ const state = () => {
       })
       .then((res)=>{
         console.log(res)
-        context.commit('GET_REVIEW', res.data)
+        context.commit('GET_REVIEW', res.data.reviews)
       })
       .catch((err)=>{
         console.log(err)
