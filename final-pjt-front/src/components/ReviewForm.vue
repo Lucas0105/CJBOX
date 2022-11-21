@@ -11,7 +11,6 @@
       <div v-else>
         <p>로그인이 필요한 서비스입니다.
           <router-link :to="{name:'login'}">로그인하러 가기</router-link>
-
         </p>
       </div>
     </form>

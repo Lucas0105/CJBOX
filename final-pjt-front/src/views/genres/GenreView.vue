@@ -7,9 +7,9 @@
     <div class="movie-body-box">
       <p>인기영화</p>
       <BodyList
-        :movies="genreMovie"
+        :movies="genreMovie.movies"
         @current-page="getGenreMovie"
-        :rows="rows"
+        :rows="genrePage"
         :currentPage="currentPage"
       />
     </div>
@@ -26,7 +26,6 @@ export default {
     data(){
       return{
         genre_name : this.$route.params.category,
-        rows: 10,
         currentPage: 1,
       }
     },
@@ -37,6 +36,9 @@ export default {
     computed:{
       genreMovie(){
         return this.$store.state.movie.genreMovieData
+      },
+      genrePage(){
+        return this.$store.state.movie.genreMovieData.page_cnt
       }
     },
     methods:{

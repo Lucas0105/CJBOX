@@ -8,19 +8,41 @@
       :movie="movie"
       />
     </div>
+    <div class="review-list mx-auto">
+      <ReviewList
+      />
+      {{ review }}
+    </div>
   </div>
 </template>
 
 <script>
 import ReviewForm from "@/components/ReviewForm"
+import ReviewList from "@/components/ReviewList"
+
 export default {
     name:'TheReview',
+    data() {
+      return{
+
+      }
+    },
+    computed:{
+
+    },
     components:{
-      ReviewForm
+      ReviewForm,
+      ReviewList
     },
     props:{
-      movie:Object
-    }
+      movie:Object,
+      review:Object
+    },
+    methods:{
+     
+    },
+
+
 }
 </script>
 

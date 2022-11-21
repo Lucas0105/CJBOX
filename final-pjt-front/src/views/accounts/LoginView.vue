@@ -3,7 +3,7 @@
     <form @submit.prevent="logIn" class="login-box d-flex flex-column mx-auto ">
       <p>로그인</p>
       <input type="text" placeholder="아이디" id="user-id" class="mx-auto mb-3" v-model="username">
-      <input type="text" placeholder="비밀번호" id="user-pwd" class="mx-auto mb-3" v-model="password">
+      <input type="password" placeholder="비밀번호" id="user-pwd" class="mx-auto mb-3" v-model="password">
       <b-button type="submit" class="login-btn mx-auto mb-4">로그인</b-button>
       <div class="bottom-box d-flex justify-content-between mx-auto">
         <p>아이디 · 비밀번호 찾기</p>
@@ -21,7 +21,10 @@ export default {
         username : null,
         password : null,
       }
-    },
+    },  
+    computed:{
+
+  },
     methods:{
       logIn(){
         // console.log(this.username, this.password)
@@ -32,7 +35,6 @@ export default {
           password
         }
         this.$store.dispatch('user/logIn', payload)
-        this.$router.push({ name:'movies'})
       }
     }
 }
