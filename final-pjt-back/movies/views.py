@@ -2,7 +2,7 @@ from .serializers import MovieListSerializer, MovieSearchSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from drf_spectacular.utils import extend_schema
-from django.shortcuts import get_object_or_404, get_list_or_404
+from django.shortcuts import get_object_or_404
 from .models import Movie, Genre, UserLikeGenres
 import requests
 import random
@@ -108,6 +108,14 @@ def credit(request, movie_id):
 
     return Response(response['cast'])
     
+
+@api_view(['GET'])
+def similar(request, movie_id):
+    tmdb_api = os.environ.get('TMDB_API')
+    response = requests.get(f"https://api.themoviedb.org/3/movie/{movie_id}/similar?api_key={tmdb_api}&language=ko-KR&page=1")
+    response = response.json()
+
+    return Response(response['results'])
 
 
 # @api_view(['GET'])

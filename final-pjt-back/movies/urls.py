@@ -9,6 +9,7 @@ urlpatterns = [
     path('recommend/', views.recommend),
     path('recommend/<str:genre>/', views.recommendGenre),
     path('credit/<int:movie_id>/', views.credit),
+    path('similar/<int:movie_id>/', views.similar),
     path('<str:genre>/<int:page>/', views.genre),
     # path('tmdb/', views.tmdb),
 ]
