@@ -1,9 +1,16 @@
 import axios from 'axios'
+
+
+
 const URL = 'http://127.0.0.1:8000'
 
 const state = () => {
     return {
       token : null, 
+      login_user : {
+        nickname : null,
+        my_image : null
+      }
     }
   }
   const getters = {
@@ -26,7 +33,7 @@ const state = () => {
         url: `${URL}/accounts/signup/`,
         data:{
           username : payload.username,
-          nickName : payload.nickName,
+          nickname : payload.nickName,
           email : payload.email,
           password1 : payload.password1,
           password2 : payload.password2,
@@ -51,12 +58,32 @@ const state = () => {
         data:{
           username : payload.username,
           password : payload.password,
-          // email: 'tester13@naver.com'
         }
       })
       .then((res)=>{
         console.log(res)
         context.commit('SAVE_TOKEN', res.data.key)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    inputReview(context,payload){
+      console.log(payload)
+      axios({
+        method:'post',
+        url:`${URL}/reviews/`,
+        data:{
+          content:payload.content,
+          movie_id:payload.movie_id,
+          vote:4,
+        },
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res)=>{
+        console.log(res)
       })
       .catch((err)=>{
         console.log(err)

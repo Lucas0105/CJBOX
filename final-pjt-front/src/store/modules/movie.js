@@ -7,6 +7,7 @@ const state = () => {
       popularMovieData :null,
       genreMovieData:null,
       movieDetail:null,
+      searchResult:null,
       genre_list: [
               '액션',
               '모험',
@@ -48,6 +49,9 @@ const state = () => {
     },
     GET_MOVIE_DETAIL(state, data){
       state.movieDetail = data
+    },
+    SEARCH_MOVIE(state, data){
+      state.searchResult = data
     }
   }
   const actions = {
@@ -107,7 +111,19 @@ const state = () => {
       .catch((err)=>{
         console.log(err)
       })
-    } 
+    },
+    searchSubmit(context, title){
+      axios({
+        method:'get',
+        url:`${URL}/movies/search/${title}`
+      })
+      .then((res)=>{
+        context.commit('SEARCH_MOVIE', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    }
   }
   
   export default {

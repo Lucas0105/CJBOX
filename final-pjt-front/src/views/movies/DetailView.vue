@@ -1,23 +1,31 @@
 <template>
   <div class="detail-page">
-    <TheDetail
+    <MovieInfo
     :movie="movie"
     />
+    <hr style="color:white">
+    <div style="color:white" title="추후 수정">
+      비슷한 영화 추천
+      <BannerList/>
+    </div>
     <TheReview
+    :movie="movie"
     />
-    
+
   </div>
 </template>
 
 <script>
-import TheDetail from '@/components/TheDetail'
+import MovieInfo from '@/components/MovieInfo'
 import TheReview from '@/components/TheReview'
+import BannerList from '@/components/BannerList'
 
 export default {
     name:'DetailView',
     components:{
-      TheDetail,
-      TheReview
+      MovieInfo,
+      TheReview,
+      BannerList
     },
     data(){
         return{
@@ -46,6 +54,7 @@ export default {
   position: relative;
   top: -80px;
   background-color: #17223b;
+  flex-direction: column;
 }
 
 </style>

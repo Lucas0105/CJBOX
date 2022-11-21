@@ -32,6 +32,7 @@ export default {
           password
         }
         this.$store.dispatch('user/logIn', payload)
+        this.$router.push({ name:'movies'})
       }
     }
 }
