@@ -28,7 +28,7 @@ def newMovie(request, page):
 @extend_schema(responses=MovieSearchSerializer)
 @api_view(['GET'])
 def search(request, title):
-    movies = Movie.objects.filter(title__contains=title)[:10]
+    movies = Movie.objects.filter(title__contains=title)
     serializer = MovieSearchSerializer(movies, many=True)
     return Response(serializer.data)
 
