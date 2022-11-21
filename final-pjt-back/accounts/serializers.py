@@ -21,7 +21,8 @@ class CustomRegisterSerializer(RegisterSerializer):
     def save(self, request):
         user = super().save(request)
         user.nickname = self.data.get('nickname')
-        user.intro = self.data.get('intro')
+        if self.data.get('intro'):
+            user.intro = self.data.get('intro')
 
         if request.FILES:
             path = default_storage.save(f"images/{user}/{request.FILES.get('my_image')}", request.FILES.get('my_image'))
