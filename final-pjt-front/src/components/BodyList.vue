@@ -56,7 +56,7 @@ export default {
 <style  scoped>
 .movie-box{
   margin: 0 10% !important;
-  margin-top:150px !important;
+  margin-top:80px !important;
 }
 ul{
   justify-content: center;
