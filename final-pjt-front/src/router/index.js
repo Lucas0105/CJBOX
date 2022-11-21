@@ -8,6 +8,8 @@ import LoginView from '@/views/accounts/LoginView'
 import SignupView from '@/views/accounts/SignupView'
 import MyPageView from '@/views/accounts/MyPageView'
 
+
+
 Vue.use(VueRouter)
 
 const routes = [

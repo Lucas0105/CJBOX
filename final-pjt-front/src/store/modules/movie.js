@@ -8,6 +8,7 @@ const state = () => {
       genreMovieData:null,
       movieDetail:null,
       searchResult:null,
+      getReview:null,
       genre_list: [
               '액션',
               '모험',
@@ -24,7 +25,6 @@ const state = () => {
               '미스터리',
               '로맨스',
               'SF',
-              'TV영화',
               '스릴러',
               '전쟁',
               '서부',
@@ -33,6 +33,16 @@ const state = () => {
   }
   
   const getters = {
+    searchResult(state){
+      return state.searchResult
+    },
+    detailMovie(state){
+      return state.movieDetail
+    },
+    getReview(state){
+      return state.getReview
+    }
+    
   }
   const mutations = {
     GET_RECENT_MOVIE(state, data){
@@ -46,12 +56,20 @@ const state = () => {
     GET_GENRE_MOVIE(state, data){
       console.log(data) 
       state.genreMovieData = data
+
     },
     GET_MOVIE_DETAIL(state, data){
       state.movieDetail = data
     },
     SEARCH_MOVIE(state, data){
       state.searchResult = data
+    },
+    RESET_SEARCH(state){
+      state.searchResult = null
+    },
+    GET_REVIEW(state,data){
+      console.log(data)
+      state.getReview = data
     }
   }
   const actions = {
@@ -119,11 +137,31 @@ const state = () => {
       })
       .then((res)=>{
         context.commit('SEARCH_MOVIE', res.data)
+        console.log(res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+        context.commit('SEARCH_MOVIE', '')
+
+      })
+    },
+    getReviews(context, payload){
+      const movie_id = payload.movie_id
+      const page = payload.page
+
+      axios({
+        method:'get',
+        url:`${URL}/reviews/${movie_id}/review/${page}/`
+      })
+      .then((res)=>{
+        console.log(res)
+        context.commit('GET_REVIEW', res.data)
       })
       .catch((err)=>{
         console.log(err)
       })
     }
+
   }
   
   export default {

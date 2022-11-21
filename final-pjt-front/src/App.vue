@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <router-link class="navbar-brand" :to="{name:'movies'}"><img src="@/assets/CJBOX_logo2-2.gif" width="60px" alt=""></router-link>
           <ul class="navbar-nav">
-            <b-nav-item-dropdown class="mx-2 d-flex" text="장르" style="margin-top:2%">
+            <b-nav-item-dropdown class="mx-2 d-flex" text="장르" style="margin-top:2%"> 
               <b-dropdown-item v-for="(genre, index) in genres" :key="index"><router-link  :to="{ name: 'genre', params: {category: genre} }" >{{ genre }}</router-link></b-dropdown-item>
             </b-nav-item-dropdown>
             <div class="d-flex">
@@ -22,14 +22,18 @@
                   <router-link class="nav-link " :to="{name:'signup'}"><b-icon icon="person-plus" title="회원가입"></b-icon></router-link>
                 </li>
               </div>
-              <div v-else class="d-flex" >
-                <div class="d-flex img-box">
-                  <div class="box" style="background-color:white; opacity:0.5">
-                    <!-- <img class="profile" src=""> -->
+              <div v-else class="d-flex" title="마이페이지">
+                <router-link :to="{name:'mypage'}">
+                <div class="d-flex" style="margin-right:30px">
+                  <div class="d-flex img-box">
+                    <div class="box" style="background-color:white;   ">
+                      <img class="profile" :src="userimage" alt="userImg">
+                    </div>
                   </div>
+                  <span class="my-auto username-span">{{username}}</span>
                 </div>
-                <span class="my-auto" style="color:white">username</span>
-                <a class="nav-link my-auto" style="cursor:pointer"><b-icon icon="box-arrow-right" title="로그아웃"></b-icon></a>
+                </router-link>
+                <a class="nav-link my-auto" style="cursor:pointer" @click="logOut"><b-icon icon="box-arrow-right" title="로그아웃"></b-icon></a>
               </div>
             </div>
           </ul>
@@ -49,9 +53,21 @@ export default {
     },
     isLogin(){
       return this.$store.getters['user/isLogin']
+    },
+    username(){
+      return this.$store.state.user.login_user.nickname
+    },
+    userimage(){
+      return this.$store.state.user.login_user.my_image
+
     }
   },
   components:{
+  },
+  methods:{
+    logOut() {
+      this.$store.commit('user/LOG_OUT')
+    }
   }
 }
 </script>
@@ -95,7 +111,8 @@ input:focus{
 }
 
 .img-box{
-  margin-left:4px
+  margin-left:4px;
+  margin-right:4px
 }
 
 .box {
@@ -105,4 +122,19 @@ input:focus{
     overflow: hidden;
 }
 
+.profile
+{
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /*둥그런 원으로 만들기 위함*/
+  overflow: hidden;
+}
+
+.username-span{
+  color:white; 
+  margin-left:3%; 
+  font-size:1.5em;
+  font-weight:bold;
+}
 </style>

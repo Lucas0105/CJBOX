@@ -35,7 +35,7 @@ export default {
     },
     data(){
       return{
-        rows: 10,
+        rows: 100,
         currentPage: 1,
       }
     },

@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import router from '../../router'
 
 
 const URL = 'http://127.0.0.1:8000'
@@ -9,7 +9,7 @@ const state = () => {
       token : null, 
       login_user : {
         nickname : null,
-        my_image : null
+        my_image : null,
       }
     }
   }
@@ -21,11 +21,22 @@ const state = () => {
   const mutations = {
     SAVE_TOKEN(state, token){
       state.token = token
-      // console.log(state.token)
+      router.push({ name: 'movies' })
+    },
+    LOG_OUT(state){
+      state.token = null
+      state.login_user.nickName = null
+      state.login_user.my_image = null
+    },
+    USER_STATE(state, payload){
+      state.login_user.nickname = payload.nickname
+      state.login_user.my_image =URL+payload.my_image
+    },
+    SIGN_UP(){
+      router.push({ name: 'login' })
     }
   }
   const actions = {
-    // 400 오류
     signUp(context, payload) {
       console.log(payload)
       axios({
@@ -46,6 +57,7 @@ const state = () => {
       })
       .then((res)=>{
         console.log(res)
+        context.commit('SIGN_UP')
       })
       .catch((err)=>{
         console.log(err)
@@ -63,6 +75,25 @@ const state = () => {
       .then((res)=>{
         console.log(res)
         context.commit('SAVE_TOKEN', res.data.key)
+      })
+      .then(()=>{
+        axios({
+          method:'get',
+          url: `${URL}/accounts/userStatus`,
+          headers:{
+            Authorization : `Token ${context.state.token}`
+          }
+        })
+        .then((res)=>{
+          const payload ={
+            nickname:res.data.nickname,
+            my_image:res.data.my_image
+          }
+          context.commit('USER_STATE',payload )
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
       })
       .catch((err)=>{
         console.log(err)
