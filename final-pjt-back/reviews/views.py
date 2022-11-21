@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
 from movies.models import Movie
-from .models import Review, Comment
+from .models import Review
 from django.shortcuts import get_object_or_404
 from .serializers import ReviewListSerializer, CommentSerializer
 import math

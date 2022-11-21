@@ -6,6 +6,8 @@ from accounts.serializers import UserNameSerializer
 
 class ReviewListSerializer(serializers.ModelSerializer):
 
+    user = UserNameSerializer(read_only = True)
+
     class Meta:
         model = Review
         fields = '__all__'
