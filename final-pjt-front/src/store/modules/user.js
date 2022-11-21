@@ -86,9 +86,10 @@ const state = () => {
           }
         })
         .then((res)=>{
+          console.log(res)
           const payload ={
-            nickname:res.data.nickname,
-            my_image:res.data.my_image
+            nickname:res.data.user.nickname,
+            my_image:res.data.user.my_image
           }
           context.commit('USER_STATE',payload )
         })
@@ -123,7 +124,7 @@ const state = () => {
     },
     logOut(context){
       axios({
-        method:'get',
+        method:'post',
         url: `${URL}/accounts/logout/`,
         headers: {
           'Content-Type': 'multipart/form-data'
