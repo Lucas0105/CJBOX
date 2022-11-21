@@ -104,28 +104,38 @@ def recommendGenre(request, genre):
 #     tmdb_api = os.environ.get('TMDB_API')
 
 
-#     for page in range(64, 1001):
+#     for page in range(1, 1001):
 #         response = requests.get(f"https://api.themoviedb.org/3/movie/popular?api_key={tmdb_api}&language=ko-KR&page={page}")
 #         response = response.json()
 
-#         try:
-#             for movie in response.get('results'):
+#         for movie in response.get('results'):
+#             try:
 #                 m = Movie()
 #                 m.id = movie['id']
+#                 if movie['overview'] == '':
+#                     continue
 #                 m.overview = movie['overview']
+
 #                 m.release_date = movie['release_date']
 #                 m.title = movie['title']
-#                 m.backdrop_path = movie['backdrop_path']
+#                 if not movie['backdrop_path']:
+#                     continue
+                
+#                 m.backdrop_path = 'https://image.tmdb.org/t/p/w500' + movie['backdrop_path']
 #                 m.popularity = movie['popularity']
 #                 m.vote_count = movie['vote_count']
+
+#                 if movie['vote_average'] == 0:
+#                     continue
+
 #                 m.vote_average = movie['vote_average']
-#                 m.poster_path = movie['poster_path']
+#                 m.poster_path = 'https://image.tmdb.org/t/p/w200' + movie['poster_path']
 #                 m.save()
 
 #                 for genre in movie['genre_ids']:
 #                     genre = get_object_or_404(Genre, id=genre)
 #                     m.genres.add(genre)
-#         except(Exception):
-#             pass
+#             except(Exception):
+#                 continue
 
 #         print(page)

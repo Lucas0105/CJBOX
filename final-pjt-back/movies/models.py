@@ -18,7 +18,7 @@ class Movie(models.Model):
     reviews = models.ManyToManyField(settings.AUTH_USER_MODEL, through='reviews.Review', related_name='reviews')
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='my_lists')
     poster_path = models.CharField(max_length=100)
-    backdrop_path = models.CharField(max_length=100, null=True, default='')
+    backdrop_path = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     overview = models.TextField()
     release_date = models.CharField(max_length=50)

@@ -13,7 +13,7 @@ class UserNameSerializer(serializers.ModelSerializer):
 
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField()
-    intro = serializers.CharField()
+    intro = serializers.CharField(required=False)
     my_image = serializers.ImageField(required=False)
 
     # Define transaction.atomic to rollback the save operation in case of error
