@@ -45,7 +45,7 @@ def detail(request, id):
 @api_view(['GET'])
 def genre(request, genre, page):
     genre = get_object_or_404(Genre, name=genre)
-    movies = Movie.objects.filter(genres=genre).all()[(page-1) * 9:9*page]
+    movies = Movie.objects.filter(genres=genre).all()[(page-1) * 30:30*page]
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
