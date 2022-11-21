@@ -12,6 +12,7 @@ const state = () => {
         my_image : null,
       },
       background : null,
+      recommend: null,
     }
   }
   const getters = {
@@ -105,6 +106,7 @@ const state = () => {
         console.log(err)
       })
     },
+
     backDrop(context){
       let token;
       if (context.state.token) {
@@ -158,6 +160,28 @@ const state = () => {
         context.commit('LOG_OUT')
       })
       .catch((err)=>{
+        console.log(err)
+      })
+    },
+
+    recommend(context){
+      let token;
+      if (context.state.token) {
+        token = `Token ${context.state.token}`
+      }
+      axios({
+        method:'get',
+        url: `${URL}/movies/recommend/`,
+        headers:{
+          Authorization : token
+        }
+      })
+      .then((res) => {
+        console.log('test')
+        console.log(res)
+        console.log('test')
+      })
+      .catch((err) => {
         console.log(err)
       })
     }
