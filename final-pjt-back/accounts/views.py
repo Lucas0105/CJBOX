@@ -36,21 +36,31 @@ def my_profile(request, nickname):
 @extend_schema(responses=UserStatusSerializer)
 @api_view(['GET'])
 def userStatus(request):
-    user = request.user
-    serializer = UserStatusSerializer(user)
-    likeGenres = UserLikeGenres.objects.filter(user=user).all().order_by('-count')[:3]
 
-    index = random.sample([0, 1, 2], 1)
+    if request.user.is_anonymous:
+        movies = Movie.objects.order_by('-release_date', '-popularity', '-vote_average').all()[:10]
+        index = random.sample([0, 1, 2], 1)
 
-    likeGenre = likeGenres[index[0]]
+        data = {
+            'backdrop_path': movies[index[0]].backdrop_path,
+        }
+    else:
+        user = request.user
+        serializer = UserStatusSerializer(user)
+        likeGenres = UserLikeGenres.objects.filter(user=user).all().order_by('-count')[:3]
 
-    movies =  Movie.objects.filter(genres=likeGenre.genre).order_by('-release_date', '-popularity', '-vote_average')[:3]
-    index = random.sample([0, 1, 2], 1)
+        index = random.sample([0, 1, 2], 1)
 
-    data = {
-        'user': serializer.data,
-        'backdrop_path': movies[index[0]].backdrop_path,
-    }
+        likeGenre = likeGenres[index[0]]
+
+        movies =  Movie.objects.filter(genres=likeGenre.genre).order_by('-release_date', '-popularity', '-vote_average')[:3]
+
+        index = random.sample([0, 1, 2], 1)
+
+        data = {
+            'user': serializer.data,
+            'backdrop_path': movies[index[0]].backdrop_path,
+        }
 
     return Response(data)
 
