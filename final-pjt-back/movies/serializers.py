@@ -12,4 +12,4 @@ class MovieSearchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ('poster_path', 'title')
+        fields = ('poster_path', 'title', 'id',)
