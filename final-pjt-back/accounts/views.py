@@ -9,6 +9,7 @@ from movies.models import Movie, UserLikeGenres
 from movies.serializers import MovieListSerializer
 from reviews.serializers import ReviewCommentSerializer
 from .serializers import UserLikeGenresSerializer
+import random
 import math
 
 
@@ -37,8 +38,21 @@ def my_profile(request, nickname):
 def userStatus(request):
     user = request.user
     serializer = UserStatusSerializer(user)
+    likeGenres = UserLikeGenres.objects.filter(user=user).all().order_by('-count')[:3]
 
-    return Response(serializer.data)
+    index = random.sample([0, 1, 2], 1)
+
+    likeGenre = likeGenres[index[0]]
+
+    movies =  Movie.objects.filter(genres=likeGenre.genre).order_by('-release_date', '-popularity', '-vote_average')[:3]
+    index = random.sample([0, 1, 2], 1)
+
+    data = {
+        'user': serializer.data,
+        'backdrop_path': movies[index[0]].backdrop_path,
+    }
+
+    return Response(data)
 
 
 @api_view(['POST'])
