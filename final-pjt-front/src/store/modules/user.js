@@ -10,7 +10,8 @@ const state = () => {
       login_user : {
         nickname : null,
         my_image : null,
-      }
+      },
+      background : null,
     }
   }
   const getters = {
@@ -35,6 +36,9 @@ const state = () => {
     },
     SIGN_UP(){
       router.push({ name: 'login' })
+    },
+    INIT_BACKGROUND(state, payload){
+      state.background = payload
     }
   }
   const actions = {
@@ -101,6 +105,26 @@ const state = () => {
         console.log(err)
       })
     },
+    backDrop(context){
+      let token;
+      if (context.state.token) {
+        token = `Token ${context.state.token}`
+      }
+      axios({
+        method:'get',
+        url: `${URL}/accounts/userStatus`,
+        headers:{
+          Authorization : token
+        }
+      })
+      .then((res)=>{
+        context.commit('INIT_BACKGROUND', res.data.backdrop_path)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+
     inputReview(context,payload){
       console.log(payload)
       axios({

@@ -1,6 +1,6 @@
 <template>
   <div class="main-view">  
-    <div id="movie-banner-box">
+    <div id="movie-banner-box" :style="{'background-image': 'url('+backgroundImg+')'}">
       <div class="movie-banner">
         <p>추천영화</p>
         <!-- <BannerList/> -->
@@ -45,6 +45,12 @@ export default {
       },
       popularMovie(){
         return this.$store.state.movie.popularMovieData
+      },
+      backgroundImg(){
+        return this.$store.state.user.background
+      },
+      test(){
+        return 'test'
       }
     },
     methods:{
@@ -58,7 +64,10 @@ export default {
     },
     created(){
       this.getRecentMovie()
-      this.getPopularMovie()            
+      this.getPopularMovie()       
+    },
+    beforeCreate(){
+      this.$store.dispatch('user/backDrop')
     }
     
 
@@ -71,7 +80,6 @@ export default {
   background-color: #17223b;
   position: relative;
   top: -80px;
-  background-image:  url("@/assets/comdey1.gif");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-2 movie-card">
+  <div class="col-6 col-lg-3 col-xxl-2 movie-card">
        <b-card
         :img-src="movie.poster_path"
         img-alt="Image"
