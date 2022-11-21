@@ -23,7 +23,7 @@
 |백앤드| API 구현 |2022-11-18|80%|
 |프론트 앤드| 장르페이지 구현 |2022-11-18|50%|
 |백앤드| 추천 알고리즘 구현 |2022-11-20|0%|
-|프론트 앤드| 로그인, 회원가입, 프로필 구현, 검색 구현 |2022-11-20|15%|
+|프론트 앤드| 로그인, 회원가입, 프로필 구현, 검색 구현 |2022-11-20|60%|
 |백앤드| 추가 기능 구현 |2022-11-21|0%|
 |프론트 앤드| 영화 상세 페이지 구현, 리뷰 및 댓글 구현 |2022-11-21|0%|
 |백앤드| 테스트 |2022-11-22|0%|
@@ -101,8 +101,8 @@
 |2022-11-20|네비바의 사용자 부분의 정보를 알 수 있는 api가 없음|userStatus api 구현|O|
 |2022-11-20|사용자의 사진이 필수 요소로 적용|serializer의 required를 False로 설정|O|
 |2022-11-21|[API]MovieSearch의 데이터 movie id 필요||O|
-|2022-11-21|acting 3명, directing 1명, writing 1명 영화에 참여한 사람들 요청 |credit api 구현|X|
-|2022-11-21|backdrom poster 요청|credit api 구현|X|
+|2022-11-21|영화에 참여한 사람들 데이터 요청 |credit api 구현|O|
+|2022-11-21|backdrop poster 요청|backdrop이 있는 데이터만 출력|O|
 |2022-11-21|유사한 영화 요청|TMDB similar movies 구현|X|
 # 목표 
 
@@ -233,6 +233,14 @@
 ||||||vote_average|int|
 ||||||backdrop_path|String|
 ||||||popularity|int|
+|movies|영화 참여한 사람들|get|movies/credit/:movie_id/||||
+|||||response|id|int|
+||||||known_for_department|String|
+||||||name|String|
+||||||original_name|String|
+||||||popularity|int|
+||||||profile_path|String|
+||||||character|String|
 |movies|영화 장르 페이지|get|movies/:genre/:page/||||
 |||||response <br/> 9개 list|movie_id|int|
 ||||||poster_path|String|

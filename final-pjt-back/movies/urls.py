@@ -8,6 +8,7 @@ urlpatterns = [
     path('detail/<int:id>/', views.detail),
     path('recommend/', views.recommend),
     path('recommend/<str:genre>/', views.recommendGenre),
+    path('credit/<int:movie_id>/', views.credit),
     path('<str:genre>/<int:page>/', views.genre),
     # path('tmdb/', views.tmdb),
 ]

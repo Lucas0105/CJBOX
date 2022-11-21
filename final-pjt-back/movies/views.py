@@ -99,6 +99,17 @@ def recommendGenre(request, genre):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def credit(request, movie_id):
+    tmdb_api = os.environ.get('TMDB_API')
+    response = requests.get(f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={tmdb_api}&language=ko-KR")
+
+    response = response.json()
+
+    return Response(response['cast'])
+    
+
+
 # @api_view(['GET'])
 # def tmdb(request):
 #     tmdb_api = os.environ.get('TMDB_API')
