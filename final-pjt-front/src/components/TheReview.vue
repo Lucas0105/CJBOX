@@ -9,16 +9,18 @@
       />
     </div>
     <div class="review-list mx-auto">
-      <ReviewList
+      <ReviewListItem
+      v-for="review in reviews"
+      :key="review.id"
+      :review="review"
       />
-      {{ review }}
     </div>
   </div>
 </template>
 
 <script>
 import ReviewForm from "@/components/ReviewForm"
-import ReviewList from "@/components/ReviewList"
+import ReviewListItem from "@/components/ReviewListItem"
 
 export default {
     name:'TheReview',
@@ -32,11 +34,11 @@ export default {
     },
     components:{
       ReviewForm,
-      ReviewList
+      ReviewListItem
     },
     props:{
       movie:Object,
-      review:Object
+      reviews:Array
     },
     methods:{
      

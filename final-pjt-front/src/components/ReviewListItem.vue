@@ -1,15 +1,22 @@
 <template>
-  <div>
-
+  <div class="review-item">
+    {{ review}}
+    
   </div>
 </template>
 
 <script>
 export default {
-    name:'ReviewListItem'
+    name:'ReviewListItem',
+    props:{
+      review:Object
+    }
 }
 </script>
 
-<style>
+<style scoped>
+.review-item{
+  border:solid 1px red
+}
 
 </style>

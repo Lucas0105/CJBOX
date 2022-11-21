@@ -9,7 +9,7 @@
     </div>
     <TheReview
     :movie="movie"
-    :review="review"
+    :reviews="reviews"
     />
 
   </div>
@@ -36,7 +36,7 @@ export default {
       movie(){
         return this.$store.getters['movie/detailMovie']
       },
-      review(){
+      reviews(){
         return this.$store.getters['movie/getReview']
       }
     },

@@ -29,6 +29,7 @@ const state = () => {
       state.login_user.my_image = null
     },
     USER_STATE(state, payload){
+      console.log(payload)
       state.login_user.nickname = payload.nickname
       state.login_user.my_image =URL+payload.my_image
     },
@@ -115,6 +116,21 @@ const state = () => {
       })
       .then((res)=>{
         console.log(res)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    logOut(context){
+      axios({
+        method:'get',
+        url: `${URL}/accounts/logout/`,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(()=>{
+        context.commit('LOG_OUT')
       })
       .catch((err)=>{
         console.log(err)
