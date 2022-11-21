@@ -9,4 +9,5 @@ urlpatterns = [
     path('recommend/', views.recommend),
     path('recommend/<str:genre>/', views.recommendGenre),
     path('<str:genre>/<int:page>/', views.genre),
+    # path('tmdb/', views.tmdb),
 ]

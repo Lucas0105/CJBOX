@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from datetime import timedelta
+from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -193,3 +193,9 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+env = Env()
+env_path = BASE_DIR / ".env"
+if env_path.exists():
+    with env_path.open('rt', encoding='utf-8') as f:
+        env.read_env(f, overwrite=True)

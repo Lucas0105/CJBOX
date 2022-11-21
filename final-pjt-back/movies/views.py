@@ -4,7 +4,9 @@ from rest_framework.decorators import api_view
 from drf_spectacular.utils import extend_schema
 from django.shortcuts import get_object_or_404, get_list_or_404
 from .models import Movie, Genre, UserLikeGenres
+import requests
 import random
+import os
 
 
 @extend_schema(responses=MovieListSerializer)
@@ -97,3 +99,33 @@ def recommendGenre(request, genre):
     return Response(serializer.data)
 
 
+# @api_view(['GET'])
+# def tmdb(request):
+#     tmdb_api = os.environ.get('TMDB_API')
+
+
+#     for page in range(64, 1001):
+#         response = requests.get(f"https://api.themoviedb.org/3/movie/popular?api_key={tmdb_api}&language=ko-KR&page={page}")
+#         response = response.json()
+
+#         try:
+#             for movie in response.get('results'):
+#                 m = Movie()
+#                 m.id = movie['id']
+#                 m.overview = movie['overview']
+#                 m.release_date = movie['release_date']
+#                 m.title = movie['title']
+#                 m.backdrop_path = movie['backdrop_path']
+#                 m.popularity = movie['popularity']
+#                 m.vote_count = movie['vote_count']
+#                 m.vote_average = movie['vote_average']
+#                 m.poster_path = movie['poster_path']
+#                 m.save()
+
+#                 for genre in movie['genre_ids']:
+#                     genre = get_object_or_404(Genre, id=genre)
+#                     m.genres.add(genre)
+#         except(Exception):
+#             pass
+
+#         print(page)
