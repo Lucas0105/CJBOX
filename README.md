@@ -92,7 +92,7 @@
 |2022-11-19|다큐멘터리, tv 영화 클릭 시 404 에러 발생|데이터가 없을 때 404 오류 발생 get_list_or_404 부분을 movie.objects.all() 명령어로 변경|O|
 |2022-11-20|네비바의 사용자 부분의 정보를 알 수 있는 api가 없음|userStatus api 구현|O|
 |2022-11-20|사용자의 사진이 필수 요소로 적용|serializer의 required를 False로 설정|O|
-
+|2022-11-21|[API]MovieSearch의 데이터 movie id 필요||x|
 # 목표 
 
 
