@@ -41,7 +41,8 @@ const state = () => {
     },
     getReview(state){
       return state.getReview
-    }
+    },
+
     
   }
   const mutations = {
@@ -70,7 +71,8 @@ const state = () => {
     GET_REVIEW(state,data){
       console.log(data)
       state.getReview = data
-    }
+    },
+    
   }
   const actions = {
     getRecentMovie(context, page) {

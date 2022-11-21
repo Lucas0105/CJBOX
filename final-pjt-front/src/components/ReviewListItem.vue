@@ -31,7 +31,7 @@
           </div>
       </div>
       <div class="foot-span-box">
-        <span class="s" style="margin-left:5px" @click="updateReview">
+        <span class="s" style="margin-left:5px" @click="requestUpdate">
           수정
         </span>
         <span class="s" @click="deleteReview">
@@ -57,13 +57,8 @@ export default {
       deleteReview(){
         this.$store.dispatch('user/deleteReview', this.review.id)
       },
-      updateReview(){
-        // const movie_id = this.review.movie_id
-        // const content = 
-
-        // const payload={
-        // }
-        // this.$store.dispatch('user/updateReview', this.review.id)
+      requestUpdate(){
+        this.$store.commit('user/REQUEST_UPDATE', this.review)
       }
     }
 }

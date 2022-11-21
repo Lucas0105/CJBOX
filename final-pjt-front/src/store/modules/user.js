@@ -13,7 +13,9 @@ const state = () => {
       },
       background : null,
       recommend: null,
-      user_review: null
+      user_review: null,
+      reviewUpdateData:null, 
+
     }
   }
   const getters = {
@@ -22,6 +24,9 @@ const state = () => {
     },
     isCreate(state){
       return state.user_review
+    },
+    updateReview(state){
+      return state.reviewUpdateData
     }
   }
   const mutations = {
@@ -47,6 +52,11 @@ const state = () => {
     },
     CHANGE_REVIEW(state, data){
       state.user_review = data
+      state.reviewUpdateData = null
+    },
+    REQUEST_UPDATE(state, data){
+      state.reviewUpdateData = data
+      console.log(state.reviewUpdateData) 
     }
   }
   const actions = {
@@ -213,25 +223,27 @@ const state = () => {
         console.log(err)
       })
     },
-    // updateReview(context, payload){
-    //   axios({
-    //     method:'put', 
-    //     url:`${URL}/reviews/`,
-    //     data:{
-    //       review_id: id
-    //     },
-    //     headers:{
-    //       Authorization : `Token ${context.state.token}`
-    //     }
-    //   })
-    //   .then((res)=>{
-    //     console.log(res)
-    //     context.commit('CHANGE_REVIEW', [])
-    //   })
-    //   .catch((err)=>{
-    //     console.log(err)
-    //   })
-    // }
+    updateReview(context, payload){
+      axios({
+        method:'put', 
+        url:`${URL}/reviews/`,
+        data:{
+          review_id: payload.review_id,
+          content: payload.content,
+          vote : 4
+        },
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res)=>{
+        console.log(res.data)
+        context.commit('CHANGE_REVIEW', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    }
   }
   
   export default {
