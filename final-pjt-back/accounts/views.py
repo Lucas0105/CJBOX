@@ -40,9 +40,9 @@ def userStatus(request):
     if request.user.is_anonymous:
         movies = Movie.objects.order_by('-release_date', '-popularity', '-vote_average').all()[:10]
         index = random.sample([0, 1, 2], 1)
-
+        movie_serializer = MovieListSerializer(movies[index[0]])
         data = {
-            'backdrop_path': movies[index[0]].backdrop_path,
+            'movie': movie_serializer.data,
         }
     else:
         user = request.user
@@ -62,10 +62,11 @@ def userStatus(request):
         else:
             movies = Movie.objects.order_by('-release_date', '-popularity', '-vote_average').all()[:10]
             index = random.sample([0, 1, 2], 1)
+        movie_serializer = MovieListSerializer(movies[index[0]])
 
         data = {
             'user': serializer.data,
-            'backdrop_path': movies[index[0]].backdrop_path,
+            'movie': movie_serializer.data,
         }
 
     return Response(data)

@@ -1,7 +1,17 @@
 <template>
   <div class="main-view">  
-    <div id="movie-banner-box" :style="{'background-image': 'url('+backgroundImg+')'}">
-      
+    <div id="movie-banner-box" :style="{'background-image': 'url('+backdrop_path+')'}">
+      <div class="content-container">
+        <h1>
+          {{ background_title }}
+        </h1>
+        <div class="overview_container">
+          {{ background_overview }}
+        </div>
+        <button @click="toDetail" class="btn btn-warning mt-3 px-5 py-2">
+          <span class="fs-5">더보기</span>
+        </button>
+      </div>
     </div>
     <div class="movie-body-box pt-5">
       <div class="movie-banner">
@@ -40,6 +50,11 @@ export default {
       return{
         rows: 100,
         currentPage: 1,
+        backdrop_path: null,
+        background_id: null,
+        background_title: null,
+        background_overview: null,
+
       }
     },
     computed:{
@@ -48,9 +63,6 @@ export default {
       },
       popularMovie(){
         return this.$store.state.movie.popularMovieData
-      },
-      backgroundImg(){
-        return this.$store.state.user.background
       },
     },
     methods:{
@@ -61,10 +73,20 @@ export default {
       getPopularMovie(){
         return this.$store.dispatch('movie/getPopularMovie')
       },
+      toDetail() {
+        this.$router.push({name:'detail', params:{id: this.background_id}})
+      }
     },
     created(){
       this.getRecentMovie()
-      this.getPopularMovie()       
+      this.getPopularMovie()      
+
+      const movie = this.$store.state.user.background_movie
+      this.background_id = movie.id
+      this.backdrop_path = movie.backdrop_path
+      this.background_title = movie.title
+      this.background_overview = movie.overview
+
     },
     beforeCreate(){
       this.$store.dispatch('user/backDrop')
@@ -104,4 +126,17 @@ export default {
 .main-view{
   height: 100%;
 }
+
+.content-container{
+  position: absolute;
+  top: 35%;
+  left: 10%;
+  color: rgb(247, 88, 88);
+}
+
+.overview_container{
+  color: rgb(255, 255, 255);
+  width: 40%;
+}
+
 </style>

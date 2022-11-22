@@ -11,7 +11,7 @@ const state = () => {
         nickname : null,
         my_image : null,
       },
-      background : null,
+      background_movie : null,
       recommend: null,
       user_review: null,
       reviewUpdateData:null, 
@@ -48,7 +48,7 @@ const state = () => {
       router.push({ name: 'login' })
     },
     INIT_BACKGROUND(state, payload){
-      state.background = payload
+      state.background_movie = payload
     },
     CHANGE_REVIEW(state, data){
       state.user_review = data
@@ -137,7 +137,7 @@ const state = () => {
         }
       })
       .then((res)=>{
-        context.commit('INIT_BACKGROUND', res.data.backdrop_path)
+        context.commit('INIT_BACKGROUND', res.data.movie)
       })
       .catch((err)=>{
         console.log(err)
@@ -196,9 +196,7 @@ const state = () => {
         }
       })
       .then((res) => {
-        console.log('test')
         console.log(res)
-        console.log('test')
       })
       .catch((err) => {
         console.log(err)
