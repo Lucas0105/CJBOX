@@ -5,6 +5,7 @@ from rest_framework import status
 from drf_spectacular.utils import extend_schema
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.hashers import make_password
 from movies.models import Movie, UserLikeGenres
 from movies.serializers import MovieListSerializer
 from reviews.serializers import ReviewCommentSerializer
@@ -143,3 +144,18 @@ def review(request, page):
     }
 
     return Response(data)
+
+
+@api_view(['POST'])
+def kakao(request):
+    User = get_user_model()
+    data = request.data
+    
+    if not User.objects.filter(username=data['username']).exists():
+        pw = make_password(data['password'])
+        user = User(username=data['username'], nickname=data['nickname'], password=pw, my_image=data['my_image'])
+        user.save()
+
+    return Response(status=status.HTTP_201_CREATED)
+    
+

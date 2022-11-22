@@ -9,11 +9,17 @@
         <p>아이디 · 비밀번호 찾기</p>
         <p>회원가입</p>
       </div>
+      <div class="social-container">
+        <img src="@/assets/kakao-icon.png" width="30%" alt="" @click="kakaoLoginBtn">
+        <img src="@/assets/kakao-icon.png" width="30%" alt="" @click="kakaoLoginBtn">
+        <img src="@/assets/kakao-icon.png" width="30%" alt="" @click="kakaoLoginBtn">
+      </div>
     </form>
   </div>
 </template>
-
 <script>
+import axios from 'axios'
+
 export default {
     name:'LoginView',
     data() {
@@ -26,6 +32,7 @@ export default {
 
   },
     methods:{
+      
       logIn(){
         // console.log(this.username, this.password)
         const username = this.username
@@ -35,8 +42,61 @@ export default {
           password
         }
         this.$store.dispatch('user/logIn', payload)
-      }
-    }
+      },
+      kakaoLoginBtn() {
+        const thisRef = this
+        console.log(window.Kakao.Auth)
+        console.log(window.Kakao.Auth.getAccessToken())
+        // 카카오 로그인 재시도 시 accessToken 해제
+            // window.Kakao.API.request({
+            //   url: '/v1/user/unlink',
+            //   success: function (response) {
+            //     console.log('data1')
+            //     console.log(response)
+            //   },
+            //   fail: function (error) {
+            //     console.log(error)
+            //   },
+            // })
+            // window.Kakao.Auth.setAccessToken(undefined)
+
+        window.Kakao.Auth.login({
+          success (){
+            window.Kakao.API.request({
+              url: '/v2/user/me',
+              success: async function (response) {
+                const payload = {
+                  "username": response.kakao_account.email,
+                  "email":response.kakao_account.email,
+                  "nickname": response.properties.nickname,
+                  "my_image": response.properties.thumbnail_image,
+                  "intro": null,
+                  "password": '1111',
+                }
+
+                axios({
+                  method: 'post',
+                  url: 'http://127.0.0.1:8000/accounts/kakao/',
+                  data: payload
+                })
+                .then(() => {
+                  thisRef.username = payload['username']
+                  thisRef.password = payload['password']
+                  thisRef.logIn()
+                })
+
+              },
+              fail: function (error) {
+                console.log(error)
+              },
+            })
+          },
+          fail: function (error) {
+            console.log(error)
+          },
+        })
+      },
+  }
 }
 </script>
 
@@ -55,7 +115,7 @@ export default {
   justify-items: center;  
 }
 .login-box{
-  width: 35%;
+  width: 30%;
   padding-top:70px;
   padding-bottom:70px;
   background-color:rgba(217,217,217,0.4);
@@ -95,6 +155,14 @@ input{
 .bottom-box{
   width: 70%;
 }
-
+.social-container{
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 50%;
+}
+.social-container img{
+  margin: 0 10%;
+}
 
 </style>

@@ -114,10 +114,10 @@ const state = () => {
           }
         })
         .then((res)=>{
-          console.log(res)
+          const my_image = res.data.user.my_image
           const payload ={
             nickname:res.data.user.nickname,
-            my_image:res.data.user.my_image
+            my_image
           }
           context.commit('USER_STATE',payload )
         })

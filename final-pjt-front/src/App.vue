@@ -58,8 +58,13 @@ export default {
       return this.$store.state.user.login_user.nickname
     },
     userimage(){
-      return this.$store.state.user.login_user.my_image
-
+      if (this.$store.state.user.login_user.my_image){
+        const index = this.$store.state.user.login_user.my_image.indexOf("k.kakaocdn.net")
+        let res = 'http://' + this.$store.state.user.login_user.my_image.slice(index,)
+        return res
+      } else{
+        return null
+      }
     }
   },
   components:{
