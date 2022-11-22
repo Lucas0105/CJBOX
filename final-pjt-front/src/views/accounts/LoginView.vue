@@ -11,8 +11,8 @@
       </div>
       <div class="social-container">
         <img src="@/assets/kakao-icon.png" width="30%" alt="" @click="kakaoLoginBtn">
-        <img src="@/assets/kakao-icon.png" width="30%" alt="" @click="kakaoLoginBtn">
-        <img src="@/assets/kakao-icon.png" width="30%" alt="" @click="kakaoLoginBtn">
+        <img src="@/assets/naver-icon.png" width="25%" height="50%" alt="" @click="kakaoLoginBtn">
+        <img src="@/assets/google_icon.png" width="25%" alt="" @click="kakaoLoginBtn">
       </div>
     </form>
   </div>
@@ -163,6 +163,7 @@ input{
 }
 .social-container img{
   margin: 0 10%;
+  cursor: pointer;
 }
 
 </style>
