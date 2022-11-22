@@ -1,6 +1,6 @@
 <template>
-  <div>
-
+  <div class="my-list">
+    <h1>my list</h1>
   </div>
 </template>
 
@@ -10,6 +10,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.my-list{
+  border:solid 1px red
+}
 </style>
