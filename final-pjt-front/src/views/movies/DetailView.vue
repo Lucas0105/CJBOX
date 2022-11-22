@@ -13,7 +13,19 @@
     :movie="movie"
     :reviews="reviews"
     />
-
+    <!-- pagination -->
+      <div class="overflow-auto">
+        <div class="mt-3">
+          <b-pagination
+            v-model="currentPage"
+            pills
+            :total-rows="totalPage"
+            :per-page="perPage"
+            first-number
+            @input="getReviews"
+          ></b-pagination>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -31,7 +43,8 @@ export default {
     },
     data(){
         return{
-          page:1
+          currentPage:1,
+          perPage:1        
         }
       },
     computed:{
@@ -39,8 +52,11 @@ export default {
         return this.$store.getters['movie/detailMovie']
       },
       reviews(){
-        return this.$store.getters['movie/getReview']
+        return this.$store.getters['movie/getReview']?.reviews
       }, 
+      totalPage(){
+        return this.$store.getters['movie/getReview']?.page_cnt
+      },
       isCreate(){
         return this.$store.getters['user/isCreate']
       },
@@ -57,7 +73,7 @@ export default {
       },
       getReviews() {
         const payload = {
-          page: this.page,
+          page: this.currentPage,
           movie_id : this.$route.params.id
         }
         console.log(payload)
@@ -88,4 +104,7 @@ export default {
   flex-direction: column;
 }
 
+ul{
+  justify-content: center;
+}
 </style>
