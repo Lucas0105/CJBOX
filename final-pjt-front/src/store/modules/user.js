@@ -18,6 +18,8 @@ const state = () => {
       popularMovieData :null,
       comments:null,
       isCommentCreate:null,
+      userTotalReview:null,
+      userInfo:null
     }
   }
   const getters = {
@@ -101,6 +103,12 @@ const state = () => {
     },
     CREATE_COMMENT(state,data){
       state.isCommentCreate = data
+    },
+    GET_USER_REVIEW(state, data){
+      state.userTotalReview = data
+    },
+    GET_USER_PROFILE(state,data){
+      state.userInfo = data
     }
   }
   const actions = {
@@ -326,6 +334,38 @@ const state = () => {
       .then((res)=>{
         console.log(res)
         context.commit('GET_COMMENT', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    getUserTotalReview(context, page){
+      axios({
+        method:'get',
+        url:`${URL}/accounts/reviews/${page}`,
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res)=>{
+        console.log(res)
+        context.commit('GET_USER_REVIEW', res.data)
+      })
+      .catch((err)=>{
+        console.log('user',err)
+      })
+    },
+    getUserProfile(context, nickname){
+      axios({
+        method:'get',
+        url:`${URL}/accounts/${nickname}`,
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res)=>{
+        console.log(res)
+        context.commit('GET_USER_PROFILE', res.data)
       })
       .catch((err)=>{
         console.log(err)
