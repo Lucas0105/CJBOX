@@ -3,7 +3,7 @@
     <div class="d-flex mx-auto justify-content-between mt-3 mb-2" style="width:90%;" >
       <div class="d-flex" style="width:100%; ">
       <div class="profile-img my-auto">
-        <div style="text-align: center;">
+        <div style="text-align: center;" @click="goToProfile(review.user.nickname)">
           <div class="d-flex img-box">
             <div class="r-box" style="background-color:white;   ">
               <img class="r-profile" :src="userImage" alt="userImg">
@@ -40,8 +40,6 @@
       </div>
     </div>
     
-  
-
     <ReviewComment
       @close="closeModal"
       v-if="isModalVisible"
@@ -79,6 +77,10 @@ export default {
       },
       closeModal() {
         this.isModalVisible = false;
+      },
+      goToProfile(nickname){
+      this.$router.push({name: 'mypage', params: {nickname: nickname}})
+
       }
     }
 }

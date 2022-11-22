@@ -1,90 +1,50 @@
 <template>
-  <div class="my-list mx-auto">
-    <div class="list-box">
-      <b-card class="list-card" no-body>
-        <b-tabs pills card>
-          
-          <b-tab  title="My List" active><b-card-text>
-            
-          </b-card-text></b-tab>
-          <b-tab title="My Review" ><b-card-text>
-            <MyReviewList
-            v-for="review in reviews.reviews"
-            :key="review.id"
-            :review="review"
-            />
-            <div class="overflow-auto">
-              <div class="mt-3">
-                <b-pagination
-                  v-model="currentPage"
-                  pills
-                  :total-rows="reviews.page_cnt"
-                  :per-page="perPage"
-                  first-number
-                  @input="getUserTotalReview"
-                ></b-pagination>
-              </div>
-            </div>
-          </b-card-text></b-tab>
-        </b-tabs>
-      </b-card>
-    </div>
-  </div>
+<div  class="col-6 col-lg-3 col-xxl-2 movie-card" @click="goToDetail">
+    <b-card :img-src="movie.poster_path" img-alt="Image" img-top >
+    <b-card-text>
+    {{ movie.title }}
+    ★★★★★ {{ movie.vote_average}}({{movie.vote_count}})
+    </b-card-text>
+    <template #footer>
+    <small ><b-icon icon="heart-fill"  class="loved"></b-icon><span class="cnt">{{movie.like_users[0]}}</span></small>
+    </template>
+</b-card>
+</div>
+
 </template>
 
 <script>
-import MyReviewList from '../mypage/MyReviewList'
 export default {
     name:'MyList',
-    components:{
-      MyReviewList
-    },
     props:{
-    },
-    data(){
-      return{
-        currentPage:1,
-        perPage:1,
-      }
-    },
-    computed:{
-      reviews(){
-        return this.$store.state.user.userTotalReview
-      }
+        movie:Object
     },
     methods:{
-      getUserTotalReview(){
-        this.$store.dispatch('user/getUserTotalReview', this.currentPage)
+      goToDetail(){
+        this.$router.push({name:'detail', params:{id: this.movie.id}})
       }
-    },
-    
-    
+    }
 }
 </script>
 
 <style scoped>
-.my-list{
-  width:70%
+.card{
+   margin:auto !important;
+  --bs-card-bg: none;
+  transition: all 0.2s linear;
+  cursor: pointer;
 }
-.list-box{
-  width:100%;
-  height: 100%;
+.loved{
+    color: red;
 }
-
-.list-card{
-  height: 100%;
-  background-color: black;
-  color: aliceblue;
+.card-footer{
+    border-top:solid 1px #a0a0a0 
 }
-
-.card-body{
-  padding-bottom:0;
-  height: 90%;
+.cnt{
+    font-weight: bold;
 }
-
-ul{
-  justify-content: center;
-
+img{
+    border-radius:10px
 }
 
 

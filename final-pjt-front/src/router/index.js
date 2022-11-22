@@ -42,7 +42,7 @@ const routes = [
     component: SignupView
   },
   {
-    path: '/accounts/mypage',
+    path: '/accounts/mypage/:nickname',
     name: 'mypage',
     component: MyPageView
   },

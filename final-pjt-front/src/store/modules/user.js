@@ -19,7 +19,8 @@ const state = () => {
       comments:null,
       isCommentCreate:null,
       userTotalReview:null,
-      userInfo:null
+      userInfo:null,
+      mylist:null
     }
   }
   const getters = {
@@ -109,6 +110,9 @@ const state = () => {
     },
     GET_USER_PROFILE(state,data){
       state.userInfo = data
+    },
+    GET_MY_LIST(state, data){
+      state.mylist = data
     }
   }
   const actions = {
@@ -366,6 +370,43 @@ const state = () => {
       .then((res)=>{
         console.log(res)
         context.commit('GET_USER_PROFILE', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    addMyList(context, movie_id){
+      axios({
+        method:'post',
+        url:`${URL}/accounts/myList/`,
+        data:{
+          movie_id:movie_id
+        },
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    getMyList(context, payload){
+      const nickname = payload.nickname
+      const page = payload.page
+      console.log(page)
+      axios({
+        method:'get',
+        url:`${URL}/accounts/myList/${nickname}/${page}/`,
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res)=>{
+        console.log(res)
+        context.commit('GET_MY_LIST', res.data)
       })
       .catch((err)=>{
         console.log(err)

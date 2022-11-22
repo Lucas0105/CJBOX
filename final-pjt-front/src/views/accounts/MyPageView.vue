@@ -4,30 +4,30 @@
       <TheProfile
       :userInfo = "userInfo"
       />
-      <MyList
+      <MyContent
       />
     </div>
   </div>
 </template>
 
 <script>
-import MyList from '@/components/mypage/MyList'
+import MyContent from '@/components/mypage/MyContent'
 import TheProfile from '@/components/mypage/TheProfile'
 
 export default {
     name:'MyPageView',
     components:{
-      MyList,
+      MyContent,
       TheProfile
     },
     data(){
       return{
+        nickname : this.$route.params.nickname,
       }
     },
     computed:{
       userInfo(){
         return this.$store.state.user.userInfo
-
       }
     },
     methods:{
@@ -35,13 +35,23 @@ export default {
         this.$store.dispatch('user/getUserTotalReview', 1)
       },
       getUserProfile(){
-        const nickname = this.$store.state.user.login_user.nickname
-        this.$store.dispatch('user/getUserProfile', nickname)
+        this.$store.dispatch('user/getUserProfile', this.nickname)
+      },
+      getMyList(){
+        const nickname = this.nickname
+        console.log(nickname)
+        const page = 1
+        
+        const payload ={
+          nickname, page
+        }
+        this.$store.dispatch('user/getMyList', payload)
       }
     },
     created(){
       this.getUserTotalReview()
       this.getUserProfile()
+      this.getMyList()
     }
 }
 </script>

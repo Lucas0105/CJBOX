@@ -22,8 +22,7 @@
                   <router-link class="nav-link " :to="{name:'signup'}"><b-icon icon="person-plus" title="회원가입"></b-icon></router-link>
                 </li>
               </div>
-              <div v-else class="d-flex" title="마이페이지">
-                <router-link :to="{name:'mypage'}">
+              <div v-else class="d-flex" style="cursor:pointer" title="마이페이지" @click="toMypage">
                 <div class="d-flex" style="margin-right:30px">
                   <div class="d-flex img-box">
                     <div class="box" style="background-color:white;   ">
@@ -32,7 +31,6 @@
                   </div>
                   <span class="my-auto username-span">{{username}}</span>
                 </div>
-                </router-link>
                 <a class="nav-link my-auto" style="cursor:pointer" @click="logOut"><b-icon icon="box-arrow-right" title="로그아웃"></b-icon></a>
               </div>
             </div>
@@ -78,8 +76,11 @@ export default {
       this.$store.dispatch('user/logOut')
     },
     toGenre(genre){
-      console.log('test')
       this.$router.push({name: 'genre', params: {category: genre}})
+    },
+    toMypage(){
+      const nickname = this.$store.state.user.login_user.nickname 
+      this.$router.push({name: 'mypage', params: {nickname: nickname}})
     }
   }
 }
@@ -150,4 +151,5 @@ input:focus{
   font-size:1.5em;
   font-weight:bold;
 }
+
 </style>

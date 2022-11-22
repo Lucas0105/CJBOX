@@ -18,7 +18,7 @@
       </b-card-text>
 
       <div class="bottom-icon d-flex justify-content-between mx-auto mb-2" >
-        <div>
+        <div @click="addMyList">
             <b-icon icon="heart"  class="loved"></b-icon>
         </div>
         <div>
@@ -52,6 +52,9 @@ export default {
     methods:{
       toDetail() {
         this.$router.push({name:'detail', params:{id: this.movie.id}})
+      },
+      addMyList(){
+        this.$store.dispatch('user/addMyList', this.movie.id)
       }
     }
 }
