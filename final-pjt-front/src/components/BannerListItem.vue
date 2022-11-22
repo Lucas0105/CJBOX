@@ -1,5 +1,5 @@
 <template>
-  <div class="movie" :style="{ backgroundImage: 'url(' + image + ')' }">
+  <div class="movie" :style="{ backgroundImage: 'url(' + image + ')' }" @click="toUrl">
     <div class="content">
     </div>
   </div>
@@ -10,7 +10,14 @@ export default {
     name:'BannerListItem',
     props : [
     'image',
-  ]
+    'id',
+  ],
+  methods: {
+    toUrl() {
+      this.$router.push({name:'detail', params:{id: this.id}})
+      this.$router.go(this.$router.currentRoute)
+    }
+  },
 }
 </script>
 

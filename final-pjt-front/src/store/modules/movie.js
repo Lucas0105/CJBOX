@@ -8,6 +8,7 @@ const state = () => {
       movieDetail:null,
       searchResult:null,
       getReview:null,
+      similarMovie:null,
       genre_list: [
               '액션',
               '모험',
@@ -41,6 +42,9 @@ const state = () => {
     getReview(state){
       return state.getReview
     },
+    getSimilar(state){
+      return state.similarMovie
+    }
 
     
   }
@@ -64,6 +68,9 @@ const state = () => {
       console.log(data)
       state.getReview = data
     },
+    GET_SIMILAR(state, data){
+      state.similarMovie = data
+    }
     
   }
   const actions = {
@@ -109,6 +116,22 @@ const state = () => {
         context.commit('GET_MOVIE_DETAIL', res.data)
       })
       .catch((err)=>{
+        console.log(err)
+      })
+    },
+    getSimilar(context, id){
+      axios({
+        method: 'get',
+        url:`${URL}/movies/similar/${id}/`
+      })
+      .then((res) => {
+        const movies = res.data.map((movie) => {
+          movie.poster_path = 'https://image.tmdb.org/t/p/original'+movie.poster_path
+          return movie
+        })
+        context.commit('GET_SIMILAR', movies)
+      })
+      .catch((err) => {
         console.log(err)
       })
     },

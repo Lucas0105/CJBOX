@@ -5,7 +5,9 @@
     />
     <div style="color:white" title="추후 수정">
       비슷한 영화 추천
-      <BannerList/>
+      <BannerList
+      :movies="similar"
+      />
     </div>
     <TheReview
     :movie="movie"
@@ -41,6 +43,9 @@ export default {
       }, 
       isCreate(){
         return this.$store.getters['user/isCreate']
+      },
+      similar(){
+        return this.$store.getters['movie/getSimilar']
       }
     },
     methods:{ 
@@ -63,12 +68,14 @@ export default {
       this.getMovieDetail()
       this.getReviews()
       this.CheckUpdate()
+      this.$store.dispatch('movie/getSimilar', this.$route.params.id)
     },
     watch:{
       isCreate: {
         handler: 'getReviews'
       }
-    }
+    },
+
 }
 </script>
 

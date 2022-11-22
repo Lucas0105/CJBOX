@@ -4,6 +4,7 @@
     mousewheel
     freeMode
     navigation
+    observer
   >
     <swiper-slide 
     v-for="movie in movies"
@@ -11,6 +12,7 @@
     style="width: 202px">
       <BannerListItem
         :image="movie.poster_path"
+        :id="movie.id"
       />
     </swiper-slide>
     <div class="swiper-button-prev" slot="button-prev"></div>
@@ -20,7 +22,7 @@
 
 <script>
 import BannerListItem from "./BannerListItem";
-import {  Mousewheel, Navigation } from "swiper";
+import {  Mousewheel, Navigation, } from "swiper";
 import { SwiperCore, Swiper, SwiperSlide } from "swiper-vue2";
 
 import "swiper/swiper-bundle.css";
