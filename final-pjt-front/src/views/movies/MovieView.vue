@@ -17,9 +17,9 @@
       <div class="movie-banner">
         <div class="banner-container">
           <p class="fs-1 text-white">추천영화</p>
-          <BannerList/>
+          <BannerList :movies="recommend"/>
           <p class="fs-1 text-white">인기영화</p>
-          <BannerList/>
+          <BannerList :movies="popularMovie"/>
         </div>
       </div>
       <p class="text-center fs-1 text-white mt-5">최신영화</p>
@@ -54,7 +54,6 @@ export default {
         background_id: null,
         background_title: null,
         background_overview: null,
-
       }
     },
     computed:{
@@ -62,24 +61,23 @@ export default {
         return this.$store.state.movie.recentMovieData
       },
       popularMovie(){
-        return this.$store.state.movie.popularMovieData
+        return this.$store.state.user.popularMovieData
       },
+      recommend(){
+        return this.$store.state.user.recommend
+      }
     },
     methods:{
       getRecentMovie(page){
         this.currentPage = page
         return this.$store.dispatch('movie/getRecentMovie', page)
       },
-      getPopularMovie(){
-        return this.$store.dispatch('movie/getPopularMovie')
-      },
       toDetail() {
         this.$router.push({name:'detail', params:{id: this.background_id}})
       }
     },
     created(){
-      this.getRecentMovie()
-      this.getPopularMovie()      
+      this.getRecentMovie()   
 
       const movie = this.$store.state.user.background_movie
       this.background_id = movie.id
@@ -91,10 +89,8 @@ export default {
     beforeCreate(){
       this.$store.dispatch('user/backDrop')
       this.$store.dispatch('user/recommend')
+      this.$store.dispatch('user/getPopularMovie')
     }
-    
-
-
 }
 </script>
 

@@ -15,7 +15,7 @@ const state = () => {
       recommend: null,
       user_review: null,
       reviewUpdateData:null, 
-
+      popularMovieData :null,
     }
   }
   const getters = {
@@ -57,7 +57,13 @@ const state = () => {
     REQUEST_UPDATE(state, data){
       state.reviewUpdateData = data
       console.log(state.reviewUpdateData) 
-    }
+    },
+    RECOMMEND(state, movies){
+      state.recommend = movies.data
+    },
+    GET_POPULAR_MOVIE(state,data){
+      state.popularMovieData = data
+    },
   }
   const actions = {
     signUp(context, payload) {
@@ -196,9 +202,21 @@ const state = () => {
         }
       })
       .then((res) => {
-        console.log(res)
+        context.commit('RECOMMEND', res)
       })
       .catch((err) => {
+        console.log(err)
+      })
+    },
+    getPopularMovie(context){
+      axios({
+        method:'get',
+        url:`${URL}/movies/popular/`
+      })
+      .then((res)=>{
+        context.commit('GET_POPULAR_MOVIE', res.data)
+      })
+      .catch((err)=>{
         console.log(err)
       })
     },

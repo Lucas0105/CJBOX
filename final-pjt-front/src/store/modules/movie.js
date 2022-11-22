@@ -4,7 +4,6 @@ const URL = 'http://127.0.0.1:8000'
 const state = () => {
     return {
       recentMovieData :null,
-      popularMovieData :null,
       genreMovieData:null,
       movieDetail:null,
       searchResult:null,
@@ -47,17 +46,10 @@ const state = () => {
   }
   const mutations = {
     GET_RECENT_MOVIE(state, data){
-      console.log(data)
       state.recentMovieData = data
     },
-    GET_POPULAR_MOVIE(state,data){
-      console.log(data)
-      state.popularMovieData = data
-    },
     GET_GENRE_MOVIE(state, data){
-      console.log(data) 
       state.genreMovieData = data
-
     },
     GET_MOVIE_DETAIL(state, data){
       state.movieDetail = data
@@ -86,18 +78,6 @@ const state = () => {
       })
       .then((res)=>{
         context.commit('GET_RECENT_MOVIE', res.data)
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
-    },
-    getPopularMovie(context){
-      axios({
-        meethod:'get',
-        url:`${URL}/movies/popular/`
-      })
-      .then((res)=>{
-        context.commit('GET_POPULAR_MOVIE', res.data)
       })
       .catch((err)=>{
         console.log(err)

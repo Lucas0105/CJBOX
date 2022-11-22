@@ -1,9 +1,6 @@
 <template>
-  <div class="movie" v-bind:style="{ backgroundImage: 'url(' + image + ')' }">
+  <div class="movie" :style="{ backgroundImage: 'url(' + image + ')' }">
     <div class="content">
-      <h2 class="title">{{ title }}</h2>
-      <p class="description">{{ description }}</p>
-      <p class="duration">{{ duration }}</p>
     </div>
   </div>
 </template>
@@ -13,9 +10,6 @@ export default {
     name:'BannerListItem',
     props : [
     'image',
-    'title',
-    'description',
-    'duration'
   ]
 }
 </script>
