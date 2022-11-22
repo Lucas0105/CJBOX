@@ -9,7 +9,7 @@
         />
       </div>
       <div class="review-list mx-auto">
-          <div v-if="reviews.length===0">
+          <div v-if="reviews?.length===0">
               <p>감상평이 없습니다.</p>
           </div>
           <ReviewListItem

@@ -44,6 +44,9 @@ export default {
       }
     },
     methods:{ 
+      CheckUpdate(){
+        this.$store.commit('user/CHANGE_REVIEW', null)
+      },
       getMovieDetail() {
         return this.$store.dispatch('movie/getMovieDetail', this.$route.params.id)
       },
@@ -59,6 +62,7 @@ export default {
     created(){
       this.getMovieDetail()
       this.getReviews()
+      this.CheckUpdate()
     },
     watch:{
       isCreate: {
