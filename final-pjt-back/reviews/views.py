@@ -78,7 +78,7 @@ def commentCreate(request):
 @api_view(['GET'])
 def commentRead(request, review_id, page):
     review = get_object_or_404(Review, id=review_id)
-    comments = review.comment.all()
+    comments = review.comment.order_by('-created_at').all()
     page_cnt = math.ceil(len(comments) / 5)
     comments = comments[(page-1)*5 : page*5]
 
