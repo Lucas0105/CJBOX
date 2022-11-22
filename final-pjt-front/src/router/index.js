@@ -47,7 +47,6 @@ const routes = [
     component: MyPageView
   },
 
-
 ]
 
 const router = new VueRouter({

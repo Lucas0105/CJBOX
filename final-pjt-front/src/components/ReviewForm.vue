@@ -6,7 +6,7 @@
         유저평점 ☆☆☆☆☆
         </h3>
         <label class="d-flex flex-column">
-          <textarea name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="content"></textarea>
+          <textarea name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="content" class="mx-auto"></textarea>
           <b-button type="submit" class="t-btn mt-3">등록</b-button>
         </label>
 
@@ -23,12 +23,11 @@
           유저평점 ☆☆☆☆☆ 수정
         </h3>
          <label class="d-flex flex-column">
-          <textarea name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="updateContent"></textarea>
+          <textarea name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="updateContent" class="mx-auto"></textarea>
           <b-button type="submit" class="t-btn mt-3">등록</b-button>
         </label>
       </div>
     </form>
-
   </div>
 </template>
 
@@ -41,7 +40,8 @@ export default {
         vote:null,
         updateContent:null,
         updateVote:null,
-        review_id:null
+        review_id:null,
+        
       }
     },
     props:{
@@ -52,8 +52,12 @@ export default {
         return this.$store.getters['user/isLogin']
       }, 
       isupdate(){
+        return this.$store.getters['user/isUpdate']
+      },
+      updateDataChange(){
         return this.$store.getters['user/updateReview']
       }
+
     },
     methods:{
       inputReview() {
@@ -84,9 +88,10 @@ export default {
       
     },
     watch:{
-      isupdate:{
+      updateDataChange:{
         handler:'changeValue'
-      } 
+      },
+
     }
 
 }
@@ -97,9 +102,11 @@ textarea{
   border:none;
   color:aliceblue;
   background-color: #6b778d;
-  width:100%;
+  width:90%;
   resize: none;
   border-radius: 4px;
+  font-size:1.2em;
+  padding:10px;
 }
 textarea:focus{
     outline: 0;
@@ -110,7 +117,7 @@ textarea:focus{
 }
 
 .t-btn{
-  margin-left:90%;
+  margin-left:85%;
   width: 10%;
   margin-right:0%;
   background-color: #ff6768;

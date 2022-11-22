@@ -12,21 +12,23 @@
       <div class=" d-flex flex-column detail-box">
 
         <h3 class="mx-3 mt-3">{{ movie.title}}</h3>
-
-        <div class="d-flex mx-3">
-          <div class="rate d-flex">
-            <div
-            class="star"
-            v-for="index in 5"
-            :key ="index"
-            >
-                <b-icon icon="star-fill"  class="star-fill" v-if="index <= movie.vote_average/2"></b-icon>
-                <b-icon icon="star"  class="star" v-else></b-icon>
-            </div>
+        <div class="rate d-flex mx-3">
+          <div
+          class="star"
+          v-for="index in 5"
+          :key ="index"
+          >
+              <b-icon icon="star-fill"  class="star-fill" v-if="index <= movie.vote_average/2"></b-icon>
+              <b-icon icon="star"  class="star" v-else></b-icon>
           </div>
-          <div v-for="(d_genre, index) in movie.genres" :key="index" >
-            <!-- {{ d_genre }} -->
-            <span>장르{{index+1}}</span>
+        </div>
+        <div class="d-flex">
+          <div v-for="(genre, index) in movie.genres" :key="index" class="mx-3">
+            <router-link :to="{ name: 'genre', params: {category: genre.name} }">
+              <b-button pill variant="dark">
+              <span>{{genre.name}}</span>
+              </b-button>
+            </router-link>
           </div>
         </div>
 
@@ -80,7 +82,7 @@ background-size: 100% 100%;
   width:20%
 }
 .overview{
-  font-size: 14px
+  font-size: 16px
 }
 .star-fill{
     color: #FFD400;

@@ -18,18 +18,7 @@
           :review="review"
           />
       </div>
-      <!-- pagination -->
-      <div class="overflow-auto">
-        <div class="mt-3">
-          <b-pagination
-            v-model="currentPage"
-            pills
-            :total-rows="rows"
-            :per-page="perPage"
-            first-number
-          ></b-pagination>
-        </div>
-      </div>
+      
     </div>
   </div>
 </template>
@@ -42,9 +31,6 @@ export default {
     name:'TheReview',
     data() {
       return{
-        rows:10,
-        currentPage:1,
-        perPage:1
 
       }
     },
@@ -75,10 +61,8 @@ export default {
 
 .review-box{
   width:80%;
-  opacity: 0.8;
+  /* opacity: 0.8; */
 }
 
-ul{
-  justify-content: center;
-}
+
 </style>

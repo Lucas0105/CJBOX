@@ -16,6 +16,8 @@ const state = () => {
       user_review: null,
       reviewUpdateData:null, 
       popularMovieData :null,
+      comments:null,
+      isCommentCreate:null,
     }
   }
   const getters = {
@@ -25,9 +27,19 @@ const state = () => {
     isCreate(state){
       return state.user_review
     },
+    isUpdate(state){
+      return state.reviewUpdateData ? true: false
+    },
     updateReview(state){
       return state.reviewUpdateData
+    },
+    comments(state){
+      return state.comments
+    },
+    isCommentCreate(state){
+      return state.isCommentCreate
     }
+  
   }
   const mutations = {
     SAVE_TOKEN(state, token){
@@ -64,6 +76,12 @@ const state = () => {
     GET_POPULAR_MOVIE(state,data){
       state.popularMovieData = data
     },
+    GET_COMMENT(state, data){
+      state.comments = data
+    },
+    CREATE_COMMENT(state,data){
+      state.isCommentCreate = data
+    }
   }
   const actions = {
     signUp(context, payload) {
@@ -129,7 +147,6 @@ const state = () => {
         console.log(err)
       })
     },
-
     backDrop(context){
       let token;
       if (context.state.token) {
@@ -149,7 +166,6 @@ const state = () => {
         console.log(err)
       })
     },
-
     inputReview(context,payload){
       console.log(payload)
       axios({
@@ -259,8 +275,43 @@ const state = () => {
       .catch((err)=>{
         console.log(err)
       })
+    },
+    inputComment(context, payload){
+      axios({
+        method:'post',
+        url:`${URL}/reviews/comment/`,
+        data:{
+          review_id:payload.review_id,
+          content:payload.content
+        },
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res)=>{
+        console.log(res)
+        context.commit('CREATE_COMMENT', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    getComment(context, payload){
+      const review_id = payload.review_id
+      const page = payload.page
+      axios({
+        method:'get',
+        url:`${URL}/reviews/${review_id}/comment/${page}`
+      })
+      .then((res)=>{
+        console.log(res)
+        context.commit('GET_COMMENT', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
     }
-  }
+  } 
   
   export default {
     namespaced: true,

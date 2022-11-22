@@ -24,10 +24,10 @@
       </div>
     </div>
     <div class="foot d-flex justify-content-between mx-auto" >
-      <div class="comment-box">
-        <div >
+      <div class="comment-box" @click="showModal">
+        <div>
           <b-icon icon="chat-right-dots"  class="message "></b-icon>
-          <span class="s">댓글 0</span>
+          <span class="s">댓글 {{ review.comment_cnt}}</span>
           </div>
       </div>
       <div class="foot-span-box">
@@ -39,18 +39,32 @@
         </span>
       </div>
     </div>
+    
+  
+
+    <ReviewComment
+      @close="closeModal"
+      v-if="isModalVisible"
+      :reviewId="review.id"
+    />
+
   </div>
 </template>
 
 <script>
+import ReviewComment from '@/components/ReviewComment'
 export default {
     name:'ReviewListItem',
     props:{
       review:Object
     },
+    components:{
+      ReviewComment
+    },
     data(){
       return{
         userImage : "http://127.0.0.1:8000"+this.review.user.my_image,
+        isModalVisible: false,
       }
     },
     methods:{
@@ -59,6 +73,12 @@ export default {
       },
       requestUpdate(){
         this.$store.commit('user/REQUEST_UPDATE', this.review)
+      },
+      showModal() {
+        this.isModalVisible = true;
+      },
+      closeModal() {
+        this.isModalVisible = false;
       }
     }
 }
