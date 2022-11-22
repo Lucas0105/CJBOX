@@ -41,7 +41,7 @@ def review(request):
 @api_view(['GET'])
 def reviewRead(request, movie_id, page):
     movie = get_object_or_404(Movie, id=movie_id)
-    reviews = movie.review_set.all()
+    reviews = movie.review_set.order_by('-created_at').all()
     page_cnt = math.ceil(len(reviews) / 5)
     reviews = reviews[(page-1)*5:page*5]
 
