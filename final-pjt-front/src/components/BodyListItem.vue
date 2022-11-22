@@ -1,5 +1,5 @@
 <template>
-  <div class="col-6 col-lg-3 col-xxl-2 movie-card">
+  <div :title="movie.title" class="col-6 col-lg-3 col-xxl-2 movie-card">
        <b-card
         :img-src="movie.poster_path"
         img-alt="Image"
@@ -9,14 +9,14 @@
         class="mb-2 border-0"
         @click="toDetail"
       >
-        <b-card-text >
-          <span :title="movie.title">
-            {{ movie.title | resize }}
-          </span><br>
-          
-        </b-card-text>
-
       </b-card>
+      <b-card-text >
+        <span :title="movie.title">
+          {{ movie.title | resize }}
+        </span><br>
+        
+      </b-card-text>
+
       <div class="bottom-icon d-flex justify-content-between mx-auto mb-2" >
         <div>
             <b-icon icon="heart"  class="loved"></b-icon>
@@ -58,10 +58,15 @@ export default {
 </script>
 
 <style scoped>
-/* .movie-card{
-} */
+
 .card{
   margin:auto !important;
+  --bs-card-bg: none;
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+.card:hover{
+  transform: scale(1.2);
 }
 .card-body{
   background-color: #17223b !important;
@@ -69,6 +74,7 @@ export default {
 .card-text{
   color:aliceblue  !important;
   font-size:15px;
+  margin-bottom: 0;
 }
 .card-img-top{
   height:300px !important;

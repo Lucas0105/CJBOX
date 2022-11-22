@@ -1,6 +1,6 @@
 <template>
-  <div class="movie" :style="{ backgroundImage: 'url(' + image + ')' }" @click="toUrl">
-    <div class="content">
+  <div class="movie" :title="title" :style="{ backgroundImage: 'url(' + image + ')' }" @click="toUrl">
+    <div class="content" >
     </div>
   </div>
 </template>
@@ -11,6 +11,7 @@ export default {
     props : [
     'image',
     'id',
+    'title',
   ],
   methods: {
     toUrl() {
@@ -49,6 +50,12 @@ a {
   background-blend-mode: overlay;
   background-size: contain;
   background-position: center;
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+.movie:hover{
+  transform: scale(1.2);
+  z-index: 100;
 }
 .content {
   padding: 10px;

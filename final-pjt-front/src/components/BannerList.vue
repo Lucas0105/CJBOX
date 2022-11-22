@@ -16,6 +16,7 @@
         <BannerListItem
           :image="movie.poster_path"
           :id="movie.id"
+          :title="movie.title"
         />
       </swiper-slide>
       <div class="swiper-button-prev" slot="button-prev"></div>
