@@ -5,7 +5,10 @@ from accounts.serializers import UserNameSerializer
 
 
 class ReviewListSerializer(serializers.ModelSerializer):
-
+    comment_cnt = serializers.IntegerField(
+        source='comment.count',
+        read_only=True
+    )
     user = UserNameSerializer(read_only = True)
 
     class Meta:
