@@ -60,8 +60,12 @@ export default {
     userimage(){
       if (this.$store.state.user.login_user.my_image){
         const index = this.$store.state.user.login_user.my_image.indexOf("k.kakaocdn.net")
-        let res = 'http://' + this.$store.state.user.login_user.my_image.slice(index,)
-        return res
+
+        if (index === -1){
+          return this.$store.state.user.login_user.my_image
+        } else {
+          return 'http://' + this.$store.state.user.login_user.my_image.slice(index,)
+        }
       } else{
         return null
       }
