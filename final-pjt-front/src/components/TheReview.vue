@@ -1,19 +1,35 @@
 <template>
   <div class="review-page">
     <hr>
-    <h2>영화리뷰</h2>
-    <div class="review-box mx-auto">
-      <h1 style="white">review</h1>
-      <ReviewForm
-      :movie="movie"
-      />
-    </div>
-    <div class="review-list mx-auto">
-      <ReviewListItem
-      v-for="review in reviews"
-      :key="review.id"
-      :review="review"
-      />
+    <h2>감상평</h2>
+    <div class="review-box mx-auto" >
+      <div class="review-form mx-auto">
+        <ReviewForm
+        :movie="movie"
+        />
+      </div>
+      <div class="review-list mx-auto">
+          <div v-if="reviews.length===0">
+              <p>감상평이 없습니다.</p>
+          </div>
+          <ReviewListItem
+          v-for="review in reviews"
+          :key="review.id"
+          :review="review"
+          />
+      </div>
+      <!-- pagination -->
+      <div class="overflow-auto">
+        <div class="mt-3">
+          <b-pagination
+            v-model="currentPage"
+            pills
+            :total-rows="rows"
+            :per-page="perPage"
+            first-number
+          ></b-pagination>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -26,6 +42,9 @@ export default {
     name:'TheReview',
     data() {
       return{
+        rows:10,
+        currentPage:1,
+        perPage:1
 
       }
     },
@@ -56,7 +75,10 @@ export default {
 
 .review-box{
   width:80%;
-  border:solid 1px red;
   opacity: 0.8;
+}
+
+ul{
+  justify-content: center;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-2 movie-card">
+  <div class="col-6 col-lg-3 col-xxl-2 movie-card">
        <b-card
         :img-src="movie.poster_path"
         img-alt="Image"
@@ -19,7 +19,7 @@
       </b-card>
       <div class="bottom-icon d-flex justify-content-between mx-auto mb-2" >
         <div>
-            <small><b-icon icon="heart"  class="loved"></b-icon></small>
+            <b-icon icon="heart"  class="loved"></b-icon>
         </div>
         <div>
           <small> 
@@ -41,8 +41,8 @@ export default {
     },
     filters:{
       resize(value){
-        if(value.length > 15){
-          value = value.slice(0,13) + '...'
+        if(value.length >= 11){
+          value = value.slice(0,7) + '...'
           return value
         }else{
           return value
@@ -68,6 +68,7 @@ export default {
 }
 .card-text{
   color:aliceblue  !important;
+  font-size:15px;
 }
 .card-img-top{
   height:300px !important;

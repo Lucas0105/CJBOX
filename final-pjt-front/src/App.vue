@@ -39,7 +39,7 @@
           </ul>
       </div>
     </nav>
-    <router-view></router-view>
+    <router-view ></router-view>
     </div>
   
 </template>

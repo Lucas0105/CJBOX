@@ -5,8 +5,8 @@
         <input type="text" placeholder="아이디" class="mb-2 mx-auto input-style" v-model="username">
         <input type="text" placeholder="닉네임" class="mb-2 mx-auto input-style" v-model="nickName">
         <input type="text" placeholder="이메일" class="mb-2 mx-auto input-style" v-model="email">
-        <input type="text" placeholder="비밀번호" class="mb-2 mx-auto input-style" v-model="password1">
-        <input type="text" placeholder="비밀번호 확인" class="mb-2 mx-auto input-style" v-model="password2">
+        <input type="password" placeholder="비밀번호" class="mb-2 mx-auto input-style" v-model="password1">
+        <input type="password" placeholder="비밀번호 확인" class="mb-2 mx-auto input-style" v-model="password2">
         <input type="text" placeholder=" 프로필소개" class="mb-2 mx-auto input-style" v-model="intro">
         <div class="d-flex img-box">
           <div class="box" style="border:solid 2px black; background-color:white; opacity:0.5">
