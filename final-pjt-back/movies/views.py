@@ -13,7 +13,7 @@ import os
 @extend_schema(responses=MovieListSerializer)
 @api_view(['GET'])
 def popular(request):
-    movies = Movie.objects.all().order_by('-popularity')[:15]
+    movies = Movie.objects.all().order_by('-popularity')[:30]
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
@@ -62,10 +62,10 @@ def genre(request, genre, page):
 
 def recommendAnonymous():
     index = [i for i in range(100)]
-    movies = Movie.objects.order_by('-vote_average', '-release_date', '-popularity')[:100]
+    movies = Movie.objects.order_by('-popularity', '-release_date', '-vote_average')[:100]
     movie_data = []
 
-    index = random.sample(index, 15)
+    index = random.sample(index, 30)
 
     for i in index:
         movie_data.append(movies[i])
@@ -90,7 +90,7 @@ def recommend(request):
         if len(genres):
             index = random.randrange(0, len(genres))
             genre = genres[index].genre
-            movies = Movie.objects.filter(genres=genre).order_by(random.sample(rand_filter, 1)[0])[:15]
+            movies = Movie.objects.filter(genres=genre).order_by(random.sample(rand_filter, 1)[0])[:30]
             serializer = MovieListSerializer(movies, many=True)
 
         else:
