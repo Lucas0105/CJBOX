@@ -38,6 +38,26 @@ const state = () => {
     },
     isCommentCreate(state){
       return state.isCommentCreate
+    },
+    getBackground_img(state){
+      if (state.background_movie){
+        return state.background_movie.backdrop_path
+      }
+    },
+    getBackground_id(state){
+      if (state.background_movie){
+        return state.background_movie.id
+      }
+    },
+    getBackground_title(state){
+      if (state.background_movie){
+        return state.background_movie.title
+      }
+    },
+    getBackground_overview(state){
+      if (state.background_movie){
+        return state.background_movie.overview
+      }
     }
   
   }

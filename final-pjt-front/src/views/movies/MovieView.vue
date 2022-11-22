@@ -1,12 +1,12 @@
 <template>
   <div class="main-view">  
-    <div id="movie-banner-box" :style="{'background-image': 'url('+backdrop_path+')'}">
+    <div id="movie-banner-box" :style="{'background-image': 'url('+img+')'}">
       <div class="content-container">
         <h1>
-          {{ background_title }}
+          {{ title }}
         </h1>
         <div class="overview_container">
-          {{ background_overview }}
+          {{ overview }}
         </div>
         <button @click="toDetail" class="btn btn-warning mt-3 px-5 py-2">
           <span class="fs-5">더보기</span>
@@ -50,10 +50,6 @@ export default {
       return{
         rows: 100,
         currentPage: 1,
-        backdrop_path: null,
-        background_id: null,
-        background_title: null,
-        background_overview: null,
       }
     },
     computed:{
@@ -65,6 +61,18 @@ export default {
       },
       recommend(){
         return this.$store.state.user.recommend
+      },
+      title(){
+        return this.$store.getters['user/getBackground_title']
+      },
+      img(){
+        return this.$store.getters['user/getBackground_img']
+      },
+      id(){
+        return this.$store.getters['user/getBackground_id']
+      },
+      overview(){
+        return this.$store.getters['user/getBackground_overview']
       }
     },
     methods:{
@@ -73,22 +81,17 @@ export default {
         return this.$store.dispatch('movie/getRecentMovie', page)
       },
       toDetail() {
-        this.$router.push({name:'detail', params:{id: this.background_id}})
+        this.$router.push({name:'detail', params:{id: this.id}})
       }
     },
     created(){
       this.getRecentMovie()   
-      this.$store.dispatch('user/backDrop')
       this.$store.dispatch('user/recommend')
       this.$store.dispatch('user/getPopularMovie')
-    
-      const movie = this.$store.state.user.background_movie
-      this.background_id = movie.id
-      this.backdrop_path = movie.backdrop_path
-      this.background_title = movie.title
-      this.background_overview = movie.overview
-
     },
+    beforeCreate(){
+      this.$store.dispatch('user/backDrop')
+    }
 }
 </script>
 
