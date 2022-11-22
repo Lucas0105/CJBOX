@@ -1,23 +1,28 @@
 <template>
-  <swiper
-    slidesPerView="auto"
-    mousewheel
-    freeMode
-    navigation
-    observer
-  >
-    <swiper-slide 
-    v-for="movie in movies"
-    :key="movie.id"
-    style="width: 202px">
-      <BannerListItem
-        :image="movie.poster_path"
-        :id="movie.id"
-      />
-    </swiper-slide>
-    <div class="swiper-button-prev" slot="button-prev"></div>
-    <div class="swiper-button-next" slot="button-next"></div>
-  </swiper>
+<div>
+  <div v-if="movies">
+    
+    <swiper
+      slidesPerView="auto"
+      mousewheel
+      freeMode
+      navigation
+      observer
+    >
+      <swiper-slide 
+      v-for="movie in movies"
+      :key="movie.id"
+      style="width: 202px">
+        <BannerListItem
+          :image="movie.poster_path"
+          :id="movie.id"
+        />
+      </swiper-slide>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
+  </div>
+</div>
 </template>
 
 <script>

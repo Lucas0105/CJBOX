@@ -78,6 +78,9 @@ export default {
     },
     created(){
       this.getRecentMovie()   
+      this.$store.dispatch('user/backDrop')
+      this.$store.dispatch('user/recommend')
+      this.$store.dispatch('user/getPopularMovie')
 
       const movie = this.$store.state.user.background_movie
       this.background_id = movie.id
@@ -86,11 +89,6 @@ export default {
       this.background_overview = movie.overview
 
     },
-    beforeCreate(){
-      this.$store.dispatch('user/backDrop')
-      this.$store.dispatch('user/recommend')
-      this.$store.dispatch('user/getPopularMovie')
-    }
 }
 </script>
 
