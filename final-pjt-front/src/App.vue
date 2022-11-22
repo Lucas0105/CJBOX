@@ -6,7 +6,7 @@
         <router-link class="navbar-brand" :to="{name:'movies'}"><img src="@/assets/CJBOX_logo2-2.gif" width="60px" alt=""></router-link>
           <ul class="navbar-nav">
             <b-nav-item-dropdown class="mx-2 d-flex" text="장르" style="margin-top:2%"> 
-              <b-dropdown-item v-for="(genre, index) in genres" :key="index"><router-link  :to="{ name: 'genre', params: {category: genre} }" >{{ genre }}</router-link></b-dropdown-item>
+              <b-dropdown-item v-for="(genre, index) in genres" :key="index" @click="toGenre(genre)">{{ genre }}</b-dropdown-item>
             </b-nav-item-dropdown>
             <div class="d-flex">
               <li class="nav-item mx-1 d-flex">
@@ -67,6 +67,10 @@ export default {
   methods:{
     logOut() {
       this.$store.dispatch('user/logOut')
+    },
+    toGenre(genre){
+      console.log('test')
+      this.$router.push({name: 'genre', params: {category: genre}})
     }
   }
 }
