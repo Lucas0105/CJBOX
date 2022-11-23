@@ -122,10 +122,16 @@ def myListShow(request, nickname, page):
     user = get_object_or_404(User, nickname=nickname)
 
     myList = user.my_lists.all()
-
+    page_cnt = math.ceil(len(myList) / 12)
+    myList = myList[(page-1)*12:page*12]
     serializer = MovieListSerializer(myList, many=True)
 
-    return Response(serializer.data)
+    data = {
+        'myList': serializer.data,
+        'page_cnt': page_cnt
+    }
+
+    return Response(data)
 
 
 @extend_schema(responses=ReviewCommentSerializer)
@@ -137,7 +143,7 @@ def review(request, nickname, page):
 
     reviews = user.review_set.all()
     page_cnt = math.ceil(len(reviews) / 3)
-    reviews = user.review_set.all()[(page-1)*3:page*3]
+    reviews = reviews[(page-1)*3:page*3]
 
     serializer = ReviewCommentSerializer(reviews, many=True)
 
