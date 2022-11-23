@@ -84,16 +84,19 @@ export default {
     },
     computed:{
       userImage(){
-        console.log(this.review.user.my_image)
         if (this.review.user.my_image){
           const index = this.review.user.my_image.indexOf("k.kakaocdn.net")
-          if (index === -1){
-            return "http://127.0.0.1:8000" + this.review.user.my_image
-          } else {
+          const naver_index = this.review.user.my_image.indexOf("ssl.pstatic.net")
+          
+          if (index !== -1){
             return 'http://' + this.review.user.my_image.slice(index,)
+          } else if(naver_index !== -1){
+            return 'http://' + this.review.user.my_image.slice(naver_index,)
+          } else {
+            return "http://127.0.0.1:8000" + this.review.user.my_image
           }
-          } else{
-            return null
+        } else{
+          return null
         }
       }
     },
