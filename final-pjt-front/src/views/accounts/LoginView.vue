@@ -9,14 +9,13 @@
         <p>아이디 · 비밀번호 찾기</p>
         <p>회원가입</p>
       </div>
-        <div class="social-container">
-          <div id="naver_id_login" style="display: none;">
+
+        <div id="naver_id_login" style="display: none">
         </div>
-        
-        <!-- <div id="signin_button"></div> -->
-        <img src="@/assets/kakao-icon.png" width="30%" alt="" @click="kakaoLoginBtn">
-        <img src="@/assets/naver-icon.png" width="25%" height="50%" alt="" @click="naverBtn">
-        <img src="@/assets/google_icon.png" width="25%" alt="" @click="googleBtn">
+        <div class="social-container d-flex flex-column align-items-center">
+        <div class="social" id="kakao" @click="kakaoLoginBtn"><img src="@/assets/kakao-icon.png" width="10%" alt="">카카오 로그인</div>
+        <div class="social" id="naver" @click="naverBtn" ><img src="@/assets/naver-icon.png" width="10%" alt="">네이버 로그인</div>        
+        <div ref="googleLoginBtn" />
       </div>
     </form>
   </div>
@@ -54,14 +53,53 @@ export default {
     } else {
       const naver_id_login = new window.naver_id_login(process.env.VUE_APP_NAVER_ID, "http://localhost:8080/accounts/login");
       const state = naver_id_login.getUniqState();
-      naver_id_login.setButton("green", 1, 40); // 버튼 설정
+      naver_id_login.setButton("green", 3, 60); // 버튼 설정
       naver_id_login.setState(state);
       // naver_id_login.setPopup(); // popup 설정을 위한 코드
       naver_id_login.init_naver_id_login();
-    }     
+    }    
+    window.google.accounts.id.initialize({
+        client_id: "141965149329-ru5fo46aq9jstof66os3p745susngarq.apps.googleusercontent.com",
+        callback: this.handleCredentialResponse,
+        auto_select: true
+      })
+    window.google.accounts.id.renderButton(
+      this.$refs.googleLoginBtn, {
+        text: 'Login',
+        size: 'large',
+        width: '400', // max width 400
+        theme: 'outline' // option : filled_black | outline | filled_blue
+      }
+    )
   },
     methods:{
-      
+      //구글 로그인 이후 실행되는 콜백함수(성공)
+      async onSuccess(googleUser) {
+
+        const user_join_type = "g"
+        const googleEmail = googleUser.getBasicProfile().pu
+        console.log(googleEmail)
+
+        const res = await fetch('https://123.121.123.1/api/sns_signup_check', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: `${googleEmail}`,
+            user_join_type: user_join_type
+          }),
+        })
+
+        const data = await res.json();
+        this.checkSnSLogin(data, googleEmail,user_join_type);
+
+      },
+      //구글 로그인 콜백함수 (실패)
+      onFailure(error) {
+        // eslint-disable-next-line
+        console.log(error);
+      },
       logIn(){
         // console.log(this.username, this.password)
         const username = this.username
@@ -82,7 +120,7 @@ export default {
               url: '/v2/user/me',
               success: async function (response) {
                 const payload = {
-                  "username": response.kakao_account.email,
+                  "username": 'kakao' +  response.kakao_account.email,
                   "email":response.kakao_account.email,
                   "nickname": response.properties.nickname,
                   "my_image": response.properties.thumbnail_image,
@@ -96,7 +134,7 @@ export default {
                   data: payload
                 })
                 .then(() => {
-                  thisRef.username = payload['username']
+                  thisRef.username = 'kakao' + payload['username']
                   thisRef.password = payload['password']
                   thisRef.logIn()
                 })
@@ -124,15 +162,14 @@ export default {
           });
         window.google.accounts.id.prompt();
       },
-      handleCredentialResponse (response) {
+      async handleCredentialResponse (response) {
           // decodeJwtResponse() is a custom function defined by you
           // to decode the credential response.
 
           const profile = jwt_decode(response.credential);
           
-          console.log(profile)
           const payload = {
-                  "username": profile.email,
+                  "username": 'google' + profile.email,
                   "nickname": profile.given_name,
                   "my_image": profile.picture,
                   "intro": null,
@@ -144,7 +181,7 @@ export default {
               data: payload
             })
             .then(() => {
-              this.username = profile.email,
+              this.username = 'google' + profile.email,
               this.password = '1111'
               this.logIn()
             })
@@ -226,4 +263,34 @@ input{
   border-radius: 10%;
 }
 
+.social{
+  border-radius: 10px;
+  height: 50px;
+  width: 140%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 5%;
+  font-weight: 800;
+}
+
+#kakao{
+  background-color: #FEE500;
+  padding-right: 5%;
+}
+
+#kakao img{
+  margin: 0;
+}
+
+#naver{
+  background-color: #03C75A;
+  color: white;
+  padding-right: 5%;
+}
+
+#naver img{
+  margin: 0;
+}
 </style>
