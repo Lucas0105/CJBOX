@@ -9,6 +9,7 @@ urlpatterns = [
     path('follow/', views.follow),
     path('myList/', views.myList),
     path('myList/<str:nickname>/<int:page>/', views.myListShow),
+    path('myList/<str:nickname>/', views.myListAll),
     path('reviews/<str:nickname>/<int:page>/', views.review),
     path('<str:nickname>/', views.my_profile),
 ]

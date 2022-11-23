@@ -134,6 +134,23 @@ def myListShow(request, nickname, page):
     return Response(data)
 
 
+@extend_schema(responses=MovieListSerializer)
+@api_view(['GET'])
+def myListAll(request, nickname):
+    User = get_user_model()
+
+    user = get_object_or_404(User, nickname=nickname)
+
+    myList = user.my_lists.all()
+    serializer = MovieListSerializer(myList, many=True)
+
+    data = {
+        'myList': serializer.data,
+    }
+
+    return Response(data)
+
+
 @extend_schema(responses=ReviewCommentSerializer)
 @api_view(['GET'])
 def review(request, nickname, page):
