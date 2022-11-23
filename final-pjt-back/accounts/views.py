@@ -133,8 +133,9 @@ def myList(request):
             likeGenres.count += 1
             likeGenres.save()
 
+    serializer = MovieListSerializer(movie)
 
-    return Response(status=status.HTTP_201_CREATED)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 @extend_schema(responses=MovieListSerializer)
