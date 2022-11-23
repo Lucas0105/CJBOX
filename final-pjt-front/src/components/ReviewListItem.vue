@@ -18,16 +18,20 @@
         <div class="content"><span class="s">{{ review.content}}</span></div>
       </div>
       </div>
-      <div class="d-flex heart-box my-auto love-review">
-        <p class="h3 d-flex my-auto mx-1"><b-icon icon="heart"></b-icon></p>
-        <h5 class="my-auto mx-2"> 0</h5>
+      <div class="d-flex heart-box my-auto love-review" @click="likeReview" v-if="checkLikeUser">
+        <p class="h3 d-flex my-auto mx-1"><b-icon icon="heart-fill" class="loved"></b-icon></p>
+        <h5 class="my-auto mx-2"> {{review.likes.length}}</h5>
+      </div>
+      <div class="d-flex heart-box my-auto love-review" @click="likeReview" else>
+        <p class="h3 d-flex my-auto mx-1"><b-icon icon="heart-fill" class="loved"></b-icon></p>
+        <h5 class="my-auto mx-2"> {{review.likes.length}}</h5>
       </div>
     </div>
     <div class="foot d-flex justify-content-between mx-auto" >
       <div class="comment-box" @click="showModal">
         <div>
           <b-icon icon="chat-right-dots"  class="message "></b-icon>
-          <span class="s">댓글 {{ getCommentCnt }}</span>
+          <span class="s">댓글</span>
           </div>
       </div>
       <div class="foot-span-box" v-if="loginUserName===review.user.nickname">
@@ -67,7 +71,8 @@ export default {
     data(){
       return{
         isModalVisible: false,
-        res_review:null
+        res_review:null,
+        res_like:null,
       }
     },
     methods:{
@@ -98,7 +103,9 @@ export default {
       },
       goToProfile(nickname){
       this.$router.push({name: 'mypage', params: {nickname: nickname}})
-
+      },
+      likeReview(){
+        this.$store.dispatch('user/likeReview', this.review.id)
       }
     },
     computed:{
@@ -132,7 +139,10 @@ export default {
      loginUserName(){
         return this.$store.state.user.login_user.nickname
       },
-      
+      reviewLikeData(){
+        return this.$store.state.user.likeReviewData
+      },
+ 
     }
     
 }
@@ -213,5 +223,9 @@ p{
 
 .message{
   margin-right:5px;
+}
+
+.loved{
+  color: red;
 }
 </style>

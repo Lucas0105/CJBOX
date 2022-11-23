@@ -1,30 +1,22 @@
 <template>
-<div  class="col-6 col-lg-3 col-xxl-2 movie-card image-hover-text-container" >
-    <div class="image-hover-image">
-          <b-img :src="movie.poster_path" fluid alt="Responsive image" @click="goToDetail" style="cursor: pointer"></b-img>
-        <div class="image-hover-text">
-        <div class="image-hover-text-bubble">
-        <span class="image-hover-text-title">Sample</span>
-        This is a sample image
-        </div>
+<div  class="col-6 col-lg-3 col-xxl-2 movie-card" >
+    <b-card :img-src="movie.poster_path" img-alt="Image" img-top @click="goToDetail"> 
+    <b-card-text>
+    {{ movie.title }}
+    <star-rating :rating="movie.vote_average/2" :read-only="true" :increment="0.01" :star-size="16" :show-rating="false"></star-rating><span></span>
+    <!-- ({{movie.vote_count}}) -->
+    </b-card-text>
+    </b-card>
+    <div class="love-box">
+        <small><b-icon icon="heart-fill"  class="loved" @click="addMyList"></b-icon><span class="cnt" @click="addMyList">좋아요 취소</span></small>
     </div>
 </div>
 
-    <!-- <b-card :img-src="movie.poster_path" img-alt="Image" img-top @click="goToDetail">  -->
-    <!-- <b-card-text>
-    {{ movie.title }}
-    <star-rating :rating="movie.vote_average/2" :read-only="true" :increment="0.01" :star-size="16" :show-rating="false"></star-rating><span>({{movie.vote_count}})</span>
-    </b-card-text> -->
-    <!-- </b-card> -->
-    <!-- <div class="love-box">
-        <small><b-icon icon="heart-fill"  class="loved" @click="addMyList"></b-icon><span class="cnt" @click="addMyList">좋아요 취소</span></small>
-    </div> -->
-</div>
 
 </template>
 
 <script>
-// import StarRating from 'vue-star-rating'
+import StarRating from 'vue-star-rating'
 
 export default {
     name:'MyList',
@@ -34,7 +26,7 @@ export default {
         }
     },
     components:{
-    //   StarRating
+      StarRating
     },
     props:{
         movie:Object,

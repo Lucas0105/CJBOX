@@ -23,7 +23,8 @@ const state = () => {
       mylist:null,
       followData:null,
       changeMyList:false,
-      commentDelete:false
+      commentDelete:false,
+      likeReviewData:null,
     }
   }
   const getters = {
@@ -130,6 +131,10 @@ const state = () => {
     },
     ADD_MY_LIST(state){
       state.changeMyList = !state.changeMyList
+    },
+    LIKE_REVIEW(state, data){
+      console.log(data)
+      state.likeReviewData = data
     }
 
   }
@@ -461,7 +466,26 @@ const state = () => {
       })
       .then(()=>{
         // console.log()
-        context.commit('CHANGE_COMMENTS')
+        context.commit('')
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    likeReview(context, review_id){
+      axios({
+        method:'post',
+        url:`${URL}/reviews/like/`,
+        data:{
+          review_id : review_id
+        },
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res)=>{
+        console.log(res.data)
+        context.commit('LIKE_REVIEW', res.data)
       })
       .catch((err)=>{
         console.log(err)
