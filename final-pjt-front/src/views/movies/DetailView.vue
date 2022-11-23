@@ -12,6 +12,8 @@
     <TheReview
     :movie="movie"
     :reviews="reviews"
+    :page="currentPage"
+
     />
     <!-- pagination -->
       <div class="overflow-auto">

@@ -22,7 +22,7 @@ const state = () => {
       userInfo:null,
       mylist:null,
       followData:null,
-      clickmylist : null,
+      changeMyList:false,
     }
   }
   const getters = {
@@ -64,9 +64,12 @@ const state = () => {
         return state.background_movie.overview
       }
     },
-    isClickLoved(state){
-      return state.clickmylist
+    getLoved(state){
+      return state.loved
     },
+    changingMyList(state){
+      return state.changeMyList
+    }
   }
   const mutations = {
     SAVE_TOKEN(state, token){
@@ -77,6 +80,7 @@ const state = () => {
       state.token = null
       state.login_user.nickName = null
       state.login_user.my_image = null
+
     },
     USER_STATE(state, payload){
       console.log(payload)
@@ -114,6 +118,7 @@ const state = () => {
     },
     GET_USER_PROFILE(state,data){
       state.userInfo = data
+      state.followData = data
     },
     GET_MY_LIST(state, data){
       state.mylist = data
@@ -121,8 +126,8 @@ const state = () => {
     FOLLOW(state, data){
       state.followData = data
     },
-    ADD_MY_LIST(state,data){
-      state.clickmylist = data
+    ADD_MY_LIST(state){
+      state.changeMyList = !state.changeMyList
     }
 
   }
@@ -402,7 +407,7 @@ const state = () => {
       })
       .then((res)=>{
         console.log(res)
-        context.commit('ADD_MY_LIST', res.data)
+        context.commit('ADD_MY_LIST')
       })
       .catch((err)=>{
         console.log(err)

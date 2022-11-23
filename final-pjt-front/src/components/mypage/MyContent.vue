@@ -69,6 +69,7 @@ export default {
         perPage:1,
         currentPage2:1,
         nickname : this.$route.params.nickname,
+        
 
       }
     },

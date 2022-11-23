@@ -3,7 +3,7 @@
     <div class="comment-wrapper d-flex justify-content-center align-items- center">
       <div class="comment-container ">
         <header class="d-flex justify-content-end">
-          <b-button class="modal-default-button" @click="$emit('close')">
+          <b-button class="modal-default-button" @click="$emit('close',reviewId)">
             X
           </b-button>
         </header>

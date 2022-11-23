@@ -16,6 +16,7 @@
           v-for="review in reviews"
           :key="review.id"
           :review="review"
+          :page="page"
           />
       </div>
       
@@ -43,7 +44,8 @@ export default {
     },
     props:{
       movie:Object,
-      reviews:Array
+      reviews:Array,
+      page:Number
     },
     methods:{
      

@@ -21,8 +21,8 @@
                   <router-link class="nav-link " :to="{name:'signup'}"><b-icon icon="person-plus" title="회원가입"></b-icon></router-link>
                 </li>
               </div>
-              <div v-else class="d-flex" style="cursor:pointer" title="마이페이지" @click="toMypage">
-                <div class="d-flex" style="margin-right:30px">
+              <div v-else class="d-flex" >
+                <div class="d-flex" style="margin-right:30px;cursor:pointer" title="마이페이지" @click="toMypage">
                   <div class="d-flex img-box">
                     <div class="box" style="background-color:white;   ">
                       <img class="profile" :src="userimage" alt="userImg">

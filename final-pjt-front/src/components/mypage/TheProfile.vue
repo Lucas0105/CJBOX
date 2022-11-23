@@ -26,7 +26,7 @@
       </div>
       <div class="follow mx-auto d-flex flex-column">
         <div><span>Following:</span> {{followData.following_cnt}}</div>
-        <div><span>Followers:</span> {{followData.followed_cnt}}</div>
+        <div><span>Follower:</span> {{followData.followed_cnt}}</div>
       </div>
       <div v-if="loginUserName!==userInfo.user.nickname" class="follow-btn-box d-flex">
         <b-button class="follow-btn mx-auto"  @click="follow" v-if="!followData.is_follow">Follow</b-button>

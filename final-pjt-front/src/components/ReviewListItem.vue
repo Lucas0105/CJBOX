@@ -27,7 +27,7 @@
       <div class="comment-box" @click="showModal">
         <div>
           <b-icon icon="chat-right-dots"  class="message "></b-icon>
-          <span class="s">댓글 {{ review.comment_cnt}}</span>
+          <span class="s">댓글 {{ getCommentCnt }}</span>
           </div>
       </div>
       <div class="foot-span-box">
@@ -51,10 +51,13 @@
 
 <script>
 import ReviewComment from '@/components/ReviewComment'
+import axios from 'axios'
+
 export default {
     name:'ReviewListItem',
     props:{
-      review:Object
+      review:Object,
+      page:Number
     },
     components:{
       ReviewComment
@@ -62,6 +65,7 @@ export default {
     data(){
       return{
         isModalVisible: false,
+        res_review:null
       }
     },
     methods:{
@@ -74,8 +78,21 @@ export default {
       showModal() {
         this.isModalVisible = true;
       },
-      closeModal() {
+      closeModal(id) {
         this.isModalVisible = false;
+
+        axios({
+        method:'get',
+        url:`http://127.0.0.1:8000/reviews/${this.review.movie}/review/${this.page}/`
+      })
+      .then((res)=>{
+        const idx= res.data.reviews.findIndex(review=>review.id === id)
+        this.res_review = res.data.reviews[idx]
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+
       },
       goToProfile(nickname){
       this.$router.push({name: 'mypage', params: {nickname: nickname}})
@@ -98,8 +115,18 @@ export default {
         } else{
           return null
         }
+      },
+      getCommentCnt(){
+      if (this.res_review){
+        
+        return this.res_review.comment_cnt
+      }else{
+        return this.review.comment_cnt
       }
-    },
+     }
+      
+    }
+    
 }
 </script>
 

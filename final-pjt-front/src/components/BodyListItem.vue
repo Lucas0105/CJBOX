@@ -19,18 +19,17 @@
 
       <div class="bottom-icon d-flex justify-content-between mx-auto mb-2" >
         <div @click="addMyList" style="cursor: pointer">
-            <b-icon icon="heart-fill"  class="loved" v-if="isLoved"></b-icon>
+          <div>
+            <b-icon icon="heart-fill" class="loved" v-if="loved"></b-icon>
             <b-icon icon="heart"  class="loved" v-else></b-icon>
-            <span style="color:aliceblue"> {{lovedCnt}}</span>
-            <span style="color:snow">
-            </span>
-            
+            <span style="color:aliceblue"> {{getMovie.like_users.length}}</span>
+          </div>
         </div>
         <div>
           <small> 
             <b-icon icon="star-fill" class="star"></b-icon>
-            <span class="star-text"> {{ movie.vote_average}}</span> 
-            <span> ({{ movie.vote_count }})</span>
+            <span class="star-text"> {{ getMovie.vote_average}}</span> 
+            <span> ({{ getMovie.vote_count }})</span>
           </small>
         </div>
       </div>
@@ -38,12 +37,13 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name:'BodyListItem',
     data(){
       return{
-        lovedCnt : this.movie.like_users.length,
-        isLoved: this.movie.like_users.some(user => user.nickname === this.loginUserName)
+        res_movie: null,
       }
     },
     props:{
@@ -64,16 +64,39 @@ export default {
         this.$router.push({name:'detail', params:{id: this.movie.id}})
       },
       addMyList(){
-        this.$store.dispatch('user/addMyList', this.movie.id)
-        if(this.movie.id === this.$store.getters['user/isClickLoved'].id){
-          console.log(true)
-        }
+        axios({
+          method:'post',
+          url:`http://127.0.0.1:8000/accounts/myList/`,
+          data:{
+            movie_id:this.movie.id
+          },
+          headers:{
+            Authorization : `Token ${this.$store.state.user.token}`
+          }
+        })
+        .then((res)=>{
+          this.res_movie = res.data
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+
       }
     },
     computed:{
       loginUserName(){
         return this.$store.state.user.login_user.nickname
       },
+      loved(){
+        return this.getMovie.like_users.some(user=>user.nickname === this.loginUserName)
+      },
+      getMovie(){
+        if (this.res_movie) {
+          return this.res_movie
+        } else {
+          return this.movie
+        }
+      }
  
     }
   }

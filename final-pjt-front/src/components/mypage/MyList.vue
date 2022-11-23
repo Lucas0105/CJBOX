@@ -7,17 +7,23 @@
     </b-card-text>
     </b-card>
     <div class="love-box">
-        <small><b-icon icon="heart-fill"  class="loved" @click="addMyList"></b-icon><span class="cnt">{{movie.like_users.length}}</span></small>
+        <small><b-icon icon="heart-fill"  class="loved" @click="addMyList"></b-icon><span class="cnt" @click="addMyList">좋아요 취소</span></small>
     </div>
 </div>
 
 </template>
 
 <script>
+
 export default {
     name:'MyList',
+    data(){
+        return{
+            res_mylist :null
+        }
+    },
     props:{
-        movie:Object
+        movie:Object,
     },
     methods:{
       goToDetail(){
@@ -26,7 +32,8 @@ export default {
       addMyList(){
         this.$store.dispatch('user/addMyList', this.movie.id)
       }
-    }
+    },
+
 }
 </script>
 

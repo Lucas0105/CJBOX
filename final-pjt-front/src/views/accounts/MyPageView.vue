@@ -28,7 +28,10 @@ export default {
     computed:{
       userInfo(){
         return this.$store.state.user.userInfo
-      }
+      },
+      changeMyList(){
+            return this.$store.getters['user/changingMyList']
+        }
     },
     methods:{
       getUserTotalReview(){
@@ -57,7 +60,15 @@ export default {
       this.getUserTotalReview()
       this.getUserProfile()
       this.getMyList()
+    },
+    watch:{
+        changeMyList:{
+            handler:'getMyList'
+        }
     }
+
+
+
 }
 </script>
 
