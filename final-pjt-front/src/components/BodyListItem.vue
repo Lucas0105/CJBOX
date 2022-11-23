@@ -26,11 +26,8 @@
           </div>
         </div>
         <div>
-          <small> 
-            <b-icon icon="star-fill" class="star"></b-icon>
-            <span class="star-text"> {{ getMovie.vote_average}}</span> 
+            <star-rating :rating="getMovie.vote_average/2" :read-only="true" :increment="0.01" :star-size="16" :show-rating="false"></star-rating>
             <span> ({{ getMovie.vote_count }})</span>
-          </small>
         </div>
       </div>
   </div>
@@ -38,6 +35,7 @@
 
 <script>
 import axios from 'axios'
+import StarRating from 'vue-star-rating'
 
 export default {
     name:'BodyListItem',
@@ -45,6 +43,9 @@ export default {
       return{
         res_movie: null,
       }
+    },
+    components:{
+      StarRating
     },
     props:{
       movie : Object,

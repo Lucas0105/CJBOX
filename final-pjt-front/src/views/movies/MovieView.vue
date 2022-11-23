@@ -95,7 +95,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .swiper-container{
   height: 40vh !important;
 }

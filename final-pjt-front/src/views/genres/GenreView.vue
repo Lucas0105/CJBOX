@@ -1,10 +1,12 @@
 <template>
   <div class="genre-view">
-    {{ $route.params.category}}
+    <div class="top-category">
+      <h1 style="margin-left:11%">{{ $route.params.category}}</h1>
+    </div>
     <!-- <BannerList/> -->
     <div class="movie-body-box">
       <BodyList
-        :movies="genreMovie.movies"
+        :movies="genreMovie?.movies"
         @current-page="getGenreMovie"
         :rows="genrePage"
         :currentPage="currentPage"
@@ -32,10 +34,10 @@ export default {
     },
     computed:{
       genreMovie(){
-        return this.$store.state.movie.genreMovieData
+        return this.$store.state.movie?.genreMovieData
       },
       genrePage(){
-        return this.$store.state.movie.genreMovieData.page_cnt
+        return this.$store.state.movie.genreMovieData?.page_cnt
       }
     },
     methods:{
@@ -66,6 +68,22 @@ export default {
 
 <style>
 .genre-view{
-  height: 100%;
+background-color: #17223b;
+  position: relative;
+  top: -80px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width : 100%}
+
+.movie-body-box{
+  background-color: #17223b;
+  position: relative;
+  top: -80px;
+}
+.top-category{
+  padding-top:80px;
+  color:aliceblue;
+  width:100%
 }
 </style>

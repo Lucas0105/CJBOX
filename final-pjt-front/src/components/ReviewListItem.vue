@@ -14,7 +14,7 @@
       </div>
       <div class="center-box">
         <p>작성일: {{ review.created_at }}</p>
-        <p>★★★★★</p>
+        <star-rating :rating="review.vote/2" :read-only="true" :increment="0.01" :star-size="20" :show-rating="false"></star-rating>
         <div class="content"><span class="s">{{ review.content}}</span></div>
       </div>
       </div>
@@ -52,6 +52,7 @@
 <script>
 import ReviewComment from '@/components/ReviewComment'
 import axios from 'axios'
+import StarRating from 'vue-star-rating'
 
 export default {
     name:'ReviewListItem',
@@ -60,7 +61,8 @@ export default {
       page:Number
     },
     components:{
-      ReviewComment
+      ReviewComment,
+      StarRating
     },
     data(){
       return{
