@@ -61,7 +61,6 @@ export default {
     },
     data(){
       return{
-        userImage : "http://127.0.0.1:8000"+this.review.user.my_image,
         isModalVisible: false,
       }
     },
@@ -82,7 +81,22 @@ export default {
       this.$router.push({name: 'mypage', params: {nickname: nickname}})
 
       }
-    }
+    },
+    computed:{
+      userImage(){
+        console.log(this.review.user.my_image)
+        if (this.review.user.my_image){
+          const index = this.review.user.my_image.indexOf("k.kakaocdn.net")
+          if (index === -1){
+            return "http://127.0.0.1:8000" + this.review.user.my_image
+          } else {
+            return 'http://' + this.review.user.my_image.slice(index,)
+          }
+          } else{
+            return null
+        }
+      }
+    },
 }
 </script>
 

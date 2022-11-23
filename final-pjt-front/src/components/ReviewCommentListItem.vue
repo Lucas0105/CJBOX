@@ -24,9 +24,24 @@ export default {
     },
     data() {
       return{
-        userImage : "http://127.0.0.1:8000"+this.comment.user.my_image,
       }
-    }
+    },
+    computed:{
+      userImage(){
+        console.log(this.comment.user.my_image)
+        if (this.comment.user.my_image){
+          const index = this.comment.user.my_image.indexOf("k.kakaocdn.net")
+          if (index === -1){
+            return "http://127.0.0.1:8000" + this.comment.user.my_image
+          } else {
+            return 'http://' + this.comment.user.my_image.slice(index,)
+          }
+          } else{
+            return null
+        }
+      }
+    },
+    
 }
 </script>
 
