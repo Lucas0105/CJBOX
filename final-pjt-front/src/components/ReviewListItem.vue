@@ -30,7 +30,7 @@
           <span class="s">댓글 {{ getCommentCnt }}</span>
           </div>
       </div>
-      <div class="foot-span-box">
+      <div class="foot-span-box" v-if="loginUserName===review.user.nickname">
         <span class="s" style="margin-left:5px" @click="requestUpdate">
           수정
         </span>
@@ -128,7 +128,10 @@ export default {
       }else{
         return this.review.comment_cnt
       }
-     }
+     },
+     loginUserName(){
+        return this.$store.state.user.login_user.nickname
+      },
       
     }
     

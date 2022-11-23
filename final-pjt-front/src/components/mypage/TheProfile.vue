@@ -118,7 +118,7 @@ export default {
 }
 
 .intro-out-box{
-  margin-top:14%
+  margin-top:10%
 }
 
 .intro-box{

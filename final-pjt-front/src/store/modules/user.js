@@ -17,12 +17,13 @@ const state = () => {
       reviewUpdateData:null, 
       popularMovieData :null,
       comments:null,
-      isCommentCreate:null,
+      commentChange:true,
       userTotalReview:null,
       userInfo:null,
       mylist:null,
       followData:null,
       changeMyList:false,
+      commentDelete:false
     }
   }
   const getters = {
@@ -42,7 +43,7 @@ const state = () => {
       return state.comments
     },
     isCommentCreate(state){
-      return state.isCommentCreate
+      return state.commentChange
     },
     getBackground_img(state){
       if (state.background_movie){
@@ -69,7 +70,8 @@ const state = () => {
     },
     changingMyList(state){
       return state.changeMyList
-    }
+    },
+
   }
   const mutations = {
     SAVE_TOKEN(state, token){
@@ -110,8 +112,8 @@ const state = () => {
     GET_COMMENT(state, data){
       state.comments = data
     },
-    CREATE_COMMENT(state,data){
-      state.isCommentCreate = data
+    CHANGE_COMMENTS(state){
+      state.commentChange = ! state.commentChange
     },
     GET_USER_REVIEW(state, data){
       state.userTotalReview = data
@@ -335,9 +337,9 @@ const state = () => {
           Authorization : `Token ${context.state.token}`
         }
       })
-      .then((res)=>{
-        console.log(res)
-        context.commit('CREATE_COMMENT', res.data)
+      .then(()=>{
+        console.log()
+        context.commit('CHANGE_COMMENTS')
       })
       .catch((err)=>{
         console.log(err)
@@ -441,6 +443,25 @@ const state = () => {
       .then((res)=>{
         console.log(res)
         context.commit('FOLLOW', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    commentDelete(context, comment_id){
+      axios({
+        method:'delete',
+        url:`${URL}/reviews/comment/delete`,
+        data:{
+          comment_id: comment_id
+        },
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then(()=>{
+        // console.log()
+        context.commit('CHANGE_COMMENTS')
       })
       .catch((err)=>{
         console.log(err)

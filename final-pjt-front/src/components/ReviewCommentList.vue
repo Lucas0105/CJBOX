@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="comment-item my-3">
     <ReviewCommentListItem
     v-for="comment in comments"
     :key="comment.id"
     :comment="comment"
+    class="my-2"
     />
   </div>
 </template>
@@ -21,6 +22,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 
 </style>

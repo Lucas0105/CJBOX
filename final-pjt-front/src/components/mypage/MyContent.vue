@@ -2,16 +2,17 @@
   <div class="my-list mx-auto">
     <div class="list-box">
       <b-card class="list-card" no-body>
-        <b-tabs pills card>
-          <b-tab  title="My List" active><b-card-text>
-            <div class="row">
+        <b-tabs pills card >
+          <b-tab  title="My List" active>
+          <b-card-text class="d-flex flex-column">
+            <div class="row" style="height:80%">
               <MyList
               v-for=" movie in myListData.myList"
               :key="movie.id"
               :movie="movie"
               />
             </div>
-            <div class="overflow-auto">
+            <div style="overflow-auto; margin-top:auto">
               <div class="mt-3">
                 <b-pagination
                   v-model="currentPage2"
@@ -118,21 +119,38 @@ export default {
 }
 
 .list-card{
+  width:100%;
   height: 100%;
   background-color: rgba(0,0,0,0.2);
   color: aliceblue;
   overflow-block: auto;
 }
-
+.tab-content{
+  width:100%;
+  height: 100% !important;
+}
 .card-body{
   padding-bottom:0;
-  height: 90%;
+  height: 100%;
 }
 
 ul{
   justify-content: center;
 
 }
+.tab-content {
+  display: flex;
+}
 
+.tab-content > .tab-pane {
+  display: block; /* undo "display: none;" */
+  visibility: hidden;
+  margin-right: -100%;
+  width: 100%;
+}
+
+.tab-content > .active {
+  visibility: visible;
+}
 
 </style>
