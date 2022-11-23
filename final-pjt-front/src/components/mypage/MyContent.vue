@@ -85,7 +85,7 @@ export default {
     },
     methods:{
       getUserTotalReview(){
-        this.$store.dispatch('user/getUserTotalReview', this.currentPage)
+        this.$store.dispatch('user/getUserTotalReview', this.nickname, this.currentPage)
       },
       getMyList(){
         const nickname = this.nickname
