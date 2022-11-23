@@ -29,7 +29,7 @@ def my_profile(request, nickname):
 
     if request.user.is_authenticated:
         me = request.user
-        if me.friends.filter(user=you).exists():
+        if me.friends.filter(id=you.id).exists():
             is_follow = True
         else:
             is_follow = False
@@ -99,7 +99,7 @@ def follow(request):
     
     if request.user.is_authenticated:
         me = request.user
-        if me.friends.filter(user=you).exists():
+        if me.friends.filter(id=you.id).exists():
             is_follow = True
         else:
             is_follow = False
