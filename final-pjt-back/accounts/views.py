@@ -234,3 +234,16 @@ def naver(request, token):
         return Response(serializer.data)
     else:
         return Response(rescode, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['POST'])
+def google(request):
+    User = get_user_model()
+    data = request.data
+    
+    if not User.objects.filter(username=data['username']).exists():
+        pw = make_password(data['password'])
+        user = User(username=data['username'], nickname=data['nickname'], password=pw, my_image=data['my_image'])
+        user.save()
+
+    return Response(status=status.HTTP_201_CREATED)
