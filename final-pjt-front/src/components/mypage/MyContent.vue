@@ -6,7 +6,7 @@
           <b-tab  title="My List" active><b-card-text>
             <div class="row">
               <MyList
-              v-for=" movie in myListData"
+              v-for=" movie in myListData.myList"
               :key="movie.id"
               :movie="movie"
               />
@@ -16,7 +16,7 @@
                 <b-pagination
                   v-model="currentPage2"
                   pills
-                  :total-rows="reviews.page_cnt"
+                  :total-rows="myListData.page_cnt"
                   :per-page="perPage"
                   first-number
                   @input="getMyList"
@@ -85,7 +85,12 @@ export default {
     },
     methods:{
       getUserTotalReview(){
-        this.$store.dispatch('user/getUserTotalReview', this.nickname, this.currentPage)
+        const nickname =this.nickname
+        const page =this.currentPage
+        const payload={
+          nickname, page
+        }
+        this.$store.dispatch('user/getUserTotalReview',payload )
       },
       getMyList(){
         const nickname = this.nickname
@@ -113,8 +118,9 @@ export default {
 
 .list-card{
   height: 100%;
-  background-color: black;
+  background-color: rgba(0,0,0,0.2);
   color: aliceblue;
+  overflow-block: auto;
 }
 
 .card-body{

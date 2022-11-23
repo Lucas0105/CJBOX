@@ -32,7 +32,12 @@ export default {
     },
     methods:{
       getUserTotalReview(){
-        this.$store.dispatch('user/getUserTotalReview', 1)
+        const nickname =this.nickname
+        const page = 1
+        const payload={
+          nickname, page
+        }
+        this.$store.dispatch('user/getUserTotalReview',payload )
       },
       getUserProfile(){
         this.$store.dispatch('user/getUserProfile', this.nickname)
@@ -63,6 +68,7 @@ export default {
   height:100vh;
   display: flex;
   background-color: #17223b;
+  
 }
 .mypage-wrapper{
   width:90%;

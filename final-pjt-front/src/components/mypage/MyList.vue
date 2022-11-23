@@ -1,14 +1,14 @@
 <template>
-<div  class="col-6 col-lg-3 col-xxl-2 movie-card" @click="goToDetail">
-    <b-card :img-src="movie.poster_path" img-alt="Image" img-top >
+<div  class="col-6 col-lg-3 col-xxl-2 movie-card" >
+    <b-card :img-src="movie.poster_path" img-alt="Image" img-top @click="goToDetail"> 
     <b-card-text>
     {{ movie.title }}
     ★★★★★ {{ movie.vote_average}}({{movie.vote_count}})
     </b-card-text>
-    <template #footer>
-    <small ><b-icon icon="heart-fill"  class="loved"></b-icon><span class="cnt">{{movie.like_users[0]}}</span></small>
-    </template>
-</b-card>
+    </b-card>
+    <div class="love-box">
+        <small><b-icon icon="heart-fill"  class="loved" @click="addMyList"></b-icon><span class="cnt">{{movie.like_users.length}}</span></small>
+    </div>
 </div>
 
 </template>
@@ -22,6 +22,9 @@ export default {
     methods:{
       goToDetail(){
         this.$router.push({name:'detail', params:{id: this.movie.id}})
+      },
+      addMyList(){
+        this.$store.dispatch('user/addMyList', this.movie.id)
       }
     }
 }
@@ -36,9 +39,11 @@ export default {
 }
 .loved{
     color: red;
+    
 }
-.card-footer{
-    border-top:solid 1px #a0a0a0 
+.card-body{
+    padding-bottom:0;
+    border-bottom:solid 1px #a0a0a0 
 }
 .cnt{
     font-weight: bold;
@@ -46,6 +51,8 @@ export default {
 img{
     border-radius:10px
 }
-
+.love-box{
+    cursor: pointer
+}
 
 </style>

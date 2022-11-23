@@ -2,30 +2,36 @@
   <div class="profile-box">
     <div class="background">
     </div>
+    <div>
+
     <div class="d-flex img-box mx-auto">
       <div class="r-box" style="background-color:white;   ">
         <img class="r-profile" :src="userImage" alt="userImg">
       </div>
     </div>
+    </div>
     <div class="d-flex flex-column intro-out-box">
-      <div class="name-box">
+      <div class="name-box mx-auto">
         <h3 style="font-weight:bold">{{userInfo.user.nickname}}</h3>
       </div>
       <div class="intro-box">
-        <div>
           <span>{{userInfo.user.intro}}</span>
+      </div>
+      <div class="d-flex justify-content-evenly mt-4">
+        <div v-for="(genre, index) in userInfo.genres" :key="index">
+          <router-link :to="{ name: 'genre', params: {category: genre.genre.name} }">
+            <small><b-button pill class="genre_btn">{{genre.genre.name}}</b-button></small>
+          </router-link>
         </div>
       </div>
-      <div class="favorit" v-for="(genre, index) in userInfo.genres" :key="index">
-        <small><b-button>{{genre.genre.name}}</b-button></small>
-        
-      </div>
       <div class="follow mx-auto d-flex flex-column">
-        <div><span>Following:</span> {{userInfo.following_cnt}}</div>
-        <div><span>Followers:</span> {{userInfo.followed_cnt}}</div>
+        <div><span>Following:</span> {{followData.following_cnt}}</div>
+        <div><span>Followers:</span> {{followData.followed_cnt}}</div>
       </div>
-        <b-button class="follow-btn mx-auto" v-if="isFollow" @click="follow">Follow</b-button>
-        <b-button class="follow-btn mx-auto" v-else >Following</b-button>
+      <div v-if="loginUserName!==userInfo.user.nickname" class="follow-btn-box d-flex">
+        <b-button class="follow-btn mx-auto"  @click="follow" v-if="!followData.is_follow">Follow</b-button>
+        <b-button class="follow-btn mx-auto"  @click="follow" v-else >UnFollow</b-button>
+      </div>
   </div>
 </div>
 </template>
@@ -38,10 +44,12 @@ export default {
     },
     data(){
       return{
-        isFollow : true
       }
     },
     computed:{
+      loginUserName(){
+        return this.$store.state.user.login_user.nickname
+      },
       userImage(){
         if (this.userInfo.user.my_image){
           const index = this.userInfo.user.my_image.indexOf("k.kakaocdn.net")
@@ -53,7 +61,10 @@ export default {
           } else{
             return null
         }
-      }
+      },
+      followData(){
+        return this.$store.state.user.followData
+      },
     },
     methods:{
       follow(){
@@ -81,9 +92,8 @@ export default {
 }
 .profile-box{
   min-height: 90%;
-  width: 25%;
+  width: 23%;
   color: aliceblue;
-  text-align: center;
   border-radius: 10px;
   background-color: rgba(0,0,0,0.4);
 }
@@ -104,20 +114,41 @@ export default {
 }
 
 .intro-out-box{
-  margin-top:20%
+  margin-top:14%
 }
 
+.intro-box{
+  background-color: rgba(255, 251, 251, 0.9);;
+  min-height: 8vh;
+  border-radius: 4px;
+  color:black;
+  padding:2%;
+  margin:2%;
+}
 .follow{
-  /* margin-top:40% */
+  margin-top:30%
 }
-
+.follow-btn-box{
+  margin-top:15%;
+  width:100%
+}
 .follow-btn{
   width:90%;
   background-color: #ff6768;
-  border:none
+  border:none;
 }
 .follow-btn:hover{
   background-color: #263859;
-
 }
+
+.genre_btn{
+  background-color: rgb(153,50,204);
+  border:none;
+}
+
+.genre_btn:hover{
+  background-color: #263859;
+}
+
+
 </style>

@@ -18,8 +18,13 @@
       </b-card-text>
 
       <div class="bottom-icon d-flex justify-content-between mx-auto mb-2" >
-        <div @click="addMyList">
-            <b-icon icon="heart"  class="loved"></b-icon>
+        <div @click="addMyList" style="cursor: pointer">
+            <b-icon icon="heart-fill"  class="loved" v-if="isLoved"></b-icon>
+            <b-icon icon="heart"  class="loved" v-else></b-icon>
+            <span style="color:aliceblue"> {{lovedCnt}}</span>
+            <span style="color:snow">
+            </span>
+            
         </div>
         <div>
           <small> 
@@ -27,7 +32,6 @@
             <span class="star-text"> {{ movie.vote_average}}</span> 
             <span> ({{ movie.vote_count }})</span>
           </small>
-          
         </div>
       </div>
   </div>
@@ -36,13 +40,19 @@
 <script>
 export default {
     name:'BodyListItem',
+    data(){
+      return{
+        lovedCnt : this.movie.like_users.length,
+        isLoved: this.movie.like_users.some(user => user.nickname === this.loginUserName)
+      }
+    },
     props:{
-      movie : Object
+      movie : Object,
     },
     filters:{
       resize(value){
-        if(value.length >= 11){
-          value = value.slice(0,7) + '...'
+        if(value.length >= 18){
+          value = value.slice(0,17) + '...'
           return value
         }else{
           return value
@@ -55,9 +65,18 @@ export default {
       },
       addMyList(){
         this.$store.dispatch('user/addMyList', this.movie.id)
+        if(this.movie.id === this.$store.getters['user/isClickLoved'].id){
+          console.log(true)
+        }
       }
+    },
+    computed:{
+      loginUserName(){
+        return this.$store.state.user.login_user.nickname
+      },
+ 
     }
-}
+  }
 </script>
 
 <style scoped>
@@ -84,7 +103,7 @@ export default {
 }
 
 .loved{
-  color:gray
+  color:red
 }
 .star, .star-text{
   color:#FFD400

@@ -20,7 +20,9 @@ const state = () => {
       isCommentCreate:null,
       userTotalReview:null,
       userInfo:null,
-      mylist:null
+      mylist:null,
+      followData:null,
+      clickmylist : null,
     }
   }
   const getters = {
@@ -61,8 +63,10 @@ const state = () => {
       if (state.background_movie){
         return state.background_movie.overview
       }
-    }
-  
+    },
+    isClickLoved(state){
+      return state.clickmylist
+    },
   }
   const mutations = {
     SAVE_TOKEN(state, token){
@@ -113,7 +117,14 @@ const state = () => {
     },
     GET_MY_LIST(state, data){
       state.mylist = data
+    },
+    FOLLOW(state, data){
+      state.followData = data
+    },
+    ADD_MY_LIST(state,data){
+      state.clickmylist = data
     }
+
   }
   const actions = {
     signUp(context, payload) {
@@ -343,7 +354,9 @@ const state = () => {
         console.log(err)
       })
     },
-    getUserTotalReview(context, nickname, page){
+    getUserTotalReview(context, payload){
+      const {nickname, page} = payload
+      console.log(payload,'test')
       axios({
         method:'get',
         url:`${URL}/accounts/reviews/${nickname}/${page}/`,
@@ -357,9 +370,16 @@ const state = () => {
       })
     },
     getUserProfile(context, nickname){
+      let token
+      if (context.state.token) {
+        token = `Token ${context.state.token}`
+      }
       axios({
         method:'get',
         url:`${URL}/accounts/${nickname}`,
+        headers:{
+          Authorization : token
+        }
       })
       .then((res)=>{
         console.log(res)
@@ -382,6 +402,7 @@ const state = () => {
       })
       .then((res)=>{
         console.log(res)
+        context.commit('ADD_MY_LIST', res.data)
       })
       .catch((err)=>{
         console.log(err)
@@ -390,7 +411,6 @@ const state = () => {
     getMyList(context, payload){
       const nickname = payload.nickname
       const page = payload.page
-      console.log(page)
       axios({
         method:'get',
         url:`${URL}/accounts/myList/${nickname}/${page}/`,
@@ -416,6 +436,7 @@ const state = () => {
       })
       .then((res)=>{
         console.log(res)
+        context.commit('FOLLOW', res.data)
       })
       .catch((err)=>{
         console.log(err)

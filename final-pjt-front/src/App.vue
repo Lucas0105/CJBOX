@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-
     <nav class="navbar navbar-expand-lg" >
       <div class="container-fluid">
         <router-link class="navbar-brand" :to="{name:'movies'}"><img src="@/assets/CJBOX_logo2-2.gif" width="60px" alt=""></router-link>
@@ -77,17 +76,22 @@ export default {
     },
     toGenre(genre){
       this.$router.push({name: 'genre', params: {category: genre}})
+      this.$router.go(this.$router.currentRoute)
+
     },
     toMypage(){
       const nickname = this.$store.state.user.login_user.nickname 
       this.$router.push({name: 'mypage', params: {nickname: nickname}})
+      this.$router.go(this.$router.currentRoute)
+
     }
   }
 }
 </script>
 <style>
 #app{
-  height:100vh
+  height:100vh;
+
 }
 .navbar{
   background-color: rgba(57, 66, 86, 0.5);
