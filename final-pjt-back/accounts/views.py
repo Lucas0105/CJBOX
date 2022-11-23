@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password
 from movies.models import Movie, UserLikeGenres
+from reviews.models import Review
 from movies.serializers import MovieListSerializer
 from reviews.serializers import ReviewCommentSerializer
 from .serializers import UserLikeGenresSerializer
@@ -135,8 +136,8 @@ def review(request, nickname, page):
     user = get_object_or_404(User, nickname=nickname)
 
     reviews = user.review_set.all()
-    page_cnt = math.ceil(len(reviews) / 5)
-    reviews = user.review_set.all()[(page-1)*5:page*5]
+    page_cnt = math.ceil(len(reviews) / 3)
+    reviews = user.review_set.all()[(page-1)*3:page*3]
 
     serializer = ReviewCommentSerializer(reviews, many=True)
 
