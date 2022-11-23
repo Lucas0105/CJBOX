@@ -105,6 +105,8 @@ def follow(request):
             is_follow = False
 
     data = {
+        'followed_cnt' : you.followed.count(),
+        'following_cnt' : you.friends.count(),
         'is_follow': is_follow
     }
 
