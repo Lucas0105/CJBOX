@@ -36,6 +36,11 @@ const routes = [
     name: 'login',
     component: LoginView
   },
+  // {
+  //   path: '/accounts/naver',
+  //   name: 'naver',
+  //   component: NaverView
+  // },
   {
     path: '/accounts/signup',
     name: 'signup',

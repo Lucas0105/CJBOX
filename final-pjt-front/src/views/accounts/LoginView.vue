@@ -10,13 +10,16 @@
         <p>회원가입</p>
       </div>
       <div class="social-container">
+          <div id="naver_id_login" style="display: none;">
+          </div>
         <img src="@/assets/kakao-icon.png" width="30%" alt="" @click="kakaoLoginBtn">
-        <img src="@/assets/naver-icon.png" width="25%" height="50%" alt="" @click="kakaoLoginBtn">
+        <img src="@/assets/naver-icon.png" width="25%" height="50%" alt="" @click="naver_login">
         <img src="@/assets/google_icon.png" width="25%" alt="" @click="kakaoLoginBtn">
       </div>
     </form>
   </div>
 </template>
+
 <script>
 import axios from 'axios'
 
@@ -29,6 +32,33 @@ export default {
       }
     },  
     computed:{
+
+      },
+  mounted(){
+    const naver_id_login = new window.naver_id_login("r9pwjYMutbZ3f2vjAbo3", "http://localhost:8080/accounts/login");
+
+    if (naver_id_login.getAccessToken()){
+      axios({
+        method:'get',
+        url: `http://127.0.0.1:8000/accounts/naver/${naver_id_login.getAccessToken()}/`,
+      })
+      .then((res) => {
+        console.log(res.data.email)
+        this.username = res.data.username
+        this.password = '1111'
+        this.logIn()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    } else {
+      const naver_id_login = new window.naver_id_login("r9pwjYMutbZ3f2vjAbo3", "http://localhost:8080/accounts/login");
+      const state = naver_id_login.getUniqState();
+      naver_id_login.setButton("green", 1, 40); // 버튼 설정
+      naver_id_login.setState(state);
+      // naver_id_login.setPopup(); // popup 설정을 위한 코드
+      naver_id_login.init_naver_id_login();
+    }
 
   },
     methods:{
@@ -96,6 +126,10 @@ export default {
           },
         })
       },
+      naver_login() {
+        const btnNaverLogin = document.getElementById("naver_id_login").firstChild;
+        btnNaverLogin.click();
+      }
   }
 }
 </script>
@@ -164,6 +198,10 @@ input{
 .social-container img{
   margin: 0 10%;
   cursor: pointer;
+}
+
+.naver_id_login img{
+  border-radius: 10%;
 }
 
 </style>
