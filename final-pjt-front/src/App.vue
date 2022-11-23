@@ -57,11 +57,14 @@ export default {
     userimage(){
       if (this.$store.state.user.login_user.my_image){
         const index = this.$store.state.user.login_user.my_image.indexOf("k.kakaocdn.net")
-
-        if (index === -1){
-          return this.$store.state.user.login_user.my_image
-        } else {
+        const naver_index = this.$store.state.user.login_user.my_image.indexOf("ssl.pstatic.net")
+        
+        if (index !== -1){
           return 'http://' + this.$store.state.user.login_user.my_image.slice(index,)
+        } else if(naver_index !== -1){
+          return 'http://' + this.$store.state.user.login_user.my_image.slice(naver_index,)
+        } else {
+          return this.$store.state.user.login_user.my_image
         }
       } else{
         return null

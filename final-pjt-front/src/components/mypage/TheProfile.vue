@@ -53,13 +53,17 @@ export default {
       userImage(){
         if (this.userInfo.user.my_image){
           const index = this.userInfo.user.my_image.indexOf("k.kakaocdn.net")
-          if (index === -1){
-            return "http://127.0.0.1:8000" + this.userInfo.user.my_image
-          } else {
+          const naver_index = this.userInfo.user.my_image.indexOf("ssl.pstatic.net")
+          
+          if (index !== -1){
             return 'http://' + this.userInfo.user.my_image.slice(index,)
+          } else if(naver_index !== -1){
+            return 'http://' + this.userInfo.user.my_image.slice(naver_index,)
+          } else {
+            return "http://127.0.0.1:8000" + this.userInfo.user.my_image
           }
-          } else{
-            return null
+        } else{
+          return null
         }
       },
       followData(){

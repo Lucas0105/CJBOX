@@ -7,13 +7,13 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password
 from movies.models import Movie, UserLikeGenres
-from reviews.models import Review
 from movies.serializers import MovieListSerializer
 from reviews.serializers import ReviewCommentSerializer
 from .serializers import UserLikeGenresSerializer
 import random
 import math
-
+import urllib.request
+import json
 
 @extend_schema(responses=UserSerializer)
 @api_view(['GET'])
@@ -209,3 +209,28 @@ def kakao(request):
     return Response(status=status.HTTP_201_CREATED)
     
 
+@api_view(['GET'])
+def naver(request, token):
+    header = "Bearer " + token # Bearer 다음에 공백 추가
+    url = "https://openapi.naver.com/v1/nid/me"
+    request = urllib.request.Request(url)
+    request.add_header("Authorization", header)
+    response = urllib.request.urlopen(request)
+    rescode = response.getcode()
+    if(rescode==200):
+        User = get_user_model()
+        response_body = response.read()
+        response = json.loads(response_body.decode('utf-8'))
+        response = response['response']
+        if not User.objects.filter(username=response['email']).exists():
+            pw = make_password('1111')
+            user = User(username=response['email'], nickname=response['nickname'], password=pw, my_image=response['profile_image'])
+            user.save()
+            serializer = UserSerializer(user)
+        else :
+            user = get_object_or_404(User, username=response['email'])
+            serializer = UserSerializer(user)
+
+        return Response(serializer.data)
+    else:
+        return Response(rescode, status=status.HTTP_401_UNAUTHORIZED)
