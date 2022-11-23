@@ -129,8 +129,10 @@ def myListShow(request, nickname, page):
 
 @extend_schema(responses=ReviewCommentSerializer)
 @api_view(['GET'])
-def review(request, page):
-    user = request.user
+def review(request, nickname, page):
+    User = get_user_model()
+
+    user = get_object_or_404(User, nickname=nickname)
 
     reviews = user.review_set.all()
     page_cnt = math.ceil(len(reviews) / 5)
