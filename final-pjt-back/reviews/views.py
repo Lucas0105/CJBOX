@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
 from movies.models import Movie
-from .models import Review
+from .models import Review, Comment
 from django.shortcuts import get_object_or_404
 from .serializers import ReviewListSerializer, CommentSerializer
 import math
@@ -92,5 +92,12 @@ def commentRead(request, review_id, page):
     return Response(data)
 
 
+@api_view(['DELETE'])
+def commentDelete(request):
+    comment = get_object_or_404(Comment, id=request.data.get('comment_id'))
 
-
+    if comment.user == request.user:
+        comment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
