@@ -17,14 +17,15 @@
         </div>
       </div>
       <div class="favorit" v-for="(genre, index) in userInfo.genres" :key="index">
-        <small><b-button>{{genre}}</b-button></small>
+        <small><b-button>{{genre.genre.name}}</b-button></small>
         
       </div>
       <div class="follow mx-auto d-flex flex-column">
         <div><span>Following:</span> {{userInfo.following_cnt}}</div>
         <div><span>Followers:</span> {{userInfo.followed_cnt}}</div>
       </div>
-        <b-button class="follow-btn mx-auto">Follow</b-button>
+        <b-button class="follow-btn mx-auto" v-if="isFollow" @click="follow">Follow</b-button>
+        <b-button class="follow-btn mx-auto" v-else >Following</b-button>
   </div>
 </div>
 </template>
@@ -38,6 +39,12 @@ export default {
     data(){
       return{
         userImage : "http://127.0.0.1:8000"+this.userInfo.user.my_image,
+        isFollow : true
+      }
+    },
+    methods:{
+      follow(){
+        this.$store.dispatch('user/follow', this.userInfo.user.nickname)
       }
     }
 }

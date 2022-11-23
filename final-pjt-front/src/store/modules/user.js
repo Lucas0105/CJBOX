@@ -411,6 +411,24 @@ const state = () => {
       .catch((err)=>{
         console.log(err)
       })
+    },
+    follow(context, nickname){
+      axios({
+        method:'post',
+        url:`${URL}/accounts/follow/`,
+        data:{
+          nickname:nickname
+        },
+        headers:{
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
     }
   } 
   
