@@ -1,11 +1,8 @@
 <template>
   <div class="genre-view">
     {{ $route.params.category}}
-    <h1>genre</h1>
-    <p>추천영화</p>
     <!-- <BannerList/> -->
     <div class="movie-body-box">
-      <p>인기영화</p>
       <BodyList
         :movies="genreMovie.movies"
         @current-page="getGenreMovie"
