@@ -43,13 +43,12 @@ export default {
     },
     computed:{
       userImage(){
-        console.log(this.userInfo.user.my_image)
         if (this.userInfo.user.my_image){
-          const index = this.$store.state.user.login_user.my_image.indexOf("k.kakaocdn.net")
+          const index = this.userInfo.user.my_image.indexOf("k.kakaocdn.net")
           if (index === -1){
-            return this.$store.state.user.login_user.my_image
+            return "http://127.0.0.1:8000" + this.userInfo.user.my_image
           } else {
-            return 'http://' + this.$store.state.user.login_user.my_image.slice(index,)
+            return 'http://' + this.userInfo.user.my_image.slice(index,)
           }
           } else{
             return null

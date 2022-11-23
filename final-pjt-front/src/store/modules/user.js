@@ -343,13 +343,10 @@ const state = () => {
         console.log(err)
       })
     },
-    getUserTotalReview(context, page){
+    getUserTotalReview(context, nickname, page){
       axios({
         method:'get',
-        url:`${URL}/accounts/reviews/${page}`,
-        headers:{
-          Authorization : `Token ${context.state.token}`
-        }
+        url:`${URL}/accounts/reviews/${nickname}/${page}/`,
       })
       .then((res)=>{
         console.log(res)
@@ -363,9 +360,6 @@ const state = () => {
       axios({
         method:'get',
         url:`${URL}/accounts/${nickname}`,
-        headers:{
-          Authorization : `Token ${context.state.token}`
-        }
       })
       .then((res)=>{
         console.log(res)
@@ -400,9 +394,6 @@ const state = () => {
       axios({
         method:'get',
         url:`${URL}/accounts/myList/${nickname}/${page}/`,
-        headers:{
-          Authorization : `Token ${context.state.token}`
-        }
       })
       .then((res)=>{
         console.log(res)
