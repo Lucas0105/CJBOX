@@ -5,6 +5,7 @@ from drf_spectacular.utils import extend_schema
 from movies.models import Movie
 from .models import Review, Comment
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
 from .serializers import ReviewListSerializer, CommentSerializer
 import math
 
@@ -35,6 +36,29 @@ def review(request):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        
+@api_view(['POST'])
+def like(request):
+
+    if request.user.is_authenticated:
+        me = request.user
+        review = get_object_or_404(Review, id=request.data.get('review_id'))
+        if me != review.user:
+            if review.likes.filter(id=me.id).exists():
+                review.likes.remove(me)
+                can_review = True
+            else :
+                review.likes.add(me)
+                can_review = False
+
+            data = {
+                'like_cnt' : review.likes.count(),
+                'can_review': can_review
+            }
+
+            return Response(data, status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 @extend_schema(responses=ReviewListSerializer)

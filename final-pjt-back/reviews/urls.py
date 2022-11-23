@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.review),
+    path('like/', views.like),
     path('comment/', views.commentCreate),
     path('comment/delete/', views.commentDelete),
     path('<int:review_id>/', views.detail),

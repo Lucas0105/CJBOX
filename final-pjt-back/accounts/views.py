@@ -247,3 +247,40 @@ def google(request):
         user.save()
 
     return Response(status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+def followings(request, nickname, page):
+    User = get_user_model()
+    user = get_object_or_404(User, nickname=nickname)
+
+    followings = user.friends.all()
+    page_cnt = math.ceil(len(followings) / 6)
+    followings = followings[(page-1)*6:page*6]
+
+    followings_serializer = UserSerializer(followings, many=True)
+
+    data = {
+        'followings': followings_serializer.data,
+        'page_cnt': page_cnt,
+    }
+
+    return Response(data)
+
+
+@api_view(['GET'])
+def followers(request, nickname, page):
+    User = get_user_model()
+    user = get_object_or_404(User, nickname=nickname)
+
+    followers = user.followed.all()
+    page_cnt = math.ceil(len(followers) / 6)
+    followers = followers[(page-1)*6:page*6]
+
+    followers_serializer = UserSerializer(followers, many=True)
+    data = {
+        'followers': followers_serializer.data,
+        'page_cnt': page_cnt,
+    }
+
+    return Response(data)

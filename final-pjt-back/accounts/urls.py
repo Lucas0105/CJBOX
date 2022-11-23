@@ -14,4 +14,6 @@ urlpatterns = [
     path('myList/<str:nickname>/', views.myListAll),
     path('reviews/<str:nickname>/<int:page>/', views.review),
     path('<str:nickname>/', views.my_profile),
+    path('<str:nickname>/followings/<int:page>/', views.followings),
+    path('<str:nickname>/followers/<int:page>/', views.followers),
 ]
