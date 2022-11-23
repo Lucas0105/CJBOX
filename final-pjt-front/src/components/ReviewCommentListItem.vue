@@ -31,11 +31,14 @@ export default {
         if (this.comment.user.my_image){
           const index = this.comment.user.my_image.indexOf("k.kakaocdn.net")
           const naver_index = this.comment.user.my_image.indexOf("ssl.pstatic.net")
-          
+          const google_index = this.comment.user.my_image.indexOf("lh3.googleusercontent.com")
+
           if (index !== -1){
             return 'http://' + this.comment.user.my_image.slice(index,)
           } else if(naver_index !== -1){
             return 'http://' + this.comment.user.my_image.slice(naver_index,)
+          } else if(google_index !== -1){
+            return 'https://' + this.comment.user.my_image.slice(google_index,)
           } else {
             return "http://127.0.0.1:8000" + this.comment.user.my_image
           }

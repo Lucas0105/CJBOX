@@ -51,7 +51,6 @@ export default {
         console.log(err)
       })
     } else {
-      const naver_id_login = new window.naver_id_login(process.env.VUE_APP_NAVER_ID, "http://localhost:8080/accounts/login");
       const state = naver_id_login.getUniqState();
       naver_id_login.setButton("green", 3, 60); // 버튼 설정
       naver_id_login.setState(state);
@@ -59,13 +58,13 @@ export default {
       naver_id_login.init_naver_id_login();
     }    
     window.google.accounts.id.initialize({
-        client_id: "141965149329-ru5fo46aq9jstof66os3p745susngarq.apps.googleusercontent.com",
+        client_id: process.env.VUE_APP_GOOGLE_ID,
         callback: this.handleCredentialResponse,
         auto_select: true
       })
     window.google.accounts.id.renderButton(
       this.$refs.googleLoginBtn, {
-        text: 'Login',
+        text: 'signup_with',
         size: 'large',
         width: '400', // max width 400
         theme: 'outline' // option : filled_black | outline | filled_blue
@@ -153,14 +152,6 @@ export default {
       naverBtn() {
         const btnNaverLogin = document.getElementById("naver_id_login").firstChild;
         btnNaverLogin.click();
-      },
-      googleBtn(){
-        console.log(window.google.accounts.id)
-        window.google.accounts.id.initialize({
-              client_id: "141965149329-ru5fo46aq9jstof66os3p745susngarq.apps.googleusercontent.com",
-              callback: this.handleCredentialResponse
-          });
-        window.google.accounts.id.prompt();
       },
       async handleCredentialResponse (response) {
           // decodeJwtResponse() is a custom function defined by you
