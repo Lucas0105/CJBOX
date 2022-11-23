@@ -2,9 +2,10 @@
   <div class="review-list">
     <form @submit.prevent="inputReview" class="review-form" v-if="!isupdate">
       <div v-if="isLogin">
-        <h3>
-        유저평점 ☆☆☆☆☆
-        </h3>
+        <div style="d-flex ">
+         <star-rating :increment="0.5" v-model="rating"  :show-rating="false" ></star-rating>
+        </div>
+        
         <label class="d-flex flex-column">
           <textarea name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="content" class="mx-auto"></textarea>
           <b-button type="submit" class="t-btn mt-3">등록</b-button>
@@ -20,7 +21,8 @@
     <form v-else @submit.prevent="updateReview">
       <div>
         <h3>
-          유저평점 ☆☆☆☆☆ 수정
+            <h2>Half Stars</h2>
+            <star-rating :increment="0.5"></star-rating>
         </h3>
          <label class="d-flex flex-column">
           <textarea name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="updateContent" class="mx-auto"></textarea>
@@ -32,6 +34,8 @@
 </template>
 
 <script>
+import StarRating from 'vue-star-rating'
+
 export default {
     name:'ReviewForm',
     data() {
@@ -41,8 +45,12 @@ export default {
         updateContent:null,
         updateVote:null,
         review_id:null,
-        
+        rating: 0,
+
       }
+    },
+    components:{
+      StarRating
     },
     props:{
       movie:Object
@@ -63,11 +71,20 @@ export default {
       inputReview() {
         const movie_id = this.movie.id
         const content = this.content
+        const vote = this.rating * 2
         const payload ={
-          movie_id,content
+          movie_id,content,vote
         }
-        this.$store.dispatch('user/inputReview', payload)
-        this.content = null
+        if (content === null){
+          alert('리뷰를 입력해주세요')
+        } else if(!vote){
+          alert('평점을 입력해 주세요')
+        } else{
+          this.$store.dispatch('user/inputReview', payload)
+          this.content = null
+          this.rating = 0
+        }
+
       },
       updateReview(){
         const content = this.updateContent
@@ -78,13 +95,13 @@ export default {
         this.$store.dispatch('user/updateReview', payload)
         this.updateContent = null
       },
-      changeValue(){
+        changeValue(){
         if (this.$store.getters['user/updateReview']){
           this.updateContent = this.$store.getters['user/updateReview'].content
           this.review_id = this.$store.getters['user/updateReview'].id
           this.updateVote = this.$store.getters['user/updateReview'].vote
         }
-      }
+      },
       
     },
     watch:{
@@ -126,5 +143,20 @@ textarea:focus{
 }
 .btn:hover{
   background-color: #6b778d !important;
+}
+
+.custom-text {
+  font-weight: bold;
+  font-size: 1.9em;
+  border: 1px solid #cfcfcf;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  color: #999;
+  background: #fff;
+}
+
+.vue-star-rating{
+  justify-content: center;
 }
 </style>

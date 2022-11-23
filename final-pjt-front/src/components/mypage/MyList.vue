@@ -3,7 +3,7 @@
     <b-card :img-src="movie.poster_path" img-alt="Image" img-top @click="goToDetail"> 
     <b-card-text>
     {{ movie.title }}
-    ★★★★★ {{ movie.vote_average}}({{movie.vote_count}})
+    <star-rating :rating="movie.vote_average/2" :read-only="true" :increment="0.01" :star-size="16" :show-rating="false"></star-rating><span>({{movie.vote_count}})</span>
     </b-card-text>
     </b-card>
     <div class="love-box">
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import StarRating from 'vue-star-rating'
 
 export default {
     name:'MyList',
@@ -21,6 +22,9 @@ export default {
         return{
             res_mylist :null
         }
+    },
+    components:{
+      StarRating
     },
     props:{
         movie:Object,
@@ -38,6 +42,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .card{
    margin:auto !important;
   --bs-card-bg: none;

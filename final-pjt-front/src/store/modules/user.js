@@ -215,14 +215,13 @@ const state = () => {
       })
     },
     inputReview(context,payload){
-      console.log(payload)
       axios({
         method:'post',
         url:`${URL}/reviews/`,
         data:{
           content:payload.content,
           movie_id:payload.movie_id,
-          vote:4,
+          vote:payload.vote,
         },
         headers:{
           Authorization : `Token ${context.state.token}`

@@ -6,7 +6,7 @@
     </div>
 
     <div>
-      <p>★★★★  {{review.vote}}</p>
+      <star-rating :rating="review.vote/2" :read-only="true" :increment="0.01" :star-size="20" :show-rating="false"></star-rating>
       <p>
         {{ review.created_at}}
       </p>
@@ -18,8 +18,13 @@
 </template>
 
 <script>
+import StarRating from 'vue-star-rating'
+
 export default {
     name:'MyReviewList',
+    components:{
+      StarRating
+    },
     props:{
       review:Object
     },
