@@ -19,17 +19,27 @@ import math
 @api_view(['GET'])
 def my_profile(request, nickname):
     User = get_user_model()
-    user = get_object_or_404(User, nickname=nickname)
-    serializer = UserSerializer(user)
-    genres = UserLikeGenres.objects.filter(user=user).all().order_by('-count')[:5]
+    you = get_object_or_404(User, nickname=nickname)
+    serializer = UserSerializer(you)
+    genres = UserLikeGenres.objects.filter(user=you).all().order_by('-count')[:5]
     
     genre_serializer = UserLikeGenresSerializer(genres, many=True)
+
+    is_follow = ''
+
+    if request.user.is_authenticated:
+        me = request.user
+        if me.friends.filter(user=you).exists():
+            is_follow = True
+        else:
+            is_follow = False
 
     data = {
         'user' : serializer.data,
         'genres': genre_serializer.data,
-        'followed_cnt' : user.followed.count(),
-        'following_cnt' : user.friends.count(),
+        'followed_cnt' : you.followed.count(),
+        'following_cnt' : you.friends.count(),
+        'is_follow' : is_follow,
     }
 
     return Response(data)
@@ -87,7 +97,18 @@ def follow(request):
         else :
             me.friends.add(you)
     
-    return Response(status=status.HTTP_201_CREATED)
+    if request.user.is_authenticated:
+        me = request.user
+        if me.friends.filter(user=you).exists():
+            is_follow = True
+        else:
+            is_follow = False
+
+    data = {
+        'is_follow': is_follow
+    }
+
+    return Response(data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['POST'])
