@@ -2,11 +2,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
-from movies.models import Movie
-from .models import Review, Comment
 from django.shortcuts import get_object_or_404
-from django.contrib.auth import get_user_model
 from .serializers import ReviewListSerializer, CommentSerializer
+from .models import Review, Comment
+from movies.models import Movie
+from .sentiment.sentiment import sentiment_predict
 import math
 
 
@@ -17,8 +17,10 @@ def review(request):
         movie = get_object_or_404(Movie, id=request.data.get('movie_id'))
         user = request.user
         serializer = ReviewListSerializer(data=request.data)
+        sentiment = sentiment_predict(request.data['content'])
+
         if serializer.is_valid(raise_exception=True):
-            serializer.save(movie=movie, user=user)
+            serializer.save(movie=movie, user=user, sentiment=sentiment)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     elif request.method == 'PUT':
@@ -125,3 +127,5 @@ def commentDelete(request):
         return Response(status=status.HTTP_204_NO_CONTENT)
     else:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+

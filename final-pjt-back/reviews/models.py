@@ -9,6 +9,7 @@ class Review(models.Model):
     content = models.TextField()
     vote = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    sentiment = models.IntegerField()
 
 
 class Comment(models.Model):
