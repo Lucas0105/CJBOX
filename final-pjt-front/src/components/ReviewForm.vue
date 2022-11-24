@@ -4,6 +4,7 @@
       <div v-if="isLogin">
 
         <h4>나의 관람평</h4>
+          <h1 v-if="isLoading">test</h1>
         <div>
           <div class="my-3">
           <star-rating :increment="0.5" v-model="rating"  :show-rating="false" ></star-rating>
@@ -34,11 +35,18 @@
         </label>
       </div>
     </form>
+    <h1 v-if="isLoading">테스트 중입니다.</h1>
+    <ReviewComment
+      @close="closeModal"
+      v-if="isLoading"
+      :reviewId="review.id"
+    />
   </div>
 </template>
 
 <script>
 import StarRating from 'vue-star-rating'
+import ReviewComment from '@/components/ReviewComment'
 
 export default {
     name:'ReviewForm',
@@ -50,11 +58,12 @@ export default {
         review_id:null,
         rating: 0,
         updaterating: 0,
-
+        isLoading: false,
       }
     },
     components:{
-      StarRating
+      StarRating,
+      ReviewComment,
     },
     props:{
       movie:Object
@@ -68,8 +77,10 @@ export default {
       },
       updateDataChange(){
         return this.$store.getters['user/updateReview']
+      },
+      reviewLoading(){
+        return this.$store.getters['user/isReviewLoading']
       }
-
     },
     methods:{
       inputReview() {
@@ -85,6 +96,7 @@ export default {
           alert('평점을 입력해 주세요')
         } else{
           this.$store.dispatch('user/inputReview', payload)
+          this.$store.state.user.reviewLoading = true
           this.content = null
           this.rating = 0
         }
@@ -102,22 +114,41 @@ export default {
         this.updateContent = null
         this.updaterating = null
       },
-        changeValue(){
-        if (this.$store.getters['user/updateReview']){
-          this.updateContent = this.$store.getters['user/updateReview'].content
-          this.review_id = this.$store.getters['user/updateReview'].id
-          this.updaterating = this.$store.getters['user/updateReview'].vote
-        }
-      },
+      changeValue(){
+      if (this.$store.getters['user/updateReview']){
+        this.updateContent = this.$store.getters['user/updateReview'].content
+        this.review_id = this.$store.getters['user/updateReview'].id
+        this.updaterating = this.$store.getters['user/updateReview'].vote
+      }
+    },
+    changeLoading(){
+      this.isLoading = !this.isLoading
+    },
+    openModal() {
+      this.modal = true
+    },
+    closeModal() {
+      this.modal = false
+    },
+    doSend() {
+      if (this.message.length > 0) {
+        alert(this.message)
+        this.message = ''
+        this.closeModal()
+      } else {
+        alert('메시지를 입력해주세요.')
+      }
+    }
       
     },
     watch:{
       updateDataChange:{
         handler:'changeValue'
       },
-
-    }
-
+      reviewLoading(){
+        
+      }
+    },
 }
 </script>
 

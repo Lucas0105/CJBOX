@@ -25,6 +25,7 @@ const state = () => {
       changeMyList:false,
       commentDelete:false,
       likeReviewData:null,
+      reviewLoading: false,
     }
   }
   const getters = {
@@ -36,6 +37,9 @@ const state = () => {
     },
     isUpdate(state){
       return state.reviewUpdateData ? true: false
+    },
+    isReviewLoading(state){
+      return state.reviewLoading
     },
     updateReview(state){
       return state.reviewUpdateData
@@ -98,6 +102,7 @@ const state = () => {
     },
     CHANGE_REVIEW(state, data){
       state.user_review = data
+      state.reviewLoading = false
       state.reviewUpdateData = null
     },
     REQUEST_UPDATE(state, data){
