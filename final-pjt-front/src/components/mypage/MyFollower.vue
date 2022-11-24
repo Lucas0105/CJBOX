@@ -1,11 +1,21 @@
 <template>
-  <div class="col-6" style="border:solid 1px red">
-    <div class="d-flex" style="border:solid 1px yellow">    
-    {{ follower.nickname }}
-    {{ follower.intro }}
-    <img :src="userImage" alt="">
+  <div class="col-6 h-100 mb-4" style=" ">
+    <div class="d-flex" style="background-color:snow;  border-radius:10px; width:100%; height:7em;   color:black">
+        <div class="d-flex img-box mx-auto" style="width:30%">
+            <div class="r-box mx-auto my-auto">
+                <img class="r-profile" :src="userImage" alt="userImg">
+            </div>
+        </div>
+        <div class="d-flex flex-column my-auto" style="color:black; width:80%; height:auto">
+                <h4>
+                    {{ follower.nickname }}
+                </h4>
+                <div class="p-2" style="background-color:#E2E2E2; width:80%; height:3em; border-radius:10px" >
+                   <span>{{ follower.intro }}</span>
+                </div>
+        </div>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -34,7 +44,7 @@ export default {
           return null
         }
       }
-    }
+    },
 }
 </script>
 
