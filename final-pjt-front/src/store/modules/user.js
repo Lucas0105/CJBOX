@@ -316,7 +316,7 @@ const state = () => {
         data:{
           review_id: payload.review_id,
           content: payload.content,
-          vote : 4
+          vote : payload.vote
         },
         headers:{
           Authorization : `Token ${context.state.token}`
@@ -485,7 +485,7 @@ const state = () => {
       })
       .then((res)=>{
         console.log(res.data)
-        context.commit('LIKE_REVIEW', res.data)
+        context.commit('CHANGE_REVIEW', res.data)
       })
       .catch((err)=>{
         console.log(err)

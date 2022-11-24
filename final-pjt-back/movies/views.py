@@ -58,8 +58,6 @@ def detail(request, id):
         'reviews_avg': reviews_avg,
     }
 
-    print(data)
-
     return Response(data)
 
 

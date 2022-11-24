@@ -2,8 +2,7 @@
   <div class="profile-box">
     <div class="background">
     </div>
-    <div>
-
+    <div class="w-100">
     <div class="d-flex img-box mx-auto">
       <div class="r-box" style="background-color:white;   ">
         <img class="r-profile" :src="userImage" alt="userImg">
@@ -93,6 +92,7 @@ export default {
   position: absolute;
   top:32%;
   left:12%;
+  
 }
 .profile-box{
   min-height: 90%;
@@ -111,8 +111,8 @@ export default {
 
 .r-profile{
   position: relative;
-  width: 7em;
-  height: 7em;
+  width: 7rem;
+  height: 7rem;
   border-radius: 100%; /*둥그런 원으로 만들기 위함*/
   overflow: hidden;
 }
