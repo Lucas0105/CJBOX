@@ -18,20 +18,20 @@
         <div class="content"><span class="s">{{ review.content}}</span></div>
       </div>
       </div>
-      <div class="d-flex heart-box my-auto love-review" @click="likeReview" v-if="checkLikeUser">
+      <div class="d-flex heart-box my-auto love-review" @click="likeReview" v-if="loveReview">
         <p class="h3 d-flex my-auto mx-1"><b-icon icon="heart-fill" class="loved"></b-icon></p>
         <h5 class="my-auto mx-2"> {{review.likes.length}}</h5>
       </div>
-      <div class="d-flex heart-box my-auto love-review" @click="likeReview" else>
-        <p class="h3 d-flex my-auto mx-1"><b-icon icon="heart-fill" class="loved"></b-icon></p>
-        <h5 class="my-auto mx-2"> {{review.likes.length}}</h5>
+      <div class="d-flex heart-box my-auto love-review" @click="likeReview" v-else>
+        <p class="h3 d-flex my-auto mx-1"><b-icon icon="heart" class="loved"></b-icon></p>
+        <h5 class="my-auto mx-2"> {{reviewLikeData.likes.length}}</h5>
       </div>
     </div>
     <div class="foot d-flex justify-content-between mx-auto" >
       <div class="comment-box" @click="showModal">
         <div>
           <b-icon icon="chat-right-dots"  class="message "></b-icon>
-          <span class="s">댓글</span>
+          <span class="s">댓글 {{ getCommentCnt }}</span>
           </div>
       </div>
       <div class="foot-span-box" v-if="loginUserName===review.user.nickname">
@@ -140,8 +140,15 @@ export default {
         return this.$store.state.user.login_user.nickname
       },
       reviewLikeData(){
-        return this.$store.state.user.likeReviewData
+        if (this.res_like){
+          return this.res_like
+        } else{
+          return this.review
+        }
       },
+      loveReview(){
+        return this.reviewLikeData.likes.some(user=>user.nickname === this.loginUserName)
+      }
  
     }
     
