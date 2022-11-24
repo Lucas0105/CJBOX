@@ -1,6 +1,6 @@
 <template>
   <div class="comment-mask">
-    <div class="comment-wrapper d-flex justify-content-center align-items- center">
+    <div class="comment-wrapper d-flex justify-content-center align-items-center">
       <div class="comment-container ">
         <header class="d-flex justify-content-end">
           <button type="button" class="btn btn-outline-danger" @click="$emit('close',reviewId)">X</button>

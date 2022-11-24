@@ -113,7 +113,7 @@ const state = () => {
         url:`${URL}/movies/detail/${movie_id}/`
       })
       .then((res)=>{
-        context.commit('GET_MOVIE_DETAIL', res.data)
+        context.commit('GET_MOVIE_DETAIL', res.data.movies)
       })
       .catch((err)=>{
         console.log(err)

@@ -36,7 +36,7 @@
             <div style="overflow-auto; margin-top:auto">
               <div class="mt-3">
                 <b-pagination
-                  v-model="currentPage"
+                  v-model="currentPage2"
                   pills
                   :total-rows="reviews.page_cnt"
                   :per-page="perPage"
@@ -49,7 +49,7 @@
       </b-tab>
       <b-tab title="Following" >
         <div class="my-tab-content d-flex flex-column justify-content-between">
-            <MyList
+            <MyFollowing
               v-for=" movie in myListData.myList"
               :key="movie.id"
               :movie="movie"
@@ -58,7 +58,7 @@
             <div style="overflow-auto; margin-top:auto">
               <div class="mt-3">
                 <b-pagination
-                  v-model="currentPage2"
+                  v-model="currentPage3"
                   pills
                   :total-rows="myListData.page_cnt"
                   :per-page="perPage"
@@ -71,7 +71,7 @@
       </b-tab>
        <b-tab title="Follower" >
         <div class="my-tab-content d-flex flex-column justify-content-between">
-            <MyList
+            <MyFollower
               v-for=" movie in myListData.myList"
               :key="movie.id"
               :movie="movie"
@@ -80,7 +80,7 @@
             <div style="overflow-auto; margin-top:auto">
               <div class="mt-3">
                 <b-pagination
-                  v-model="currentPage2"
+                  v-model="currentPage4"
                   pills
                   :total-rows="myListData.page_cnt"
                   :per-page="perPage"
@@ -97,22 +97,31 @@
 </template>
 
 <script>
+// import axios from 'axios'
+
 import MyReviewList from '../mypage/MyReviewList'
 import MyList from '../mypage/MyList'
+import MyFollowing from '../mypage/MyFollowing'
+import MyFollower from '../mypage/MyFollower'
+
 
 export default {
     name:'MyContent',
     components:{
       MyReviewList,
-      MyList
+      MyList,
+      MyFollowing,
+      MyFollower
     },
     props:{
     },
     data(){
       return{
-        currentPage:1,
         perPage:1,
+        currentPage:1,
         currentPage2:1,
+        currentPage3:1,
+        currentPage4:1,
         nickname : this.$route.params.nickname,
         
 
@@ -146,7 +155,17 @@ export default {
           nickname, page
         }
         this.$store.dispatch('user/getMyList', payload)
-      }
+      },
+//       getMyFollower(){
+//         axios({
+//           method:'get',
+//           url : `http://127.0.0.1:8000/<str:nickname>/followings/<int:page>/
+// `
+//         })
+//       },
+//       getMyFollowing(){
+
+//       }
     },
     
     
@@ -196,6 +215,26 @@ ul{
 .tabs{
   height: 100%;
 }
+
+
+</style>
+
+<style>
+.nav-link.active {
+  background-color:blueviolet !important;
+}
+
+.page-item.active .page-link
+{  
+    background-color: #ff6768 !important;  
+    border-color: #ff6768 !important;  
+    color:aliceblue !important;
+    box-shadow: none !important;
+}
+.page-link{
+  color: #17223b !important;
+}
+
 
 
 </style>
