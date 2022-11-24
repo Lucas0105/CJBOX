@@ -9,6 +9,7 @@ const state = () => {
       searchResult:null,
       getReview:null,
       similarMovie:null,
+      getSentiment:null,
       genre_list: [
               '액션',
               '모험',
@@ -70,6 +71,9 @@ const state = () => {
     },
     GET_SIMILAR(state, data){
       state.similarMovie = data
+    },
+    GET_SENTIMENT(state,data){
+      state.getSentiment = data
     }
     
   }
@@ -113,7 +117,9 @@ const state = () => {
         url:`${URL}/movies/detail/${movie_id}/`
       })
       .then((res)=>{
+        console.log(res.data)
         context.commit('GET_MOVIE_DETAIL', res.data.movies)
+        context.commit('GET_SENTIMENT', res.data.movies)
       })
       .catch((err)=>{
         console.log(err)
