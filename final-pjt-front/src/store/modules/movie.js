@@ -9,7 +9,7 @@ const state = () => {
       searchResult:null,
       getReview:null,
       similarMovie:null,
-      getSentiment:null,
+      sentiment:null,
       genre_list: [
               '액션',
               '모험',
@@ -46,6 +46,9 @@ const state = () => {
     },
     getSimilar(state){
       return state.similarMovie
+    },
+    getSentiment(state){
+      return state.sentiment
     }
 
     
@@ -59,7 +62,7 @@ const state = () => {
     },
     GET_MOVIE_DETAIL(state, data){
       state.movieDetail = data.movies
-      state.getSentiment = data.movies
+      state.sentiment = data.reviews_avg
       state.detailVideo = data.video
     },
     SEARCH_MOVIE(state, data){
@@ -117,6 +120,7 @@ const state = () => {
       })
       .then((res)=>{
         context.commit('GET_MOVIE_DETAIL', res.data)
+        console.log(res.data)
       })
       .catch((err)=>{
         console.log(err)

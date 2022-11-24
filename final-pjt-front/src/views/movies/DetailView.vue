@@ -13,6 +13,7 @@
     :movie="movie"
     :reviews="reviews"
     :page="currentPage"
+    :sentiment="sentiment"
 
     />
     <!-- pagination -->
@@ -64,6 +65,9 @@ export default {
       },
       similar(){
         return this.$store.getters['movie/getSimilar']
+      },
+      sentiment(){
+        return this.$store.getters['movie/getSentiment']
       }
     },
     methods:{ 
