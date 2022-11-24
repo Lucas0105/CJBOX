@@ -5,6 +5,7 @@
       :userInfo = "userInfo"
       />
       <MyContent
+      :userInfo = "userInfo"
       />
     </div>
   </div>
@@ -54,12 +55,30 @@ export default {
           nickname, page
         }
         this.$store.dispatch('user/getMyList', payload)
+      },
+      getMyFollower(){
+        const nickname = this.userInfo.user.nickname
+        const page = 1
+        const payload = {
+          nickname, page
+        }
+        this.$store.dispatch('user/getMyFollower', payload)
+      },
+      getMyFollowing(){
+        const nickname = this.userInfo.user.nickname
+        const page = 1
+        const payload = {
+          nickname, page
+        }
+        this.$store.dispatch('user/getMyFollowing', payload)
       }
     },
     created(){
       this.getUserTotalReview()
       this.getUserProfile()
       this.getMyList()
+      this.getMyFollower()
+      this.getMyFollowing()
     },
     watch:{
         changeMyList:{

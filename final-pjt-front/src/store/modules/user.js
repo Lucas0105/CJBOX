@@ -25,6 +25,9 @@ const state = () => {
       changeMyList:false,
       commentDelete:false,
       likeReviewData:null,
+
+      userFollower : null,
+      userFollowing : null,
     }
   }
   const getters = {
@@ -135,7 +138,13 @@ const state = () => {
     LIKE_REVIEW(state, data){
       console.log(data)
       state.likeReviewData = data
-    }
+    },
+    GET_MY_FOLLOWER(state, data){
+      state.userFollower = data
+    },
+    GET_MY_FOLLOWING(state, data){
+      state.userFollowing = data
+    },
 
   }
   const actions = {
@@ -486,6 +495,31 @@ const state = () => {
       .then((res)=>{
         console.log(res.data)
         context.commit('CHANGE_REVIEW', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    getMyFollower(context, payload){
+      axios({
+        method:'get',
+        url : `http://127.0.0.1:8000/accounts/${payload.nickname}/followers/${payload.page}/`
+      })
+      .then((res)=>{
+        context.commit('GET_MY_FOLLOWER', res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    getMyFollowing(context, payload){
+      axios({
+        method:'get',
+        url : `http://127.0.0.1:8000/accounts/${payload.nickname}/followings/${payload.page}/`
+      })
+      .then((res)=>{
+        context.commit('GET_MY_FOLLOWING', res.data)
+
       })
       .catch((err)=>{
         console.log(err)
