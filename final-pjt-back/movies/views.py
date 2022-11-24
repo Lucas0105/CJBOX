@@ -60,15 +60,16 @@ def detail(request, id):
     if response['results']:
         video = response['results'][0]['key']
 
-    # tmdb_api = os.environ.get('TMDB_API')
-    # response = requests.get(f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={tmdb_api}&language=ko-KR")
+    tmdb_api = os.environ.get('TMDB_API')
+    cast_response = requests.get(f"https://api.themoviedb.org/3/movie/{id}/credits?api_key={tmdb_api}&language=ko-KR")
 
-    # response = response.json()
+    cast_response = cast_response.json()
 
     data = {
         'movies': serializer.data,
         'reviews_avg': reviews_avg,
         'video': video,
+        'cast': cast_response['cast'][:6]
     }
 
     return Response(data)

@@ -31,6 +31,7 @@ const state = () => {
               '서부',
               ],
       detailVideo: null,
+      detailCast: null,
     }
   }
   
@@ -58,6 +59,8 @@ const state = () => {
       state.genreMovieData = data
     },
     GET_MOVIE_DETAIL(state, data){
+      console.log(data)
+      state.detailCast = data.cast
       state.movieDetail = data.movies
       state.getSentiment = data.movies
       state.detailVideo = data.video
