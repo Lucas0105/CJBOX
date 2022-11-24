@@ -60,8 +60,8 @@ export default {
       pageCnt() {
         return this.$store.getters['user/comments'].page_cnt
       },
-      isCommentCreate(){
-        return this.$store.getters['user/isCommentCreate']
+      commentChange(){
+        return this.$store.getters['user/commentChange']
       }
     },
     methods:{
@@ -86,7 +86,7 @@ export default {
       this.getComment()
     },
     watch:{
-      isCommentCreate : {
+      commentChange : {
         handler : 'getComment'
       }
     }
