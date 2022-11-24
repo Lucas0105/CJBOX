@@ -1,5 +1,21 @@
 <template>
-  <div :title="movie.title" class="col-6 col-lg-3 col-xxl-2 movie-card">
+<div class="col-6 col-lg-3 col-xxl-2">
+  <Transition name="slide-fade">
+  <div v-if="isLoading" class="movie-card">
+       <b-card
+        img-src="/img/CJBOX_logo2-2.7c08a6c4.gif"
+        img-alt="Image"
+        img-top
+        tag="article"
+        style="max-width: 15rem;"
+        class="mb-2 border-0"
+        @click="toDetail"
+      >
+      </b-card>
+  </div>
+  </Transition>
+  <Transition name="slide-fade">
+  <div v-if="nextLoading" :title="movie.title" class="movie-card">
        <b-card
         :img-src="movie.poster_path"
         img-alt="Image"
@@ -31,6 +47,8 @@
         </div> -->
       </div>
   </div>
+  </Transition>
+</div>
 </template>
 
 <script>
@@ -42,6 +60,8 @@ export default {
     data(){
       return{
         res_movie: null,
+        isLoading: true,
+        nextLoading: false,
       }
     },
     components:{
@@ -82,6 +102,12 @@ export default {
           console.log(err)
         })
 
+      },
+      changeLoading(){
+        this.isLoading = false
+        setTimeout(() => {
+          this.nextLoading = true
+      }, 800)
       }
     },
     computed:{
@@ -99,7 +125,12 @@ export default {
         }
       }
  
-    }
+    },
+    mounted(){
+      setTimeout(() => {
+        this.changeLoading()
+      }, 1500)
+    },
   }
 </script>
 
@@ -143,5 +174,18 @@ span{
 }
 .card-body{
   padding-bottom: 0 !important;
+}
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 </style>

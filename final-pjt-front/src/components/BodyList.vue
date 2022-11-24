@@ -4,7 +4,6 @@
       v-for="movie in movies" :key="movie.id"
       :movie="movie"
       />
-
       <div class="overflow-auto">
         <div class="mt-3">
           <b-pagination
@@ -61,5 +60,7 @@ export default {
 ul{
   justify-content: center;
 }
-
+.card-body{
+  padding-bottom: 0 !important;
+}
 </style>
