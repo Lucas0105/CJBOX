@@ -1,7 +1,6 @@
 <template>
   <div class="review-page">
     <hr>
-    <h2>감상평</h2>
     <div class="review-box mx-auto" >
       <div class="review-form mx-auto">
         <ReviewForm

@@ -2,7 +2,8 @@
   <div class="review-list">
     <form @submit.prevent="inputReview" class="review-form" v-if="!isupdate">
       <div v-if="isLogin">
-        <div style="d-flex ">
+        <div class="d-flex flex-column my-2">
+          <h4>나의 관람평</h4>
          <star-rating :increment="0.5" v-model="rating"  :show-rating="false" ></star-rating>
         </div>
         

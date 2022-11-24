@@ -485,7 +485,7 @@ const state = () => {
       })
       .then((res)=>{
         console.log(res.data)
-        context.commit('LIKE_REVIEW', res.data)
+        context.commit('CHANGE_REVIEW', res.data)
       })
       .catch((err)=>{
         console.log(err)
