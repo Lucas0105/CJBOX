@@ -52,10 +52,18 @@ def detail(request, id):
 
     if reviews_cnt:
         reviews_avg = round(reviews_sum / reviews_cnt)
+    tmdb_api = os.environ.get('TMDB_API')
+
+    video = ""
+    response = requests.get(f"https://api.themoviedb.org/3/movie/{id}/videos?api_key={tmdb_api}&language=ko-KR")
+    response = response.json()
+    if response['results']:
+        video = response['results'][0]['key']
 
     data = {
         'movies': serializer.data,
         'reviews_avg': reviews_avg,
+        'video': video,
     }
 
     return Response(data)
