@@ -1,9 +1,9 @@
 <template>
-<div  class="col-6 col-lg-3 col-xxl-2 movie-card" >
-    <b-card :img-src="movie.poster_path" img-alt="Image" img-top @click="goToDetail"> 
+<div  class="col-6 col-lg-3 col-xxl-2 movie-card h-20" :title="movie.title">
+    <b-card :img-src="movie.poster_path" img-alt="Image" img-top @click="goToDetail" class="h-80" > 
     <b-card-text>
-    {{ movie.title }}
-    <star-rating :rating="movie.vote_average/2" :read-only="true" :increment="0.01" :star-size="16" :show-rating="false"></star-rating><span></span>
+    <!-- {{ movie.title }} -->
+    <!-- <star-rating :rating="movie.vote_average/2" :read-only="true" :increment="0.01" :star-size="16" :show-rating="false"></star-rating><span></span> -->
     <!-- ({{movie.vote_count}}) -->
     </b-card-text>
     </b-card>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import StarRating from 'vue-star-rating'
+// import StarRating from 'vue-star-rating'
 
 export default {
     name:'MyList',
@@ -26,7 +26,7 @@ export default {
         }
     },
     components:{
-      StarRating
+      // StarRating
     },
     props:{
         movie:Object,
@@ -55,7 +55,7 @@ export default {
 }
 
 .card-body{
-    padding:none
+    padding:0
 }
 .loved{
     color: red;
@@ -90,8 +90,12 @@ img{
   border-radius: 4px;
   width:7em;
 }
-
-
+img{
+  height:16em
+}
+.card-img-top{
+  height:20 em !important;
+}
 .image-hover-text 
 {
   position: absolute;
