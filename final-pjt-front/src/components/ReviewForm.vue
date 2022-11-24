@@ -35,12 +35,11 @@
         </label>
       </div>
     </form>
-    <h1 v-if="reviewLoading">ssssssssssssssssssssssss테스트 중입니다.</h1>
-     <b-button id="show-btn" @click="$bvModal.show('bv-modal-example')" style="display: none"></b-button>
+    <b-button id="show-btn" @click="$bvModal.show('bv-modal-example')" style="display: none"></b-button>
 
     <b-modal id="bv-modal-example" title="AI가 리뷰를 분석 중입니다." hide-footer>
       <div class="d-block text-center">
-        <h3>Hello From This Modal!</h3>
+        <img src="@/assets/review_loading.gif" alt="">
       </div>
       <b-button id="close-btn" class="mt-3" block @click="$bvModal.hide('bv-modal-example')" style="display: none"></b-button>
     </b-modal>
@@ -151,8 +150,8 @@ export default {
           const btn = document.querySelector('#show-btn')
           btn.click()
         } else {
-          // const btn = document.querySelector('#close-btn')
-          // btn.click()
+          const btn = document.querySelector('#close-btn')
+          btn.click()
         }
       }
     },
