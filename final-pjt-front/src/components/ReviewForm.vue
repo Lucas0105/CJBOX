@@ -35,18 +35,20 @@
         </label>
       </div>
     </form>
-    <h1 v-if="isLoading">테스트 중입니다.</h1>
-    <ReviewComment
-      @close="closeModal"
-      v-if="isLoading"
-      :reviewId="review.id"
-    />
+    <h1 v-if="reviewLoading">ssssssssssssssssssssssss테스트 중입니다.</h1>
+     <b-button id="show-btn" @click="$bvModal.show('bv-modal-example')" style="display: none"></b-button>
+
+    <b-modal id="bv-modal-example" title="AI가 리뷰를 분석 중입니다." hide-footer>
+      <div class="d-block text-center">
+        <h3>Hello From This Modal!</h3>
+      </div>
+      <b-button id="close-btn" class="mt-3" block @click="$bvModal.hide('bv-modal-example')" style="display: none"></b-button>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import StarRating from 'vue-star-rating'
-import ReviewComment from '@/components/ReviewComment'
 
 export default {
     name:'ReviewForm',
@@ -63,7 +65,6 @@ export default {
     },
     components:{
       StarRating,
-      ReviewComment,
     },
     props:{
       movie:Object
@@ -145,8 +146,14 @@ export default {
       updateDataChange:{
         handler:'changeValue'
       },
-      reviewLoading(){
-        
+      reviewLoading(val){
+        if(val) {
+          const btn = document.querySelector('#show-btn')
+          btn.click()
+        } else {
+          // const btn = document.querySelector('#close-btn')
+          // btn.click()
+        }
       }
     },
 }
@@ -197,4 +204,9 @@ textarea:focus{
 .vue-star-rating{
   justify-content: center;
 }
+
+.modal-title{
+  margin: auto !important;
+}
+
 </style>
