@@ -10,7 +10,7 @@ class ReviewListSerializer(serializers.ModelSerializer):
         read_only=True
     )
     user = UserNameSerializer(read_only = True)
-
+    likes = UserNameSerializer(many=True, read_only=True)
     class Meta:
         model = Review
         fields = '__all__'
