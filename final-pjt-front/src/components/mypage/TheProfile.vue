@@ -16,20 +16,35 @@
       <div class="intro-box">
           <span>{{userInfo.user.intro}}</span>
       </div>
-      <div class="d-flex justify-content-evenly mt-4">
+      <div class="d-flex justify-content-evenly mt-2">
         <div v-for="(genre, index) in userInfo.genres" :key="index">
           <router-link :to="{ name: 'genre', params: {category: genre.genre.name} }">
             <small><b-button pill class="genre_btn">{{genre.genre.name}}</b-button></small>
           </router-link>
         </div>
       </div>
+      <div v-if="loginUserName!==userInfo.user.nickname" class="follow-btn-box d-flex">
+        <b-button class="follow-btn mx-auto"  @click="follow" v-if="!followData.is_follow">Follow</b-button>
+        <b-button class="follow-btn mx-auto"  @click="follow" v-else >UnFollow</b-button>
+      </div>
       <div class="follow mx-auto d-flex flex-column">
         <div><span>Following:</span> {{followData.following_cnt}}</div>
         <div><span>Follower:</span> {{followData.followed_cnt}}</div>
       </div>
-      <div v-if="loginUserName!==userInfo.user.nickname" class="follow-btn-box d-flex">
-        <b-button class="follow-btn mx-auto"  @click="follow" v-if="!followData.is_follow">Follow</b-button>
-        <b-button class="follow-btn mx-auto"  @click="follow" v-else >UnFollow</b-button>
+
+      <div class="svg-item">
+        <svg width="100%" height="100%" viewBox="0 0 40 40" class="donut">
+          <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
+          <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5"></circle>
+          <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5" :stroke-dasharray="sentiment+' '+ (100-sentiment)" stroke-dashoffset="25"></circle>
+          <g class="donut-text">
+
+            <text y="50%" transform="translate(0, 2)">
+              <tspan x="50%" text-anchor="middle" class="donut-percent">{{ sentiment }}</tspan>   
+            </text>
+          </g>
+        </svg>
+        <p>리뷰 감성 평가</p>
       </div>
   </div>
 </div>
@@ -71,6 +86,9 @@ export default {
       followData(){
         return this.$store.state.user.followData
       },
+      sentiment(){
+        return this.$store.state.user.userInfo.reviews_avg
+      }
     },
     methods:{
       follow(){
@@ -83,7 +101,7 @@ export default {
 <style scoped>
 .background{
   border:solid 1px orange;
-  min-height: 33% ;
+  min-height: 25% ;
   background-color: orange;
   position: relative;
   border-top-right-radius: 10px;
@@ -93,8 +111,8 @@ export default {
 }
 .img-box{
   position: absolute;
-  top:32%;
-  left:12.5%;
+  top:17%;
+  left:37%;
   
 }
 .profile-box{
@@ -103,6 +121,7 @@ export default {
   color: aliceblue;
   border-radius: 10px;
   background-color: rgba(0,0,0,0.4);
+  position: relative;
 }
 
 .r-box{
@@ -121,7 +140,7 @@ export default {
 }
 
 .intro-out-box{
-  margin-top:13%
+  margin-top:17%
 }
 
 .intro-box{
@@ -133,10 +152,12 @@ export default {
   margin:2%;
 }
 .follow{
-  margin-top:30%
+  position: absolute;
+  bottom: 31%;
+  left: 40%;
 }
 .follow-btn-box{
-  margin-top:15%;
+  margin-top:13%;
   width:100%
 }
 .follow-btn{
@@ -158,4 +179,47 @@ export default {
 }
 
 
+.svg-item {
+  width: 200px;
+  height: 200px;
+  font-size: 16px;
+  margin: auto;
+  position: absolute;
+  bottom: 5%;
+  left: 25%;
+}
+
+.svg-item p {
+  text-align: center;
+}
+
+.donut-ring {
+  stroke: #EBEBEB;
+}
+
+.donut-segment {
+  animation: donut-chart-fill 1s reverse ease-in;
+  transform-origin: center;
+  stroke: #FF6200;
+}
+
+.donut-text {
+  font-family: Arial, Helvetica, sans-serif;
+  fill: #FF6200;
+}
+
+.donut-label {
+  font-size: 0.28em;
+  font-weight: 700;
+  line-height: 1;
+  fill: #000;
+  transform: translateY(0.25em);    
+}
+
+.donut-percent {
+  font-size: 0.5em;
+  fill: #FF6200;
+  line-height: 1;
+  transform: translateY(0.5em);
+}
 </style>

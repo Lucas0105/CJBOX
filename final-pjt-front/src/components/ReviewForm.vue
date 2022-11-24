@@ -1,8 +1,21 @@
 <template>
   <div class="review-list">
     <form @submit.prevent="inputReview" class="review-form" v-if="!isupdate">
-      <div v-if="isLogin">
+      <div v-if="isLogin" class="review-container">
+          <div class="svg-item">
+            <svg width="100%" height="100%" viewBox="0 0 40 40" class="donut">
+              <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
+              <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5"></circle>
+              <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5" :stroke-dasharray="sentiment+' '+ (100-sentiment)" stroke-dashoffset="25"></circle>
+              <g class="donut-text">
 
+                <text y="50%" transform="translate(0, 2)">
+                  <tspan x="50%" text-anchor="middle" class="donut-percent">{{ sentiment }}</tspan>   
+                </text>
+              </g>
+            </svg>
+            <p>리뷰 감성 평가</p>
+          </div>
         <h4>나의 관람평</h4>
           <h1 v-if="isLoading">test</h1>
         <div>
@@ -11,7 +24,7 @@
           </div>
           
           <label class="d-flex flex-column">
-            <textarea name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="content" class="mx-auto"></textarea>
+            <textarea @keyup.enter='inputReview' name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="content" class="mx-auto"></textarea>
             <b-button type="submit" class="t-btn mt-3">등록</b-button>
           </label>
         </div>
@@ -66,7 +79,8 @@ export default {
       StarRating,
     },
     props:{
-      movie:Object
+      movie:Object,
+      sentiment:Number,
     },
     computed:{
       isLogin(){
@@ -152,6 +166,8 @@ export default {
         } else {
           const btn = document.querySelector('#close-btn')
           btn.click()
+
+          this.$store.dispatch('movie/getMovieDetail', this.movie.id)
         }
       }
     },
@@ -171,6 +187,11 @@ textarea{
 }
 textarea:focus{
     outline: 0;
+}
+
+.review-container{
+  margin-top: 8%;
+  position: relative;
 }
 
 .review-list{
@@ -223,7 +244,11 @@ body {
   width: 200px;
   height: 200px;
   font-size: 16px;
+  position: absolute;
+  top: -40%;
+  left: 15%;
 }
+
 .donut-ring {
   stroke: #EBEBEB;
 }

@@ -94,7 +94,7 @@ const state = () => {
     USER_STATE(state, payload){
       console.log(payload)
       state.login_user.nickname = payload.nickname
-      state.login_user.my_image =URL+payload.my_image
+      state.login_user.my_image = URL+payload.my_image
     },
     SIGN_UP(){
       router.push({ name: 'login' })
@@ -248,7 +248,6 @@ const state = () => {
         }
       })
       .then((res)=>{
-        console.log(res)
         context.commit('CHANGE_REVIEW', res.data)
       })
       .catch((err)=>{
@@ -406,7 +405,6 @@ const state = () => {
         }
       })
       .then((res)=>{
-        console.log(res)
         context.commit('GET_USER_PROFILE', res.data)
       })
       .catch((err)=>{

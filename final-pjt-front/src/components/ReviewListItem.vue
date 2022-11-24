@@ -18,9 +18,9 @@
         <div>
           <span>
             <!-- <b-icon icon="emoji-angry-fill" class="angry" v-if="review.sentimen <10"></b-icon> -->
-            <b-icon icon="emoji-frown-fill" class="frown" v-if="review.sentimen <30"></b-icon>
-            <b-icon icon="emoji-laughing-fill" class="laughing" v-else-if="review.sentimen <60"></b-icon>
-            <b-icon icon="emoji-smile-fill" class="smile" v-else-if="review.sentimen <100"></b-icon>
+            <b-icon icon="emoji-frown-fill" class="frown" v-if="review.sentiment <30"></b-icon>
+            <b-icon icon="emoji-laughing-fill" class="laughing" v-else-if="review.sentiment <60"></b-icon>
+            <b-icon icon="emoji-smile-fill" class="smile" v-else-if="review.sentiment <100"></b-icon>
             <!-- <b-icon icon="emoji-laughing-fill" class="laughing" v-else-if="review.sentimen <80"></b-icon> -->
             <!-- <b-icon icon="emoji-heart-eyes-fill" class="heart" v-else></b-icon> -->
             감정평가 <span style="color:#FFFF33">{{ review.sentiment}}</span>의 리뷰입니다.
@@ -251,7 +251,7 @@ p{
   color: red;
 }
 
-.heart{
+.smile{
   color:#008200	
 }
 .laughing{
