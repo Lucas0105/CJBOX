@@ -37,12 +37,14 @@ def my_profile(request, nickname):
     reviews = you.review_set.all()
     reviews_cnt = len(reviews)
     reviews_sum = 0
-
+    reviews_avg = 0
+    
     for review in reviews:
         reviews_sum += review.sentiment
     
-    reviews_avg = round(reviews_sum / reviews_cnt)
-
+    if reviews_cnt:    
+        reviews_avg = round(reviews_sum / reviews_cnt)
+    
     data = {
         'user' : serializer.data,
         'genres': genre_serializer.data,

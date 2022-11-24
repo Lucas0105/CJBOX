@@ -2,7 +2,7 @@
   <div class="my-list mx-auto">
   <div class="tabs-container h-100">
     <b-tabs class="h-100 d-flex flex-column" pills content-class="mt-3 flex-grow-1">
-      <b-tab title="My List" active class="h-100">
+      <b-tab title="My List" active class="h-100" @click="defaultPage()">
         <div class="h-100 my-tab-content d-flex flex-column justify-content-between">
             <div class="row h-100 d-flex">
               <MyList
@@ -26,7 +26,7 @@
         </div>
         </div>
       </b-tab>
-      <b-tab title="My Review" >
+      <b-tab title="My Review" @click="defaultPage()">
         <div class="my-tab-content d-flex flex-column justify-content-between">
             <MyReviewList
             v-for="review in reviews.reviews"
@@ -36,7 +36,7 @@
             <div style="overflow-auto; margin-top:auto">
               <div class="mt-3">
                 <b-pagination
-                  v-model="currentPage2"
+                  v-model="currentPage"
                   pills
                   :total-rows="reviews.page_cnt"
                   :per-page="perPage"
@@ -47,45 +47,49 @@
         </div>
         </div>
       </b-tab>
-      <b-tab title="Following" >
+      <b-tab title="Following" @click="defaultPage()">
         <div class="my-tab-content d-flex flex-column justify-content-between">
+          <div class="row h-100 d-flex my-auto ">
             <MyFollowing
-              v-for=" movie in myListData.myList"
-              :key="movie.id"
-              :movie="movie"
+              v-for=" following in userFollowing.followings"
+              :key="following.id"
+              :following="following"
               />
+          </div>
+
             
             <div style="overflow-auto; margin-top:auto">
               <div class="mt-3">
                 <b-pagination
                   v-model="currentPage3"
                   pills
-                  :total-rows="myListData.page_cnt"
+                  :total-rows="userFollowing.page_cnt"
                   :per-page="perPage"
                   first-number
-                  @input="getMyList"
+                  @input="getMyFollowing"
                 ></b-pagination>
               </div>
         </div>
         </div>
       </b-tab>
-       <b-tab title="Follower" >
+       <b-tab title="Follower" @click="defaultPage()">
         <div class="my-tab-content d-flex flex-column justify-content-between">
+          <div class="row h-100 d-flex">
             <MyFollower
-              v-for=" movie in myListData.myList"
-              :key="movie.id"
-              :movie="movie"
+              v-for=" follower in userFollower.followers"
+              :key="follower.nickname"
+              :follower="follower"
               />
-            
+          </div>
             <div style="overflow-auto; margin-top:auto">
               <div class="mt-3">
                 <b-pagination
                   v-model="currentPage4"
                   pills
-                  :total-rows="myListData.page_cnt"
+                  :total-rows="userFollower.page_cnt"
                   :per-page="perPage"
                   first-number
-                  @input="getUserTotalReview"
+                  @input="getMyFollower"
                 ></b-pagination>
               </div>
         </div>
@@ -97,7 +101,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
 
 import MyReviewList from '../mypage/MyReviewList'
 import MyList from '../mypage/MyList'
@@ -114,6 +117,7 @@ export default {
       MyFollower
     },
     props:{
+      userInfo:Object
     },
     data(){
       return{
@@ -136,6 +140,12 @@ export default {
       },
       loginUser(){
         return this.$store.state.user.loginUser.nickname
+      },
+      userFollower(){
+        return this.$store.state.user.userFollower
+      },
+      userFollowing(){
+        return this.$store.state.user.userFollowing
       }
     },
     methods:{
@@ -156,16 +166,30 @@ export default {
         }
         this.$store.dispatch('user/getMyList', payload)
       },
-//       getMyFollower(){
-//         axios({
-//           method:'get',
-//           url : `http://127.0.0.1:8000/<str:nickname>/followings/<int:page>/
-// `
-//         })
-//       },
-//       getMyFollowing(){
+      getMyFollower(){
+        const nickname = this.userInfo.user.nickname
+        const page = this.currentPage3
+        const payload = {
+          nickname, page
+        }
 
-//       }
+        this.$store.dispatch('user/getMyFollower', payload)
+      },
+      getMyFollowing(){
+        const nickname = this.userInfo.user.nickname
+        const page = this.currentPage3
+        const payload = {
+          nickname, page
+        }
+        this.$store.dispatch('user/getMyFollowing', payload)
+
+      },
+      defaultPage(){
+        this.currentPage =1 
+        this.currentPage2 =1 
+        this.currentPage3 =1 
+        this.currentPage4 =1 
+      }
     },
     
     
