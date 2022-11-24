@@ -43,7 +43,7 @@ const state = () => {
     comments(state){
       return state.comments
     },
-    isCommentCreate(state){
+    commentChange(state){
       return state.commentChange
     },
     getBackground_img(state){
@@ -466,7 +466,7 @@ const state = () => {
       })
       .then(()=>{
         // console.log()
-        context.commit('')
+        context.commit('CHANGE_COMMENTS')
       })
       .catch((err)=>{
         console.log(err)
