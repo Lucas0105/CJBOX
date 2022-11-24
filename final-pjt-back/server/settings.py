@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'imagekit',
     'drf_spectacular',
+    'tensorflow',
+    'konlpy',
 
     # Auth
     'django.contrib.sites',
