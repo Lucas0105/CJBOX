@@ -42,7 +42,7 @@ def my_profile(request, nickname):
         reviews_sum += review.sentiment
     
     reviews_avg = round(reviews_sum / reviews_cnt)
-    
+
     data = {
         'user' : serializer.data,
         'genres': genre_serializer.data,
@@ -265,8 +265,8 @@ def followings(request, nickname, page):
     user = get_object_or_404(User, nickname=nickname)
 
     followings = user.friends.all()
-    page_cnt = math.ceil(len(followings) / 6)
-    followings = followings[(page-1)*6:page*6]
+    page_cnt = math.ceil(len(followings) / 8)
+    followings = followings[(page-1)*8:page*8]
 
     followings_serializer = UserSerializer(followings, many=True)
 
@@ -284,8 +284,8 @@ def followers(request, nickname, page):
     user = get_object_or_404(User, nickname=nickname)
 
     followers = user.followed.all()
-    page_cnt = math.ceil(len(followers) / 6)
-    followers = followers[(page-1)*6:page*6]
+    page_cnt = math.ceil(len(followers) / 8)
+    followers = followers[(page-1)*8:page*8]
 
     followers_serializer = UserSerializer(followers, many=True)
     data = {
