@@ -34,12 +34,22 @@ def my_profile(request, nickname):
         else:
             is_follow = False
 
+    reviews = you.review_set.all()
+    reviews_cnt = len(reviews)
+    reviews_sum = 0
+
+    for review in reviews:
+        reviews_sum += review.sentiment
+    
+    reviews_avg = round(reviews_sum / reviews_cnt)
+    
     data = {
         'user' : serializer.data,
         'genres': genre_serializer.data,
         'followed_cnt' : you.followed.count(),
         'following_cnt' : you.friends.count(),
         'is_follow' : is_follow,
+        'reviews_avg': reviews_avg,
     }
 
     return Response(data)

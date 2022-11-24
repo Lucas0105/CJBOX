@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Movie, Genre
 from django.contrib.auth import get_user_model
+from django.db.models import Avg
 
 
 class GenreSerializer(serializers.ModelSerializer):

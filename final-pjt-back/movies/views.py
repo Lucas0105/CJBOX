@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from drf_spectacular.utils import extend_schema
 from django.shortcuts import get_object_or_404
+from reviews.models import Review
 from .models import Movie, Genre, UserLikeGenres
 import requests
 import random
@@ -39,7 +40,27 @@ def search(request, title):
 def detail(request, id):
     movie = get_object_or_404(Movie, id=id)
     serializer = MovieListSerializer(movie)
-    return Response(serializer.data)
+
+    reviews = movie.review_set.all()
+    reviews_cnt = len(reviews)
+    reviews_sum = 0
+
+    for review in reviews:
+        reviews_sum += review.sentiment
+
+    reviews_avg = 0
+
+    if reviews_cnt:
+        reviews_avg = round(reviews_sum / reviews_cnt)
+
+    data = {
+        'movies': serializer.data,
+        'reviews_avg': reviews_avg,
+    }
+
+    print(data)
+
+    return Response(data)
 
 
 @extend_schema(responses=MovieListSerializer)
