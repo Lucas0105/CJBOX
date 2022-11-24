@@ -10,6 +10,7 @@
         @current-page="getGenreMovie"
         :rows="genrePage"
         :currentPage="currentPage"
+        :isInit="isInit"
       />
     </div>
     
@@ -26,6 +27,7 @@ export default {
       return{
         genre_name : this.$route.params.category,
         currentPage: 1,
+        isInit: true,
       }
     },
     components:{
@@ -42,6 +44,12 @@ export default {
     },
     methods:{
       getGenreMovie(page){
+        if (page){
+          this.isInit = false
+          console.log(this.isInit)
+        } else {
+          this.isInit = true
+        } 
         this.currentPage = page
         const genre_name = this.genre_name 
         const genre_page = page

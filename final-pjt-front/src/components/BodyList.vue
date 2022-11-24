@@ -3,6 +3,7 @@
       <BodyListItem
       v-for="movie in movies" :key="movie.id"
       :movie="movie"
+      :isInit="isInit"
       />
       <div class="overflow-auto">
         <div class="mt-3">
@@ -30,7 +31,8 @@ export default {
     props:{
       movies:Array,
       rows:Number,
-      currentPage:Number
+      currentPage:Number,
+      isInit: Boolean,
     },
     data() {
       return {

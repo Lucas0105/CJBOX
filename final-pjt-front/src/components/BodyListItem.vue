@@ -1,7 +1,7 @@
 <template>
 <div class="col-6 col-lg-3 col-xxl-2">
   <Transition name="slide-fade">
-  <div v-if="isLoading" class="movie-card">
+  <div v-if="isLoading && isInit " class="movie-card">
        <b-card
         img-src="/img/CJBOX_logo2-2.7c08a6c4.gif"
         img-alt="Image"
@@ -15,7 +15,7 @@
   </div>
   </Transition>
   <Transition name="slide-fade">
-  <div v-if="nextLoading" :title="movie.title" class="movie-card">
+  <div v-if="nextLoading || !isInit" :title="movie.title" class="movie-card">
        <b-card
         :img-src="movie.poster_path"
         img-alt="Image"
@@ -67,6 +67,7 @@ export default {
     },
     props:{
       movie : Object,
+      isInit : Boolean,
     },
     filters:{
       resize(value){
@@ -128,6 +129,7 @@ export default {
       setTimeout(() => {
         this.changeLoading()
       }, 1500)
+      console.log(this.isInit)
     },
   }
 </script>

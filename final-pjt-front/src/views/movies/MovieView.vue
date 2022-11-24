@@ -28,6 +28,7 @@
         @current-page="getRecentMovie"
         :rows="rows"
         :currentPage="currentPage"
+        :isInit="isInit"
     />
     </div>
 
@@ -50,6 +51,7 @@ export default {
       return{
         rows: 100,
         currentPage: 1,
+        isInit: true,
       }
     },
     computed:{
@@ -77,6 +79,13 @@ export default {
     },
     methods:{
       getRecentMovie(page){
+        if (page){
+          this.isInit = false
+          console.log(this.isInit)
+        } else {
+          this.isInit = true
+        } 
+        
         this.currentPage = page
         return this.$store.dispatch('movie/getRecentMovie', page)
       },
