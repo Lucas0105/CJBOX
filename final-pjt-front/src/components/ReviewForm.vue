@@ -2,32 +2,35 @@
   <div class="review-list">
     <form @submit.prevent="inputReview" class="review-form" v-if="!isupdate">
       <div v-if="isLogin">
-        <div class="d-flex flex-column my-2">
-          <h4>나의 관람평</h4>
-         <star-rating :increment="0.5" v-model="rating"  :show-rating="false" ></star-rating>
+
+        <h4>나의 관람평</h4>
+        <div>
+          <div class="my-3">
+          <star-rating :increment="0.5" v-model="rating"  :show-rating="false" ></star-rating>
+          </div>
+          
+          <label class="d-flex flex-column">
+            <textarea name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="content" class="mx-auto"></textarea>
+            <b-button type="submit" class="t-btn mt-3">등록</b-button>
+          </label>
         </div>
-        
-        <label class="d-flex flex-column">
-          <textarea name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="content" class="mx-auto"></textarea>
-          <b-button type="submit" class="t-btn mt-3">등록</b-button>
-        </label>
 
       </div>
       <div v-else>
         <p>로그인이 필요한 서비스입니다.
-          <router-link :to="{name:'login'}">로그인하러 가기</router-link>
+          <router-link :to="{name:'login'}"><span style="color:#FD7013">로그인하러 가기</span></router-link>
         </p>
       </div>
     </form>
     <form v-else @submit.prevent="updateReview">
       <div>
         <h3>
-            <h2>Half Stars</h2>
-            <star-rating :increment="0.5"></star-rating>
+          <h4>나의 관람평 수정</h4>
+            <star-rating :increment="0.5" v-model="updaterating" :show-rating="false" ></star-rating>
         </h3>
          <label class="d-flex flex-column">
           <textarea name="" id="" cols="10" rows="4"  wrap="hard" maxlength="250" v-model="updateContent" class="mx-auto"></textarea>
-          <b-button type="submit" class="t-btn mt-3">등록</b-button>
+          <b-button type="submit" class="t-btn mt-3">수정</b-button>
         </label>
       </div>
     </form>
@@ -44,9 +47,9 @@ export default {
         content:null,
         vote:null,
         updateContent:null,
-        updateVote:null,
         review_id:null,
         rating: 0,
+        updaterating: 0,
 
       }
     },
@@ -90,17 +93,20 @@ export default {
       updateReview(){
         const content = this.updateContent
         const review_id = this.review_id
+        const vote = this.updaterating * 2
+
         const payload ={
-          content, review_id
+          content, review_id, vote
         }
         this.$store.dispatch('user/updateReview', payload)
         this.updateContent = null
+        this.updaterating = null
       },
         changeValue(){
         if (this.$store.getters['user/updateReview']){
           this.updateContent = this.$store.getters['user/updateReview'].content
           this.review_id = this.$store.getters['user/updateReview'].id
-          this.updateVote = this.$store.getters['user/updateReview'].vote
+          this.updaterating = this.$store.getters['user/updateReview'].vote
         }
       },
       

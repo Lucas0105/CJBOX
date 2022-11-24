@@ -316,7 +316,7 @@ const state = () => {
         data:{
           review_id: payload.review_id,
           content: payload.content,
-          vote : 4
+          vote : payload.vote
         },
         headers:{
           Authorization : `Token ${context.state.token}`
