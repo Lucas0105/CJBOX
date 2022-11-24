@@ -94,7 +94,7 @@ export default {
 .img-box{
   position: absolute;
   top:32%;
-  left:12%;
+  left:12.5%;
   
 }
 .profile-box{
@@ -121,7 +121,7 @@ export default {
 }
 
 .intro-out-box{
-  margin-top:10%
+  margin-top:13%
 }
 
 .intro-box{

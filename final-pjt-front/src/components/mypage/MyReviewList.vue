@@ -34,7 +34,7 @@ export default {
     methods:{
       goToDetail(){
         this.$router.push({name:'detail', params:{id: this.review.movie.id}})
-
+        this.$router.go(this.$router.currentRoute)
       }
     }
 }
