@@ -29,6 +29,7 @@ const state = () => {
               '전쟁',
               '서부',
               ],
+      detailVideo: null,
     }
   }
   
@@ -56,7 +57,8 @@ const state = () => {
       state.genreMovieData = data
     },
     GET_MOVIE_DETAIL(state, data){
-      state.movieDetail = data
+      state.movieDetail = data.movies
+      state.detailVideo = data.video
     },
     SEARCH_MOVIE(state, data){
       state.searchResult = data
@@ -113,7 +115,7 @@ const state = () => {
         url:`${URL}/movies/detail/${movie_id}/`
       })
       .then((res)=>{
-        context.commit('GET_MOVIE_DETAIL', res.data.movies)
+        context.commit('GET_MOVIE_DETAIL', res.data)
       })
       .catch((err)=>{
         console.log(err)
