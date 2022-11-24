@@ -38,6 +38,17 @@
             {{ movie.overview}}
           </div>
         </div>
+        <div class="d-flex">
+          <div @click="toCharacter(cast)" v-for="cast in getCast" :key="cast.id" class="card mx-2 ms-3 mt-3" style="width: 10rem; cursor:pointer;">
+            <img v-if="castLoading" src="@/assets/CJBOX_logo2-1.gif" class="card-img-top" alt="...">
+            <img v-else :src="'	https://image.tmdb.org/t/p/original/'+cast.profile_path" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text text-dark">{{ cast.character }}</p>
+              <p class="card-text text-dark">{{ cast.name }}</p>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
@@ -53,12 +64,20 @@ export default {
     props:{
         movie:Object
     },
+    data(){
+      return{
+        castLoading: true
+      }
+    },
     components:{
       StarRating
     },
     computed:{
       getVideo(){
         return this.$store.state.movie.detailVideo ? 'http://www.youtube.com/embed/' + this.$store.state.movie.detailVideo:false
+      },
+      getCast(){
+        return this.$store.state.movie.detailCast
       }
     },
     methods:{
@@ -66,7 +85,18 @@ export default {
         const score = +(this.movie.vote_average/2) * 20;
         return score+1.5;
       },
+      changeCastLoading(){
+        this.castLoading = false
+      },
+      toCharacter(cast){
+        open('about:blank').location.href=`https://www.themoviedb.org/person/${cast.id}?language=ko`
+        
+      }
     },
+    mounted(){
+      setTimeout(() => {this.changeCastLoading()}, 1500)
+    }
+
 }
 </script>
 
@@ -102,5 +132,14 @@ background-size: 100% 100%;
   position: absolute;
   top: 10%;
   right: 15%;
+}
+
+.card{
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+
+.card:hover{
+  transform: scale(1.2);
 }
 </style>
