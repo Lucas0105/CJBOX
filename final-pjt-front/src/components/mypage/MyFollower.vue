@@ -1,6 +1,6 @@
 <template>
   <div class="col-6 h-100 mb-4" style=" ">
-    <div class="d-flex" style="background-color:snow;  border-radius:10px; width:100%; height:7em;   color:black">
+    <div class="d-flex" style="background-color:snow;  border-radius:10px; width:100%; height:7em;   color:black" @click="goToUserPage(follower.nickname)">
         <div class="d-flex img-box mx-auto" style="width:30%">
             <div class="r-box mx-auto my-auto">
                 <img class="r-profile" :src="userImage" alt="userImg">
@@ -45,6 +45,12 @@ export default {
         }
       }
     },
+    methods:{
+      goToUserPage(nickname){
+        this.$router.push({name: 'mypage', params: {nickname: nickname}})
+      }
+      
+    }
 }
 </script>
 

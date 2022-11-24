@@ -74,7 +74,7 @@
       </b-tab>
        <b-tab title="Follower" @click="defaultPage()">
         <div class="my-tab-content d-flex flex-column justify-content-between">
-          <div class="row h-100 d-flex">
+          <div class="row h-100 d-flex my-auto ">
             <MyFollower
               v-for=" follower in userFollower.followers"
               :key="follower.nickname"
