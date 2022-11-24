@@ -3,8 +3,7 @@
     <MovieInfo
     :movie="movie"
     />
-    <div style="color:white" title="추후 수정">
-      비슷한 영화 추천
+    <div style="color:white">
       <BannerList
       :movies="similar"
       />

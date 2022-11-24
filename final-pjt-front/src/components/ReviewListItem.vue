@@ -18,14 +18,17 @@
         <div class="content"><span class="s">{{ review.content}}</span></div>
       </div>
       </div>
-      <div class="d-flex heart-box my-auto love-review" @click="likeReview" v-if="loveReview">
+      <div class="my-auto">
+        <div class="d-flex heart-box my-auto love-review" @click="likeReview" v-if="loveReview">
         <p class="h3 d-flex my-auto mx-1"><b-icon icon="heart-fill" class="loved"></b-icon></p>
         <h5 class="my-auto mx-2"> {{review.likes.length}}</h5>
       </div>
       <div class="d-flex heart-box my-auto love-review" @click="likeReview" v-else>
         <p class="h3 d-flex my-auto mx-1"><b-icon icon="heart" class="loved"></b-icon></p>
-        <h5 class="my-auto mx-2"> {{reviewLikeData.likes.length}}</h5>
+        <h5 class="my-auto mx-2"> {{review.likes.length}}</h5>
       </div>
+      </div>
+      
     </div>
     <div class="foot d-flex justify-content-between mx-auto" >
       <div class="comment-box" @click="showModal">
@@ -72,7 +75,7 @@ export default {
       return{
         isModalVisible: false,
         res_review:null,
-        res_like:null,
+        res_like : null,
       }
     },
     methods:{
@@ -105,8 +108,9 @@ export default {
       this.$router.push({name: 'mypage', params: {nickname: nickname}})
       },
       likeReview(){
+        
         this.$store.dispatch('user/likeReview', this.review.id)
-      }
+    },
     },
     computed:{
       userImage(){
@@ -147,12 +151,12 @@ export default {
         }
       },
       loveReview(){
-        return this.reviewLikeData.likes.some(user=>user.nickname === this.loginUserName)
+        return this.review.likes.some(user=>user.nickname === this.loginUserName)
       }
  
     }
-    
-}
+    }
+
 </script>
 
 <style scoped>

@@ -1,105 +1,17 @@
 <template>
   <div class="my-list mx-auto">
-    <!-- <div class="list-box">
-      <b-card class="list-card" >
-        <b-tabs pills card class="h-100 d-flex flex-column" content-class="mt-3 flex-grow-1">
-          <div class="panel panel-default">
-            <tabset>
-        <b-tab  title="My List" active>
-          <b-card-text class="d-flex flex-column ">
-            <div class="row" style="height:80%">
-              <MyList
-              v-for=" movie in myListData.myList"
-              :key="movie.id"
-              :movie="movie"
-              />
-            </div>
-            <div style="overflow-auto; margin-top:auto">
-              <div class="mt-3">
-                <b-pagination
-                  v-model="currentPage2"
-                  pills
-                  :total-rows="myListData.page_cnt"
-                  :per-page="perPage"
-                  first-number
-                  @input="getMyList"
-                ></b-pagination>
-              </div>
-            </div>
-          </b-card-text></b-tab>
-            </tabset>
-          </div>
-          
-          <b-tab title="My Review"><b-card-text>
-            <MyReviewList
-            v-for="review in reviews.reviews"
-            :key="review.id"
-            :review="review"
-            />
-            <div class="overflow-auto">
-              <div class="mt-3">
-                <b-pagination
-                  v-model="currentPage"
-                  pills
-                  :total-rows="reviews.page_cnt"
-                  :per-page="perPage"
-                  first-number
-                  @input="getUserTotalReview"
-                ></b-pagination>
-              </div>
-            </div>
-          </b-card-text></b-tab>
-          <b-tab title="Following"><b-card-text>
-            <MyReviewList
-            v-for="review in reviews.reviews"
-            :key="review.id"
-            :review="review"
-            />
-            <div class="overflow-auto">
-              <div class="mt-3">
-                <b-pagination
-                  v-model="currentPage"
-                  pills
-                  :total-rows="reviews.page_cnt"
-                  :per-page="perPage"
-                  first-number
-                  @input="getUserTotalReview"
-                ></b-pagination>
-              </div>
-            </div>
-          </b-card-text></b-tab>
-          <b-tab title="Follower"><b-card-text>
-            <MyReviewList
-            v-for="review in reviews.reviews"
-            :key="review.id"
-            :review="review"
-            />
-            <div class="overflow-auto">
-              <div class="mt-3">
-                <b-pagination
-                  v-model="currentPage"
-                  pills
-                  :total-rows="reviews.page_cnt"
-                  :per-page="perPage"
-                  first-number
-                  @input="getUserTotalReview"
-                ></b-pagination>
-              </div>
-            </div>
-          </b-card-text></b-tab>
-        </b-tabs>
-      </b-card>
-    </div> -->
-  <div class="tabs-container">
+  <div class="tabs-container h-100">
     <b-tabs class="h-100 d-flex flex-column" pills content-class="mt-3 flex-grow-1">
-      <b-tab title="My List" active>
-        <div class="my-tab-content d-flex flex-column justify-content-between">
-            <MyList
-              v-for=" movie in myListData.myList"
-              :key="movie.id"
-              :movie="movie"
-              />
+      <b-tab title="My List" active class="h-100">
+        <div class="h-100 my-tab-content d-flex flex-column justify-content-between">
+            <div class="row h-100 d-flex">
+              <MyList
+                v-for=" movie in myListData.myList"
+                :key="movie.id"
+                :movie="movie"
+                />
             </div>
+            
             <div style="overflow-auto; margin-top:auto">
               <div class="mt-3">
                 <b-pagination
@@ -112,15 +24,37 @@
                 ></b-pagination>
               </div>
         </div>
+        </div>
       </b-tab>
-      <b-tab title="My Review" active>
+      <b-tab title="My Review" >
+        <div class="my-tab-content d-flex flex-column justify-content-between">
+            <MyReviewList
+            v-for="review in reviews.reviews"
+            :key="review.id"
+            :review="review"
+            />
+            <div style="overflow-auto; margin-top:auto">
+              <div class="mt-3">
+                <b-pagination
+                  v-model="currentPage"
+                  pills
+                  :total-rows="reviews.page_cnt"
+                  :per-page="perPage"
+                  first-number
+                  @input="getUserTotalReview"
+                ></b-pagination>
+              </div>
+        </div>
+        </div>
+      </b-tab>
+      <b-tab title="Following" >
         <div class="my-tab-content d-flex flex-column justify-content-between">
             <MyList
               v-for=" movie in myListData.myList"
               :key="movie.id"
               :movie="movie"
               />
-            </div>
+            
             <div style="overflow-auto; margin-top:auto">
               <div class="mt-3">
                 <b-pagination
@@ -133,15 +67,16 @@
                 ></b-pagination>
               </div>
         </div>
+        </div>
       </b-tab>
-      <b-tab title="Following" active>
+       <b-tab title="Follower" >
         <div class="my-tab-content d-flex flex-column justify-content-between">
             <MyList
               v-for=" movie in myListData.myList"
               :key="movie.id"
               :movie="movie"
               />
-            </div>
+            
             <div style="overflow-auto; margin-top:auto">
               <div class="mt-3">
                 <b-pagination
@@ -150,30 +85,10 @@
                   :total-rows="myListData.page_cnt"
                   :per-page="perPage"
                   first-number
-                  @input="getMyList"
+                  @input="getUserTotalReview"
                 ></b-pagination>
               </div>
         </div>
-      </b-tab>
-       <b-tab title="Follower" active>
-        <div class="my-tab-content d-flex flex-column justify-content-between">
-            <MyList
-              v-for=" movie in myListData.myList"
-              :key="movie.id"
-              :movie="movie"
-              />
-            </div>
-            <div style="overflow-auto; margin-top:auto">
-              <div class="mt-3">
-                <b-pagination
-                  v-model="currentPage2"
-                  pills
-                  :total-rows="myListData.page_cnt"
-                  :per-page="perPage"
-                  first-number
-                  @input="getMyList"
-                ></b-pagination>
-              </div>
         </div>
       </b-tab>
     </b-tabs>
@@ -182,14 +97,14 @@
 </template>
 
 <script>
-// import MyReviewList from '../mypage/MyReviewList'
-// import MyList from '../mypage/MyList'
+import MyReviewList from '../mypage/MyReviewList'
+import MyList from '../mypage/MyList'
 
 export default {
     name:'MyContent',
     components:{
-      // MyReviewList,
-      // MyList
+      MyReviewList,
+      MyList
     },
     props:{
     },
@@ -247,10 +162,11 @@ export default {
   height: 100%;
 }
 
-.list-card{
+.tabs-container{
   width:100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgb(0, 0, 0) !important;
+  border-radius:10px;
   color: aliceblue;
   overflow-block: auto;
 }
@@ -266,6 +182,7 @@ export default {
 
 .my-tab-content {
   min-height: 100%;
+  padding:2%;
 }
 
 ul{
