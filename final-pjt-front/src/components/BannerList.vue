@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div v-if="movies">
+  <div v-b-visible.once ="visibleHandler" v-if="movies">
     
     <swiper
       slidesPerView="auto"
@@ -17,6 +17,7 @@
           :image="movie.poster_path"
           :id="movie.id"
           :title="movie.title"
+          :isLoading="isLoading"
         />
       </swiper-slide>
       <div class="swiper-button-prev" slot="button-prev"></div>
@@ -43,7 +44,8 @@ export default {
     SwiperSlide,
   },
   props:{
-    movies: Array
+    movies: Array,
+    detail: Boolean,
   },
     data() {
     return {
@@ -57,8 +59,24 @@ export default {
           prevEl: ".swiper-button-prev",
         },
       },
+      isLoading: true,
+      firstLoading: true,
     };
   },
+  methods:{
+    visibleHandler(){
+      if (this.firstLoading) {
+        this.firstLoading = false
+      } else {
+        setTimeout(() =>{ this.isLoading = false }, 1000)
+      }
+    }
+  },
+  created(){
+    if (this.detail) {
+      this.firstLoading = false
+    }
+  }
 }
 </script>
 

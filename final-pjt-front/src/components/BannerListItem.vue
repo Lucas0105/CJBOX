@@ -16,26 +16,20 @@ export default {
     name:'BannerListItem',
     data(){
       return {
-        isLoading: true,
       }
     },
     props : [
     'image',
     'id',
     'title',
+    'isLoading',
   ],
   methods: {
     toUrl() {
       this.$router.push({name:'detail', params:{id: this.id}})
       this.$router.go(this.$router.currentRoute)
     },
-    changLoading(){
-      this.isLoading = false
-    }
   },
-  mounted(){
-    setTimeout(() => {this.changLoading()}, 1500);
-  }
 }
 </script>
 

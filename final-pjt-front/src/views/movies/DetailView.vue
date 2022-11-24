@@ -6,6 +6,7 @@
     <div style="color:white">
       <BannerList
       :movies="similar"
+      :detail="true"
       />
     </div>
     <TheReview
