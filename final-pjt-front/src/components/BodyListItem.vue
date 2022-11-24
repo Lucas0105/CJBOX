@@ -35,11 +35,9 @@
 
       <div class="bottom-icon d-flex justify-content-between mx-auto mb-2" >
         <div @click="addMyList" style="cursor: pointer">
-          <div :title="`${getMovie.like_users.length}명이 이 영화를 좋아합니다.`">
             <b-icon icon="heart-fill" class="loved" v-if="loved"></b-icon>
             <b-icon icon="heart"  class="loved" v-else></b-icon>
-            <span style="color:aliceblue"> </span>
-          </div>
+            <span style="color:aliceblue"> likes {{getMovie.like_users.length}}</span>
         </div>
         <!-- <div class="d-flex">
             <star-rating :rating="getMovie.vote_average/2" :read-only="true" :increment="0.01" :star-size="16" :show-rating="false" ></star-rating>

@@ -9,6 +9,7 @@ const state = () => {
       searchResult:null,
       getReview:null,
       similarMovie:null,
+      getSentiment:null,
       genre_list: [
               '액션',
               '모험',
@@ -58,6 +59,7 @@ const state = () => {
     },
     GET_MOVIE_DETAIL(state, data){
       state.movieDetail = data.movies
+      state.getSentiment = data.movies
       state.detailVideo = data.video
     },
     SEARCH_MOVIE(state, data){
@@ -72,8 +74,7 @@ const state = () => {
     },
     GET_SIMILAR(state, data){
       state.similarMovie = data
-    }
-    
+    },   
   }
   const actions = {
     getRecentMovie(context, page) {
