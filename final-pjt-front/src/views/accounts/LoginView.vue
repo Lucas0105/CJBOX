@@ -133,7 +133,7 @@ export default {
                   data: payload
                 })
                 .then(() => {
-                  thisRef.username = 'kakao' + payload['username']
+                  thisRef.username = payload['username']
                   thisRef.password = payload['password']
                   thisRef.logIn()
                 })

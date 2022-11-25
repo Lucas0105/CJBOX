@@ -153,7 +153,7 @@ export default {
 }
 .follow{
   position: absolute;
-  bottom: 31%;
+  bottom: 29%;
   left: 40%;
 }
 .follow-btn-box{
