@@ -13,7 +13,7 @@
       <p class="time" style="margin-bottom:1px; width:100%">{{ comment.created_at}}</p>
     </div>
     <div style="text-align:center" class="d-flex align-items-end" v-if="loginUserName===comment.user.nickname">
-      <div class="m-2" @click="commentDelete" style="cursor:pointer">삭제</div>
+      <div class="m-2" @click="commentDelete" style="cursor:pointer; ">삭제</div>
     </div>
   </div>
 </template>

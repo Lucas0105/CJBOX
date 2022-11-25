@@ -22,13 +22,15 @@
                 </li>
               </div>
               <div v-else class="d-flex" >
-                <div class="d-flex" style="margin-right:30px;cursor:pointer" title="마이페이지" @click="toMypage">
+                <div class="d-flex" style="margin-right:30px;cursor:pointer; width:100%" title="마이페이지" @click="toMypage">
                   <div class="d-flex img-box">
                     <div class="box" style="background-color:white;   ">
                       <img class="profile" :src="userimage" alt="userImg">
                     </div>
                   </div>
-                  <span class="my-auto username-span">{{username}}</span>
+                  <div class="d-flex" style="width:80%; font-size:calc((var(--h) / 3));">
+                    <span class="username-span my-auto" style=" font-size:1em ">{{username}}</span>
+                  </div>
                 </div>
                 <a class="nav-link my-auto" style="cursor:pointer" @click="logOut"><b-icon icon="box-arrow-right" title="로그아웃"></b-icon></a>
               </div>
@@ -157,8 +159,7 @@ input:focus{
 
 .username-span{
   color:white; 
-  margin-left:3%; 
-  font-size:1.5em;
+  margin-left:10px; 
   font-weight:bold;
 }
 

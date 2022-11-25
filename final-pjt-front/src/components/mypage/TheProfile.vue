@@ -10,8 +10,8 @@
     </div>
     </div>
     <div class="d-flex flex-column intro-out-box">
-      <div class="name-box mx-auto">
-        <h3 style="font-weight:bold">{{userInfo.user.nickname}}</h3>
+      <div class="name-box mx-auto" >
+        <span style="font-weight:bold">{{userInfo.user.nickname}}</span>
       </div>
       <div class="intro-box">
           <span>{{userInfo.user.intro}}</span>
@@ -94,6 +94,10 @@ export default {
       follow(){
         this.$store.dispatch('user/follow', this.userInfo.user.nickname)
       }
+    },
+    beforeRouteUpdate(to) {
+      console.log('teststotototo')
+      console.log(to)
     }
 }
 </script>

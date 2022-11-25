@@ -48,7 +48,6 @@ export default {
     methods:{
       goToUserPage(nickname){
         this.$router.push({name: 'mypage', params: {nickname: nickname}})
-        this.$router.go(this.$router.currentRoute)
       }
     }
 }

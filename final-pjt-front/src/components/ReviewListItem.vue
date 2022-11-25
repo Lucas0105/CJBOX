@@ -9,7 +9,9 @@
               <img class="r-profile" :src="userImage" alt="userImg">
             </div>
           </div>
+          <div  style="  font-size:calc((var(--h) / 3));">
             <span class="nickname">{{ review.user.nickname}}</span>
+          </div>
         </div>
       </div>
       <div class="center-box">
@@ -86,7 +88,7 @@ export default {
       return{
         isModalVisible: false,
         res_review:null,
-        res_like : null,
+        // + : null,
       }
     },
     methods:{
@@ -119,7 +121,6 @@ export default {
       this.$router.push({name: 'mypage', params: {nickname: nickname}})
       },
       likeReview(){
-        
         this.$store.dispatch('user/likeReview', this.review.id)
     },
     },
@@ -154,13 +155,13 @@ export default {
      loginUserName(){
         return this.$store.state.user.login_user.nickname
       },
-      reviewLikeData(){
-        if (this.res_like){
-          return this.res_like
-        } else{
-          return this.review
-        }
-      },
+      // reviewLikeData(){
+      //   if (this.+){
+      //     return this.res_like
+      //   } else{
+      //     return this.review
+      //   }
+      // },
       loveReview(){
         return this.review.likes.some(user=>user.nickname === this.loginUserName)
       }

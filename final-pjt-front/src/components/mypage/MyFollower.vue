@@ -21,6 +21,11 @@
 <script>
 export default {
     name:'MyFollower',
+    data(){
+      return{
+        
+      }
+    },
     props:{
         follower:Object
     },
@@ -48,7 +53,6 @@ export default {
     methods:{
       goToUserPage(nickname){
         this.$router.push({name: 'mypage', params: {nickname: nickname}})
-        this.$router.go(this.$router.currentRoute)
       }
       
     }
